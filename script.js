@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initCurrency();
     initMobileMenu();
     initWhatsAppWidget();
-    
+
     // Page-specific initializers
     if (document.getElementById("listings-grid")) {
         // Parse search query parameters from URL
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const typeParam = urlParams.get("type");
         const locParam = urlParams.get("location");
         const keyParam = urlParams.get("keyword");
-        
+
         if (typeParam) {
             const filterTypeEl = document.getElementById("filter-type");
             if (filterTypeEl) filterTypeEl.value = typeParam;
@@ -155,13 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const searchKeyEl = document.getElementById("search-keyword");
             if (searchKeyEl) searchKeyEl.value = keyParam;
         }
-        
+
         initListingsCatalog();
     }
     if (document.getElementById("contact-form")) {
         initContactForm();
         initContactMap();
-        
+
         // Auto-select department if passed in URL
         const urlParams = new URLSearchParams(window.location.search);
         const deptParam = urlParams.get("dept");
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("admin-listings-list")) {
         initAdminPanel();
     }
-    
+
     // Watch URL query parameter to load property detail modal automatically (e.g. ?property=mkonoo-land)
     const urlParams = new URLSearchParams(window.location.search);
     const propertyId = urlParams.get("property");
@@ -196,7 +196,7 @@ function initLanguage() {
     langSelectors.forEach(sel => {
         const container = document.createElement("div");
         container.className = "lang-switch-container";
-        
+
         // TZ Flag Button (Kiswahili)
         const tzBtn = document.createElement("button");
         tzBtn.className = `lang-btn ${currentLang === 'sw' ? 'active' : ''}`;
@@ -217,7 +217,7 @@ function initLanguage() {
             e.preventDefault();
             setLanguage("sw");
         });
-        
+
         // UK Flag Button (English)
         const ukBtn = document.createElement("button");
         ukBtn.className = `lang-btn ${currentLang === 'en' ? 'active' : ''}`;
@@ -236,20 +236,20 @@ function initLanguage() {
             e.preventDefault();
             setLanguage("en");
         });
-        
+
         container.appendChild(tzBtn);
         container.appendChild(ukBtn);
-        
+
         sel.parentNode.replaceChild(container, sel);
     });
-    
+
     applyLanguage(currentLang);
 }
 
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("sisi_lang", lang);
-    
+
     // Sync all flag selectors
     document.querySelectorAll(".lang-btn").forEach(btn => {
         if (btn.getAttribute("data-lang") === lang) {
@@ -258,14 +258,14 @@ function setLanguage(lang) {
             btn.classList.remove("active");
         }
     });
-    
+
     applyLanguage(lang);
-    
+
     // Re-render components that contain dynamic language data
     if (document.getElementById("listings-grid")) {
         renderListings();
     }
-    
+
     // Update active modal elements if open
     const modal = document.getElementById("details-modal");
     if (modal && modal.classList.contains("active")) {
@@ -292,7 +292,7 @@ function applyLanguage(lang) {
             }
         }
     });
-    
+
     // Update page elements holding static titles for accessibility
     document.documentElement.lang = lang;
 }
@@ -315,11 +315,11 @@ function setCurrency(currency) {
     localStorage.setItem("sisi_currency", currency);
     document.querySelectorAll(".currency-selector").forEach(sel => sel.value = currency);
     applyCurrency();
-    
+
     if (document.getElementById("listings-grid")) {
         renderListings();
     }
-    
+
     // Update modal if open
     const modal = document.getElementById("details-modal");
     if (modal && modal.classList.contains("active")) {
@@ -335,7 +335,7 @@ function applyCurrency() {
         const tzsAmt = parseFloat(el.getAttribute("data-tzs"));
         const usdAmt = parseFloat(el.getAttribute("data-usd"));
         const isPerSqm = el.getAttribute("data-persqm") === "true";
-        
+
         if (currentCurrency === "USD") {
             el.innerHTML = `$${formatMoney(usdAmt)}${isPerSqm ? '/m²' : ''}`;
         } else {
@@ -353,7 +353,7 @@ function formatMoney(amount) {
 function initMobileMenu() {
     const toggleBtn = document.getElementById("mobile-toggle");
     const drawer = document.getElementById("mobile-drawer");
-    
+
     if (toggleBtn && drawer) {
         toggleBtn.addEventListener("click", () => {
             drawer.classList.toggle("active");
@@ -398,7 +398,7 @@ function initListingsCatalog() {
     const typeSelect = document.getElementById("filter-type");
     const locationSelect = document.getElementById("filter-location");
     const priceRangeInput = document.getElementById("filter-price-range");
-    
+
     // Quick Search Inputs
     const searchKeyword = document.getElementById("search-keyword");
     const searchType = document.getElementById("search-type");
@@ -457,22 +457,22 @@ function initListingsCatalog() {
             if (maxVal === 500) {
                 label.innerHTML = currentLang === "sw" ? "Zote" : "Any Price";
             } else {
-                label.innerHTML = `${maxVal}M TZS / $${Math.round((maxVal*1000000)/2600).toLocaleString()}`;
+                label.innerHTML = `${maxVal}M TZS / $${Math.round((maxVal * 1000000) / 2600).toLocaleString()}`;
             }
             filterAndRender();
         });
     }
-    
+
     // Initial Render
     renderListings();
     updateCompareContainer();
-    
+
     // Bind modal close
     const closeModalBtn = document.getElementById("close-details");
     if (closeModalBtn) {
         closeModalBtn.addEventListener("click", closePropertyDetails);
     }
-    
+
     // Bind Compare Modal Close
     const closeCompareBtn = document.getElementById("close-compare");
     if (closeCompareBtn) {
@@ -480,7 +480,7 @@ function initListingsCatalog() {
             document.getElementById("compare-modal").classList.remove("active");
         });
     }
-    
+
     const triggerCompareBtn = document.getElementById("trigger-compare-now");
     if (triggerCompareBtn) {
         triggerCompareBtn.addEventListener("click", openCompareModal);
@@ -495,31 +495,31 @@ function renderListings() {
     const grid = document.getElementById("listings-grid");
     const counterEl = document.getElementById("listings-count-num");
     if (!grid) return;
-    
+
     grid.innerHTML = "";
-    
+
     // Get filter inputs
     const keyword = (document.getElementById("filter-keyword")?.value || "").toLowerCase();
     const type = document.getElementById("filter-type")?.value || "all";
     const location = document.getElementById("filter-location")?.value || "all";
     const priceMaxM = parseInt(document.getElementById("filter-price-range")?.value || "500");
-    
+
     const listings = getMergedListings();
     let filtered = listings.filter(item => {
         // Keyword Search (matches title, description, location)
-        const matchKeyword = !keyword || 
-            item.titleEn.toLowerCase().includes(keyword) || 
-            item.titleSw.toLowerCase().includes(keyword) || 
+        const matchKeyword = !keyword ||
+            item.titleEn.toLowerCase().includes(keyword) ||
+            item.titleSw.toLowerCase().includes(keyword) ||
             item.location.toLowerCase().includes(keyword) ||
             item.descEn.toLowerCase().includes(keyword) ||
             item.descSw.toLowerCase().includes(keyword);
-            
+
         // Type Filter
         const matchType = type === "all" || item.type === type;
-        
+
         // Location Filter
         const matchLocation = location === "all" || item.location === location;
-        
+
         // Price Filter (max value 500 represents unlimited/any price)
         // If listing price is per sqm, we compare total cost of size * price-per-sqm, or just match per sqm price
         let matchPrice = true;
@@ -529,34 +529,34 @@ function renderListings() {
             const actualPrice = item.isPerSqm ? (item.priceTzs * parseFloat(item.sizeVal || 1000)) : item.priceTzs;
             matchPrice = actualPrice <= limitAmt;
         }
-        
+
         return matchKeyword && matchType && matchLocation && matchPrice;
     });
-    
+
     // Render counter
     if (counterEl) {
         counterEl.innerHTML = filtered.length;
     }
-    
+
     if (filtered.length === 0) {
         grid.innerHTML = `<div class="text-center" style="grid-column: 1/-1; padding: 40px;" data-en="No land listings match your filter criteria." data-sw="Hakuna viwanja vinavyolingana na vigezo vyako.">${currentLang === "sw" ? "Hakuna viwanja au ardhi inayofanana na vigezo vyako." : "No land listings match your filter criteria."}</div>`;
         return;
     }
-    
+
     filtered.forEach(item => {
         const isFav = favoriteList.includes(item.id);
         const isCompared = compareList.includes(item.id);
-        
+
         const card = document.createElement("div");
         card.className = "listing-card";
-        
+
         const badge = currentLang === "sw" ? item.badgeSw : item.badgeEn;
         const title = currentLang === "sw" ? item.titleSw : item.titleEn;
         const subTitle = currentLang === "sw" ? item.titleStatusSw : item.titleStatusEn;
-        const formattedPrice = currentCurrency === "USD" 
-            ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}` 
+        const formattedPrice = currentCurrency === "USD"
+            ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}`
             : `${formatMoney(item.priceTzs)} TZS${item.isPerSqm ? '/m²' : ''}`;
-            
+
         card.innerHTML = `
             <div class="listing-badge">${badge}</div>
             <button class="listing-favorite ${isFav ? 'active' : ''}" onclick="toggleFavorite('${item.id}', event)">❤</button>
@@ -568,11 +568,11 @@ function renderListings() {
                 <h3 class="listing-card-title">${title}</h3>
                 <div class="listing-specs">
                     <div class="listing-spec-item">
-                        <span>📐</span>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg>
                         <span>${item.size}</span>
                     </div>
                     <div class="listing-spec-item">
-                        <span>📍</span>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         <span>${item.location}</span>
                     </div>
                 </div>
@@ -596,11 +596,11 @@ function renderListings() {
 function openPropertyDetails(id) {
     const modal = document.getElementById("details-modal");
     if (!modal) return;
-    
+
     modal.setAttribute("data-property-id", id);
     fillPropertyDetails(id);
     modal.classList.add("active");
-    
+
     // Add query param to URL for direct link sharing/bookmarking
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?property=${id}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
@@ -609,14 +609,14 @@ function openPropertyDetails(id) {
 function closePropertyDetails() {
     const modal = document.getElementById("details-modal");
     if (!modal) return;
-    
+
     modal.classList.remove("active");
     modal.removeAttribute("data-property-id");
-    
+
     // Clear Leaflet map from container
     const mapDiv = document.getElementById("detail-map");
     if (mapDiv) mapDiv.innerHTML = "";
-    
+
     // Remove query param
     const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
     window.history.pushState({ path: cleanUrl }, '', cleanUrl);
@@ -626,40 +626,40 @@ function fillPropertyDetails(id) {
     const listings = getMergedListings();
     const item = listings.find(l => l.id === id);
     if (!item) return;
-    
+
     // Language data
     const title = currentLang === "sw" ? item.titleSw : item.titleEn;
     const desc = currentLang === "sw" ? item.descSw : item.descEn;
     const badge = currentLang === "sw" ? item.badgeSw : item.badgeEn;
-    const priceText = currentCurrency === "USD" 
-        ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}` 
+    const priceText = currentCurrency === "USD"
+        ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}`
         : `${formatMoney(item.priceTzs)} TZS${item.isPerSqm ? '/m²' : ''}`;
-        
+
     document.getElementById("detail-title").innerHTML = title;
     document.getElementById("detail-badge").innerHTML = badge;
     document.getElementById("detail-price").innerHTML = priceText;
     document.getElementById("detail-desc").innerHTML = desc;
-    
+
     // Gallery Slideshow
     const gallery = document.getElementById("detail-gallery");
     const dotsContainer = document.getElementById("detail-gallery-dots");
     gallery.innerHTML = "";
     dotsContainer.innerHTML = "";
-    
+
     activeSlideshow[id] = 0;
-    
+
     item.images.forEach((imgSrc, idx) => {
         const slide = document.createElement("div");
         slide.className = `gallery-slide ${idx === 0 ? 'active' : ''}`;
         slide.innerHTML = `<img src="${imgSrc}" alt="${title}">`;
         gallery.appendChild(slide);
-        
+
         const dot = document.createElement("button");
         dot.className = `gallery-nav-dot ${idx === 0 ? 'active' : ''}`;
         dot.addEventListener("click", () => setSlide(idx));
         dotsContainer.appendChild(dot);
     });
-    
+
     // Specifications Table
     const specsBody = document.getElementById("detail-specs-body");
     specsBody.innerHTML = `
@@ -680,7 +680,7 @@ function fillPropertyDetails(id) {
             <td>${item.status}</td>
         </tr>
     `;
-    
+
     // Set custom text in modal form subject
     const subjectEn = `Interested in Listing: ${item.titleEn}`;
     const subjectSw = `Nayevutiwa na Tangazo: ${item.titleSw}`;
@@ -688,7 +688,7 @@ function fillPropertyDetails(id) {
     if (inputSubject) {
         inputSubject.value = currentLang === "sw" ? subjectSw : subjectEn;
     }
-    
+
     // Load local area Leaflet map
     initDetailMap(item.coordinates, title);
 }
@@ -696,7 +696,7 @@ function fillPropertyDetails(id) {
 function setSlide(idx) {
     const slides = document.querySelectorAll(".gallery-slide");
     const dots = document.querySelectorAll(".gallery-nav-dot");
-    
+
     slides.forEach((slide, sIdx) => {
         slide.classList.toggle("active", sIdx === idx);
     });
@@ -733,29 +733,29 @@ function nextSlide() {
 function initDetailMap(coords, title) {
     const mapDiv = document.getElementById("detail-map");
     if (!mapDiv) return;
-    
+
     // Clean old map
     mapDiv.innerHTML = "";
-    
+
     // Create map frame
     const mapElement = document.createElement("div");
     mapElement.id = "leaflet-detail-map";
     mapElement.style.height = "100%";
     mapElement.style.width = "100%";
     mapDiv.appendChild(mapElement);
-    
+
     try {
         // Initialize Leaflet map (pull library dynamically)
         const map = L.map("leaflet-detail-map").setView(coords, 14);
-        
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
-        
+
         L.marker(coords).addTo(map)
             .bindPopup(title)
             .openPopup();
-    } catch(err) {
+    } catch (err) {
         // Fallback if Leaflet failed to load
         mapElement.innerHTML = `
             <div style="padding: 24px; text-align: center; background: #eee; height:100%; display:flex; flex-direction:column; justify-content:center;">
@@ -771,7 +771,7 @@ function initDetailMap(coords, title) {
 
 function toggleFavorite(id, event) {
     if (event) event.stopPropagation();
-    
+
     const idx = favoriteList.indexOf(id);
     if (idx === -1) {
         favoriteList.push(id);
@@ -779,7 +779,7 @@ function toggleFavorite(id, event) {
     } else {
         favoriteList.splice(idx, 1);
     }
-    
+
     localStorage.setItem("sisi_favorites", JSON.stringify(favoriteList));
     renderListings();
 }
@@ -798,7 +798,7 @@ function showToast(msg) {
     toast.style.zIndex = "2500";
     toast.innerHTML = msg;
     document.body.appendChild(toast);
-    
+
     setTimeout(() => {
         toast.style.opacity = "0";
         toast.style.transition = "opacity 0.5s ease";
@@ -810,12 +810,12 @@ function showToast(msg) {
 
 function toggleCompare(id, event) {
     if (event) event.stopPropagation();
-    
+
     const idx = compareList.indexOf(id);
     if (idx === -1) {
         if (compareList.length >= 3) {
-            alert(currentLang === "sw" 
-                ? "Unaweza kulinganisha kiwango cha mali tatu tu kwa wakati mmoja." 
+            alert(currentLang === "sw"
+                ? "Unaweza kulinganisha kiwango cha mali tatu tu kwa wakati mmoja."
                 : "You can compare a maximum of 3 properties at a time.");
             return;
         }
@@ -823,7 +823,7 @@ function toggleCompare(id, event) {
     } else {
         compareList.splice(idx, 1);
     }
-    
+
     localStorage.setItem("sisi_compare", JSON.stringify(compareList));
     renderListings();
     updateCompareContainer();
@@ -833,22 +833,22 @@ function updateCompareContainer() {
     const container = document.getElementById("compare-panel");
     const itemsDiv = document.getElementById("compare-items-badges");
     if (!container) return;
-    
+
     if (compareList.length === 0) {
         container.style.display = "none";
         return;
     }
-    
+
     container.style.display = "flex";
     itemsDiv.innerHTML = "";
-    
+
     const listings = getMergedListings();
     compareList.forEach(id => {
         const item = listings.find(l => l.id === id);
         if (!item) return;
-        
+
         const title = currentLang === "sw" ? item.titleSw : item.titleEn;
-        
+
         const badge = document.createElement("div");
         badge.className = "compare-badge";
         badge.innerHTML = `
@@ -863,18 +863,18 @@ function openCompareModal() {
     const modal = document.getElementById("compare-modal");
     const body = document.getElementById("compare-modal-listings");
     if (!modal || !body) return;
-    
+
     body.innerHTML = "";
-    
+
     const listings = getMergedListings();
     const itemsToCompare = listings.filter(l => compareList.includes(l.id));
-    
+
     itemsToCompare.forEach(item => {
         const title = currentLang === "sw" ? item.titleSw : item.titleEn;
-        const price = currentCurrency === "USD" 
-            ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}` 
+        const price = currentCurrency === "USD"
+            ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}`
             : `${formatMoney(item.priceTzs)} TZS${item.isPerSqm ? '/m²' : ''}`;
-            
+
         const card = document.createElement("div");
         card.className = "compare-modal-card";
         card.innerHTML = `
@@ -908,7 +908,7 @@ function openCompareModal() {
         `;
         body.appendChild(card);
     });
-    
+
     modal.classList.add("active");
 }
 
@@ -917,10 +917,10 @@ function openCompareModal() {
 function initContactForm() {
     const form = document.getElementById("contact-form");
     if (!form) return;
-    
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        
+
         // 1. Honeypot check: If the hidden input is filled, treat as spam bot and silently reject
         const honeypotVal = document.getElementById("form-bot-trap").value;
         if (honeypotVal) {
@@ -929,17 +929,17 @@ function initContactForm() {
             form.reset();
             return;
         }
-        
+
         // Mock API Submit
         const name = document.getElementById("form-name").value;
         const email = document.getElementById("form-email").value;
         const message = document.getElementById("form-message").value;
-        
+
         if (!name || !email || !message) {
             alert(currentLang === "sw" ? "Tafadhali jaza nyanja zote." : "Please fill in all fields.");
             return;
         }
-        
+
         showFormFeedback(false);
         form.reset();
     });
@@ -948,20 +948,20 @@ function initContactForm() {
 function showFormFeedback(isSpam) {
     const feedbackBox = document.getElementById("form-feedback-msg");
     if (!feedbackBox) return;
-    
+
     feedbackBox.style.display = "block";
     if (isSpam) {
         // Silently mock success to spammer, but show normal positive status
         feedbackBox.className = "form-group";
         feedbackBox.style.color = "#4caf50";
-        feedbackBox.innerHTML = currentLang === "sw" 
-            ? "✓ Ujumbe wako umetumwa kwa ufanisi!" 
+        feedbackBox.innerHTML = currentLang === "sw"
+            ? "✓ Ujumbe wako umetumwa kwa ufanisi!"
             : "✓ Your inquiry has been sent successfully!";
     } else {
         feedbackBox.className = "form-group";
         feedbackBox.style.color = "#4caf50";
-        feedbackBox.innerHTML = currentLang === "sw" 
-            ? "✓ Asante! Ujumbe wako umetumwa kwa idara yetu. Mshauri wetu atawasiliana nawe hivi karibuni." 
+        feedbackBox.innerHTML = currentLang === "sw"
+            ? "✓ Asante! Ujumbe wako umetumwa kwa idara yetu. Mshauri wetu atawasiliana nawe hivi karibuni."
             : "✓ Thank you! Your message has been sent to our desk. A consultant will reach out shortly.";
     }
 }
@@ -970,12 +970,12 @@ function showFormFeedback(isSpam) {
 
 function initAdminPanel() {
     renderAdminListings();
-    
+
     const adminForm = document.getElementById("admin-add-form");
     if (adminForm) {
         adminForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            
+
             const titleEn = document.getElementById("admin-title-en").value;
             const titleSw = document.getElementById("admin-title-sw").value;
             const location = document.getElementById("admin-location").value;
@@ -992,7 +992,7 @@ function initAdminPanel() {
             const descEn = document.getElementById("admin-desc-en").value;
             const descSw = document.getElementById("admin-desc-sw").value;
             const imageUrl = document.getElementById("admin-image-url").value || "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80";
-            
+
             // Build new listing item
             const newId = "custom-" + Date.now();
             const newProperty = {
@@ -1019,12 +1019,12 @@ function initAdminPanel() {
                 amenitiesSw: ["Vigingi vya upimaji vipo", "Umeme upo karibu", "Maji yapo"],
                 images: [imageUrl]
             };
-            
+
             // Save to localStorage
             const customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
             customListings.push(newProperty);
             localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
-            
+
             adminForm.reset();
             renderAdminListings();
             alert("Property listing added successfully to local database!");
@@ -1035,15 +1035,15 @@ function initAdminPanel() {
 function renderAdminListings() {
     const listContainer = document.getElementById("admin-listings-list");
     if (!listContainer) return;
-    
+
     listContainer.innerHTML = "";
     const customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
-    
+
     if (customListings.length === 0) {
         listContainer.innerHTML = `<div class="text-center" style="padding: 24px; color: var(--color-text-muted);">No custom properties loaded. Add one using the form on the left.</div>`;
         return;
     }
-    
+
     customListings.forEach(item => {
         const row = document.createElement("div");
         row.className = "admin-item-row";
@@ -1071,28 +1071,28 @@ function deleteAdminProperty(id) {
 function initContactMap() {
     const mapDiv = document.getElementById("contact-map");
     if (!mapDiv) return;
-    
+
     // Clear old contents
     mapDiv.innerHTML = "";
-    
+
     const mapElement = document.createElement("div");
     mapElement.id = "leaflet-office-map";
     mapElement.style.height = "100%";
     mapElement.style.width = "100%";
     mapDiv.appendChild(mapElement);
-    
+
     try {
         const officeCoords = [-3.3725, 36.6944]; // Arusha Clock Tower
         const map = L.map("leaflet-office-map").setView(officeCoords, 15);
-        
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
-        
+
         L.marker(officeCoords).addTo(map)
             .bindPopup("<b>Sisi Estate Company Limited</b><br>Clock Tower Building, Arusha")
             .openPopup();
-    } catch(err) {
+    } catch (err) {
         mapElement.innerHTML = `
             <div style="padding: 24px; text-align: center; background: #eee; height:100%; display:flex; flex-direction:column; justify-content:center;">
                 <h4>Office Location: Clock Tower, Arusha</h4>
