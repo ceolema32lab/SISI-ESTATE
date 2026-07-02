@@ -146,7 +146,7 @@ const UI_DICTIONARY = {
 
 // Global App State
 let currentLang = localStorage.getItem("sisi_lang") || "en";
-let currentCurrency = localStorage.getItem("sisi_currency") || "TZS";
+let currentCurrency = "TZS";
 let compareList = JSON.parse(localStorage.getItem("sisi_compare")) || [];
 let favoriteList = JSON.parse(localStorage.getItem("sisi_favorites")) || [];
 let activeSlideshow = {}; // store carousel active index
