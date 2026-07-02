@@ -1667,3 +1667,47 @@ img {
 .currency-selector {
     display: none !important;
 }
+
+/* Custom Language Flag Selector */
+.lang-switch-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-primary-light);
+    padding: 4px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(197, 168, 128, 0.3);
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 4px 6px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    opacity: 0.5;
+}
+
+.lang-btn:hover {
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.lang-btn.active {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-accent);
+}
+
+.flag-svg {
+    width: 24px;
+    height: 16px;
+    display: block;
+    object-fit: cover;
+    border-radius: 1px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}

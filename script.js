@@ -145,7 +145,7 @@ const UI_DICTIONARY = {
 };
 
 // Global App State
-let currentLang = localStorage.getItem("sisi_lang") || "en";
+let currentLang = localStorage.getItem("sisi_lang") || "sw";
 let currentCurrency = "TZS";
 let compareList = JSON.parse(localStorage.getItem("sisi_compare")) || [];
 let favoriteList = JSON.parse(localStorage.getItem("sisi_favorites")) || [];
@@ -210,22 +210,78 @@ document.addEventListener("DOMContentLoaded", () => {
 // ================= LANGUAGES ENGINE =================
 
 function initLanguage() {
-    // Set initial toggle switch selected values
+    // If language is not set in localStorage, default to 'sw' (Kiswahili)
+    if (!localStorage.getItem("sisi_lang")) {
+        currentLang = "sw";
+    }
+
     const langSelectors = document.querySelectorAll(".lang-selector");
     langSelectors.forEach(sel => {
-        sel.value = currentLang;
-        sel.addEventListener("change", (e) => {
-            setLanguage(e.target.value);
+        const container = document.createElement("div");
+        container.className = "lang-switch-container";
+        
+        // TZ Flag Button (Kiswahili)
+        const tzBtn = document.createElement("button");
+        tzBtn.className = `lang-btn ${currentLang === 'sw' ? 'active' : ''}`;
+        tzBtn.setAttribute("data-lang", "sw");
+        tzBtn.setAttribute("title", "Kiswahili (Tanzania)");
+        tzBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" class="flag-svg">
+              <clipPath id="tz-clip"><rect width="3" height="2"/></clipPath>
+              <g clip-path="url(#tz-clip)">
+                <path fill="#00a3dd" d="M0 0h3v2H0z"/>
+                <path fill="#1eb53a" d="M0 0h3v2L0 0z"/>
+                <path stroke="#fcd116" stroke-width="0.6" d="M0 2L3 0"/>
+                <path stroke="#000" stroke-width="0.4" d="M0 2L3 0"/>
+              </g>
+            </svg>
+        `;
+        tzBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            setLanguage("sw");
         });
+        
+        // UK Flag Button (English)
+        const ukBtn = document.createElement("button");
+        ukBtn.className = `lang-btn ${currentLang === 'en' ? 'active' : ''}`;
+        ukBtn.setAttribute("data-lang", "en");
+        ukBtn.setAttribute("title", "English (UK)");
+        ukBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" class="flag-svg">
+              <path fill="#012169" d="M0 0h30v20H0z"/>
+              <path stroke="#fff" stroke-width="4" d="M0 0l30 20M0 20l30-20"/>
+              <path stroke="#C8102E" stroke-width="2" d="M0 0l30 20M0 20l30-20"/>
+              <path stroke="#fff" stroke-width="6" d="M15 0v20M0 10h30"/>
+              <path stroke="#C8102E" stroke-width="4" d="M15 0v20M0 10h30"/>
+            </svg>
+        `;
+        ukBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            setLanguage("en");
+        });
+        
+        container.appendChild(tzBtn);
+        container.appendChild(ukBtn);
+        
+        sel.parentNode.replaceChild(container, sel);
     });
+    
     applyLanguage(currentLang);
 }
 
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("sisi_lang", lang);
-    // Sync all dropdowns
-    document.querySelectorAll(".lang-selector").forEach(sel => sel.value = lang);
+    
+    // Sync all flag selectors
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+        if (btn.getAttribute("data-lang") === lang) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+    
     applyLanguage(lang);
     
     // Re-render components that contain dynamic language data
