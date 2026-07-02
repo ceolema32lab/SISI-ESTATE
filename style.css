@@ -982,10 +982,14 @@ img {
     /* Slides in from right */
     pointer-events: none;
     transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
 }
 
 .details-modal.active {
     pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
 }
 
 .details-content-wrapper {
