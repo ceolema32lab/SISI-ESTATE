@@ -30,33 +30,6 @@ const DEFAULT_LISTINGS = [
         ]
     },
     {
-        id: "njiro-luxury-villa",
-        titleEn: "Njiro Hillcrest Modern Villa",
-        titleSw: "Villa ya Kisasa Kilima cha Njiro",
-        type: "villa",
-        location: "Njiro",
-        locationDetail: "Njiro Block HH, Arusha",
-        priceTzs: 380000000,
-        priceUsd: 146000,
-        isPerSqm: false,
-        size: "4 Bedrooms",
-        sizeVal: 4,
-        status: "Available",
-        badgeEn: "Luxury",
-        badgeSw: "Fahari",
-        titleStatusEn: "C of O Available",
-        titleStatusSw: "Hati ya Miliki Ipo",
-        descEn: "Stunning modern villa located in the diplomatic quarter of Njiro. Features 4 self-contained bedrooms, an open-concept kitchen with high-end appliances, manicured private garden, and executive finishes throughout. Secure gated community.",
-        descSw: "Villa ya kisasa inayovutia iliyopo eneo la kifahari la Njiro. Ina vyumba 4 vyote vikiwa na bafuni/choo ndani, jikoni kubwa la kisasa, bustani nzuri ya maua, na ujenzi wa hali ya juu. Ulinzi wa uhakika masaa 24.",
-        coordinates: [-3.3950, 36.7150], // Arusha Njiro area
-        amenitiesEn: ["4 self-contained bedrooms", "24/7 Gated Security", "Solar Backup System", "Landscaped Garden"],
-        amenitiesSw: ["Vyumba 4 self-contained", "Ulinzi wa masaa 24", "Mfumo wa umeme wa Jua", "Bustani safi"],
-        images: [
-            "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80"
-        ]
-    },
-    {
         id: "usa-river-estate",
         titleEn: "USA River Residential Plots",
         titleSw: "Viwanja vya Makazi USA River",
@@ -136,8 +109,6 @@ const UI_DICTIONARY = {
     "fav-added-sw": "Imewekwa kwenye Vipendwa",
     "type-land-en": "Surveyed Land",
     "type-land-sw": "Kiwanja Kilichopimwa",
-    "type-villa-en": "Luxury Villa",
-    "type-villa-sw": "Vila ya Kifahari",
     "type-commercial-en": "Commercial Land",
     "type-commercial-sw": "Ardhi ya Biashara",
     "enquiry-subject-en": "Enquiry about: ",
@@ -169,14 +140,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeParam) {
             const filterTypeEl = document.getElementById("filter-type");
             if (filterTypeEl) filterTypeEl.value = typeParam;
+            const searchTypeEl = document.getElementById("search-type");
+            if (searchTypeEl) searchTypeEl.value = typeParam;
         }
         if (locParam) {
             const filterLocEl = document.getElementById("filter-location");
             if (filterLocEl) filterLocEl.value = locParam;
+            const searchLocEl = document.getElementById("search-location");
+            if (searchLocEl) searchLocEl.value = locParam;
         }
         if (keyParam) {
             const filterKeyEl = document.getElementById("filter-keyword");
             if (filterKeyEl) filterKeyEl.value = keyParam;
+            const searchKeyEl = document.getElementById("search-keyword");
+            if (searchKeyEl) searchKeyEl.value = keyParam;
         }
         
         initListingsCatalog();
@@ -397,7 +374,7 @@ function initWhatsAppWidget() {
         waWidget.addEventListener("click", () => {
             const phone = "255700000000"; // Mock real phone number format
             const textEn = "Hello Sisi Estate! I am interested in viewing your property listings in Arusha.";
-            const textSw = "Habari Sisi Estate! Nimevutiwa na viwanja na nyumba zenu za Arusha na ningependa maelezo zaidi.";
+            const textSw = "Habari Sisi Estate! Nimevutiwa na viwanja na ardhi yenu ya Arusha na ningependa maelezo zaidi.";
             const msg = currentLang === "sw" ? textSw : textEn;
             const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
             window.open(waUrl, "_blank");
@@ -422,9 +399,57 @@ function initListingsCatalog() {
     const locationSelect = document.getElementById("filter-location");
     const priceRangeInput = document.getElementById("filter-price-range");
     
-    if (keywordInput) keywordInput.addEventListener("input", filterAndRender);
-    if (typeSelect) typeSelect.addEventListener("change", filterAndRender);
-    if (locationSelect) locationSelect.addEventListener("change", filterAndRender);
+    // Quick Search Inputs
+    const searchKeyword = document.getElementById("search-keyword");
+    const searchType = document.getElementById("search-type");
+    const searchLocation = document.getElementById("search-location");
+    const searchForm = document.querySelector(".quick-search-form");
+
+    if (searchForm) {
+        searchForm.addEventListener("submit", (e) => {
+            e.preventDefault(); // Prevent page reload
+            filterAndRender();
+        });
+    }
+
+    // Bidirectional synchronization between quick search and sidebar filters
+    if (keywordInput) {
+        keywordInput.addEventListener("input", (e) => {
+            if (searchKeyword) searchKeyword.value = e.target.value;
+            filterAndRender();
+        });
+    }
+    if (typeSelect) {
+        typeSelect.addEventListener("change", (e) => {
+            if (searchType) searchType.value = e.target.value;
+            filterAndRender();
+        });
+    }
+    if (locationSelect) {
+        locationSelect.addEventListener("change", (e) => {
+            if (searchLocation) searchLocation.value = e.target.value;
+            filterAndRender();
+        });
+    }
+
+    if (searchKeyword) {
+        searchKeyword.addEventListener("input", (e) => {
+            if (keywordInput) keywordInput.value = e.target.value;
+            filterAndRender();
+        });
+    }
+    if (searchType) {
+        searchType.addEventListener("change", (e) => {
+            if (typeSelect) typeSelect.value = e.target.value;
+            filterAndRender();
+        });
+    }
+    if (searchLocation) {
+        searchLocation.addEventListener("change", (e) => {
+            if (locationSelect) locationSelect.value = e.target.value;
+            filterAndRender();
+        });
+    }
     if (priceRangeInput) {
         priceRangeInput.addEventListener("input", (e) => {
             const label = document.getElementById("price-range-value");
@@ -514,7 +539,7 @@ function renderListings() {
     }
     
     if (filtered.length === 0) {
-        grid.innerHTML = `<div class="text-center" style="grid-column: 1/-1; padding: 40px;" data-en="No properties match your filter criteria." data-sw="Hakuna mali inayolingana na vigezo vyako.">${currentLang === "sw" ? "Hakuna viwanja au nyumba zinazofanana na vigezo vyako." : "No properties match your filter criteria."}</div>`;
+        grid.innerHTML = `<div class="text-center" style="grid-column: 1/-1; padding: 40px;" data-en="No land listings match your filter criteria." data-sw="Hakuna viwanja vinavyolingana na vigezo vyako.">${currentLang === "sw" ? "Hakuna viwanja au ardhi inayofanana na vigezo vyako." : "No land listings match your filter criteria."}</div>`;
         return;
     }
     

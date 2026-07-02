@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properties & Plots for Sale | Sisi Estate</title>
-    <meta name="description" content="Browse our catalog of surveyed land plots, residential villas, and commercial real estate for sale in Arusha, Tanzania. Filter by price, location, and type.">
+    <title>Land & Estates for Sale | Sisi Estate</title>
+    <meta name="description" content="Browse our catalog of surveyed land plots, commercial estates, and residential plots for sale in Arusha, Tanzania. Filter by price, location, and type.">
     
     <link rel="stylesheet" href="style.css">
     <!-- Leaflet.js Map Library -->
@@ -72,8 +72,38 @@
             <div class="container">
                 <div class="text-center">
                     <span class="section-tag" data-en="Verified Portfolio" data-sw="Orodha ya Uhakika">Verified Portfolio</span>
-                    <h1 class="section-title" data-en="Available Properties & Plots" data-sw="Mali na Viwanja Vinavyopatikana">Available Properties & Plots</h1>
-                    <p class="section-desc" data-en="Filter by price, location, or keyword to find surveyed plots and premium builds with verified deeds in Arusha." data-sw="Chuja kwa bei, eneo, au neno la utafutaji ili kupata viwanja vilivyopimwa na nyumba za kifahari Arusha.">Filter by price, location, or keyword to find surveyed plots and premium builds with verified deeds in Arusha.</p>
+                    <h1 class="section-title" data-en="Available Land & Estates" data-sw="Viwanja na Ardhi Inayopatikana">Available Land & Estates</h1>
+                    <p class="section-desc" data-en="Filter by price, location, or keyword to find surveyed plots and commercial land with verified deeds in Arusha." data-sw="Chuja kwa bei, eneo, au neno la utafutaji ili kupata viwanja vilivyopimwa na ardhi ya biashara yenye hati safi Arusha.">Filter by price, location, or keyword to find surveyed plots and commercial land with verified deeds in Arusha.</p>
+                </div>
+
+                <!-- Quick Search Form -->
+                <div class="quick-search" id="quick-search-bar" style="margin-top: 0; margin-bottom: 40px; position: relative; z-index: 20;">
+                    <form action="projects.html" method="GET" class="quick-search-form">
+                        <div class="quick-search-field">
+                            <label for="search-type" data-en="Property Type" data-sw="Aina ya Mali">Property Type</label>
+                            <select name="type" id="search-type">
+                                <option value="all" data-en="All Types" data-sw="Aina Zote">All Types</option>
+                                <option value="land" data-en="Surveyed Land" data-sw="Kiwanja Kilichopimwa">Surveyed Land</option>
+                                <option value="commercial" data-en="Commercial Plot" data-sw="Eneo la Biashara">Commercial Plot</option>
+                            </select>
+                        </div>
+                        <div class="quick-search-field">
+                            <label for="search-location" data-en="Location" data-sw="Mahali">Location</label>
+                            <select name="location" id="search-location">
+                                <option value="all" data-en="All Locations" data-sw="Maeneo Yote">All Locations</option>
+                                <option value="Njiro">Njiro</option>
+                                <option value="Mkonoo">Mkonoo</option>
+                                <option value="USA River">USA River</option>
+                                <option value="Kisongo">Kisongo</option>
+                            </select>
+                        </div>
+                        <div class="quick-search-field">
+                            <label for="search-keyword" data-en="Keyword" data-sw="Neno la Utafutaji">Keyword</label>
+                            <input type="text" name="keyword" id="search-keyword" placeholder="e.g. Title Deed"
+                                data-en="e.g. Title Deed" data-sw="mf. Hati Miliki">
+                        </div>
+                        <button type="submit" class="btn btn-dark" data-en="Search" data-sw="Tafuta">Search</button>
+                    </form>
                 </div>
 
                 <!-- Compare Sticky Tray Panel (JS Controlled) -->
@@ -102,7 +132,6 @@
                             <select id="filter-type">
                                 <option value="all" data-en="All Types" data-sw="Aina Zote">All Types</option>
                                 <option value="land" data-en="Surveyed Land" data-sw="Kiwanja Kilichopimwa">Surveyed Land</option>
-                                <option value="villa" data-en="Luxury Villa" data-sw="Vila ya Kifahari">Luxury Villa</option>
                                 <option value="commercial" data-en="Commercial Land" data-sw="Eneo la Biashara">Commercial Land</option>
                             </select>
                         </div>
