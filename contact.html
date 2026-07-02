@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us & Payments | Sisi Estate</title>
+    <meta name="description" content="Contact Sisi Estate in Arusha, Tanzania. Send an inquiry, locate our office at Clock Tower, or read instructions for secure mobile money and bank payments.">
+    
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet.js Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo" id="header-logo-link">
+                <span class="logo-brand">SISI ESTATE</span>
+                <span class="logo-sub">COMPANY LIMITED</span>
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu" id="desktop-menu">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
+                <li><a href="projects.html" class="nav-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+                <li><a href="contact.html" class="nav-link active" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+            </ul>
+
+            <!-- Language and Currency Toggles -->
+            <div class="controls-group" id="header-controls">
+                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
+                    <option value="en">English</option>
+                    <option value="sw">Kiswahili</option>
+                </select>
+                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
+                    <option value="TZS">TZS (Shilling)</option>
+                    <option value="USD">USD ($)</option>
+                </select>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <nav class="mobile-drawer" id="mobile-drawer">
+        <ul class="mobile-drawer-menu">
+            <li><a href="index.html" class="mobile-drawer-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
+            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
+            <li><a href="projects.html" class="mobile-drawer-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+            <li><a href="contact.html" class="mobile-drawer-link active" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+        </ul>
+        <div class="mobile-drawer-controls">
+            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
+                <option value="en">English</option>
+                <option value="sw">Kiswahili</option>
+            </select>
+            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
+                <option value="TZS">TZS</option>
+                <option value="USD">USD</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="page-wrapper">
+        <section class="section" style="padding-top:40px;">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-tag" data-en="Get In Touch" data-sw="Wasiliana Nasi">Get In Touch</span>
+                    <h1 class="section-title" data-en="Contact Our Arusha Office" data-sw="Wasiliana na Ofisi ya Arusha">Contact Our Arusha Office</h1>
+                    <p class="section-desc" data-en="Send us an inquiry directly, visit our central Arusha office, or read details on reservation payments." data-sw="Tuma ujumbe moja kwa moja, tembelea ofisi yetu ya Arusha mjini, au soma maelezo ya malipo ya uhifadhi.">Send us an inquiry directly, visit our central Arusha office, or read details on reservation payments.</p>
+                </div>
+
+                <div class="contact-layout">
+                    <!-- Left: Info & Payments -->
+                    <div class="contact-info">
+                        
+                        <div class="contact-info-block">
+                            <h3 data-en="Office Location" data-sw="Ofisi Ilipo">Office Location</h3>
+                            <p data-en="Sisi Estate Company Limited<br>Clock Tower Building, 2nd Floor<br>Arusha, Tanzania" data-sw="Sisi Estate Company Limited<br>Jengo la Clock Tower, Ghorofa ya 2<br>Arusha, Tanzania">Sisi Estate Company Limited<br>Clock Tower Building, 2nd Floor<br>Arusha, Tanzania</p>
+                        </div>
+
+                        <div class="contact-info-block">
+                            <h3 data-en="Direct Contact" data-sw="Mawasiliano ya Moja kwa Moja">Direct Contact</h3>
+                            <span style="display:block;" data-en="Office Tel: +255 700 000 000" data-sw="Simu ya Ofisi: +255 700 000 000">Office Tel: +255 700 000 000</span>
+                            <span style="display:block;">Email: sales@sisiestate.com</span>
+                            <span style="display:block;" data-en="Hours: Mon - Sat (8:00 AM - 5:00 PM)" data-sw="Muda: Jumaatatu - Jumamosi (Saa 2:00 Asubuhi - 11:00 Jioni)">Hours: Mon - Sat (8:00 AM - 5:00 PM)</span>
+                        </div>
+
+                        <!-- Local Map Box -->
+                        <div>
+                            <h3 data-en="Interactive Map" data-sw="Ramani ya Ofisi" style="font-size:1.4rem; margin-bottom: 12px; color: var(--color-accent-hover);">Interactive Map</h3>
+                            <div class="map-container" id="contact-map">
+                                <!-- Leaflet Map initialized via script -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Contact Form -->
+                    <div class="contact-form-box">
+                        <h3 data-en="Send Us a Message" data-sw="Tuma Ujumbe kwa Idara">Send Us a Message</h3>
+                        <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:24px;" data-en="Your request will be routed directly to the selected department representative." data-sw="Maombi yako yataelekezwa moja kwa moja kwa mwakilishi wa idara husika.">Your request will be routed directly to the selected department representative.</p>
+                        
+                        <form id="contact-form">
+                            <!-- Bot protection fields -->
+                            <div class="form-group honey-field">
+                                <label for="form-bot-trap">Do not fill this</label>
+                                <input type="text" id="form-bot-trap" value="">
+                            </div>
+
+                            <!-- Department Routing Dropdown -->
+                            <div class="form-group">
+                                <label for="form-dept" data-en="Target Department" data-sw="Elekeza kwa Idara">Target Department</label>
+                                <select id="form-dept" class="form-control">
+                                    <option value="sales" data-en="Sales & Land Listings" data-sw="Mauzo & Viwanja">Sales & Land Listings</option>
+                                    <option value="valuation" data-en="Property Valuation Services" data-sw="Tathmini ya Mali">Property Valuation Services</option>
+                                    <option value="investment" data-en="Investment & JV Consulting" data-sw="Ushauri wa Uwekezaji">Investment & JV Consulting</option>
+                                    <option value="support" data-en="General Enquiries / Support" data-sw="Usaidizi Mkuu / Maswali">General Enquiries / Support</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-name" data-en="Full Name" data-sw="Majina Kamili">Full Name</label>
+                                <input type="text" id="form-name" class="form-control" placeholder="Amina Salim" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-email" data-en="Email Address" data-sw="Barua Pepe">Email Address</label>
+                                <input type="email" id="form-email" class="form-control" placeholder="amina@example.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-phone" data-en="Phone Number" data-sw="Namba ya Simu">Phone Number</label>
+                                <input type="tel" id="form-phone" class="form-control" placeholder="+255 700 000 000" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-message" data-en="Message Details" data-sw="Maelezo ya Ujumbe">Message Details</label>
+                                <textarea id="form-message" class="form-control" rows="5" placeholder="Write your enquiry details here..." required></textarea>
+                            </div>
+
+                            <div id="form-feedback-msg" class="form-group" style="display:none; font-weight:600;"></div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width:100%;" data-en="Send Message" data-sw="Tuma Ujumbe">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Mobile Money Payment Integration Guidelines -->
+                <div class="m-money-container" id="payments-guide">
+                    <h2 class="m-money-title" data-en="Reservation & Valuation Payments" data-sw="Malipo ya Uhifadhi & Tathmini">Reservation & Valuation Payments</h2>
+                    <p style="color:var(--color-text-muted); margin-bottom:24px;" data-en="To reserve a surveyed plot or book a professional valuation survey, you can make payments directly via local mobile money or bank transfer. Please follow the instructions below to secure your transaction. Always notify your agent with transaction references." data-sw="Kuhifadhi kiwanja kilichopimwa au kuweka nafasi ya tathmini, unaweza kufanya malipo moja kwa moja kupitia huduma za kifedha za simu au benki. Tafadhali fuata maelezo yafuatayo ili kulinda muamala wako. Kila mara mjulishe mshauri wako na namba ya muamala.">Reservation & Valuation Payments Guidelines</p>
+                    
+                    <div class="m-money-grid">
+                        <!-- M-Pesa Instructions -->
+                        <div class="m-money-card">
+                            <div class="m-money-logo mpesa">LIPA NA M-PESA (Vodacom)</div>
+                            <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:0.95rem; margin-top:12px;">
+                                <li data-en="1. Dial *150*00# on your Vodacom line" data-sw="1. Piga *150*00# kwenye laini yako ya Vodacom">1. Dial *150*00#</li>
+                                <li data-en="2. Select Option 4: 'Pay by M-Pesa'" data-sw="2. Chagua Namba 4: 'Lipa kwa M-Pesa'">2. Select Pay by M-Pesa</li>
+                                <li data-en="3. Select Option 1: 'Lipa na M-Pesa (Buy Goods)'" data-sw="3. Chagua Namba 1: 'Lipa na M-Pesa (Nunua Bidhaa)'">3. Select Buy Goods</li>
+                                <li data-en="4. Enter Till Number: 567812" data-sw="4. Weka Namba ya Nje (Till): 567812">4. Enter Till Number: 567812</li>
+                                <li data-en="5. Enter Amount and confirm with your PIN" data-sw="5. Weka kiasi na uthibitishe kwa PIN yako">5. Confirm with PIN</li>
+                            </ul>
+                        </div>
+
+                        <!-- Airtel Money Instructions -->
+                        <div class="m-money-card" style="border-left-color:#e53935;">
+                            <div class="m-money-logo airtel">AIRTEL MONEY (Airtel)</div>
+                            <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:0.95rem; margin-top:12px;">
+                                <li data-en="1. Dial *150*60# on your Airtel line" data-sw="1. Piga *150*60# kwenye laini yako ya Airtel">1. Dial *150*60#</li>
+                                <li data-en="2. Select Option 5: 'Make Payments'" data-sw="2. Chagua Namba 5: 'Lipa Bidhaa'">2. Select Make Payments</li>
+                                <li data-en="3. Select Option 2: 'Merchant Pay'" data-sw="3. Chagua Namba 2: 'Merchant Pay'">3. Select Merchant Pay</li>
+                                <li data-en="4. Enter Merchant ID: 987654" data-sw="4. Weka Namba ya Muuzaji: 987654">4. Enter Merchant ID: 987654</li>
+                                <li data-en="5. Enter Amount and confirm with your PIN" data-sw="5. Weka kiasi na uthibitishe kwa PIN yako">5. Confirm with PIN</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bank Details -->
+                    <div style="margin-top:32px; padding:20px; background-color:var(--color-bg-light); border-radius:var(--border-radius-sm); border: 1px solid var(--color-border);">
+                        <h4 data-en="🏦 Corporate Bank Transfer" data-sw="🏦 Malipo Kupitia Benki Kuu" style="margin-bottom:8px; font-size:1.15rem;">Corporate Bank Transfer</h4>
+                        <p style="font-size:0.95rem;" data-en="For larger reservation fees and final purchase settlements, please wire directly to our corporate bank accounts. We accept TZS and USD wires. Contact legal@sisiestate.com to request invoice files and swift routing codes." data-sw="Kwa malipo makubwa ya uhifadhi na makubaliano ya mwisho ya ununuzi, tafadhali tuma moja kwa moja kwenye akaunti ya benki ya kampuni yetu. Tunapokea TZS na USD. Wasiliana na legal@sisiestate.com ili kuomba ankara na namba za benki ya CRDB na NMB.">Bank details description.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h4>SISI ESTATE</h4>
+                <div class="footer-logo-sub">COMPANY LIMITED</div>
+                <p style="margin-top:12px; font-size:0.9rem;" data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.</p>
+                <div class="footer-socials">
+                    <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
+                    <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
+                    <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
+                </div>
+            </div>
+
+            <div class="footer-links-col">
+                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
+                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-col">
+                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
+                <ul class="footer-links">
+                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
+                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
+                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
+                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-col">
+                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
+                <ul class="footer-links" style="font-size:0.9rem;">
+                    <li data-en="📍 Arusha Clock Tower Area, Arusha, TZ" data-sw="📍 Eneo la Clock Tower, Arusha, TZ">📍 Arusha Clock Tower Area, Arusha, TZ</li>
+                    <li>📞 +255 700 000 000</li>
+                    <li>✉ sales@sisiestate.com</li>
+                    <li><a href="admin.html" style="color:var(--color-accent); font-weight:bold;" data-en="🔑 Staff Portal" data-sw="🔑 Lango la Wafanyakazi">🔑 Staff Portal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
+            <div class="footer-legal-links">
+                <a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a>
+                <a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Widget -->
+    <div class="whatsapp-widget" id="whatsapp-widget">
+        <span class="whatsapp-alert"></span>
+        <span style="font-size: 2rem;">💬</span>
+        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">Chat with an Agent on WhatsApp</div>
+    </div>
+
+    <!-- Core Dynamic Scripts -->
+    <script src="script.js"></script>
+
+</body>
+</html>
