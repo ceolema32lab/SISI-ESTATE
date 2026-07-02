@@ -79,7 +79,7 @@ const DEFAULT_LISTINGS = [
         amenitiesEn: ["Highway main road frontage", "Arusha Airport 5 min away", "Title deed under corporate ownership", "Boundary wall fence"],
         amenitiesSw: ["Mbele ya Barabara Kuu ya Lami", "Dakika 5 kutoka Uwanja wa Ndege", "Hati ya miliki ya kampuni", "Uzio wa ukuta wa mipaka"],
         images: [
-            "plot_aerial.jpg",
+            "assets/kisongo.png",
             "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80"
         ]
     }
