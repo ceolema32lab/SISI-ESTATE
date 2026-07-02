@@ -43,7 +43,12 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-serif);
     color: var(--color-text-dark);
     font-weight: 500;
@@ -56,7 +61,10 @@ a {
     transition: var(--transition);
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
     font-family: inherit;
     font-size: inherit;
     outline: none;
@@ -76,7 +84,10 @@ img {
 }
 
 /* Typography Helpers */
-.text-center { text-align: center; }
+.text-center {
+    text-align: center;
+}
+
 .section-tag {
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -87,13 +98,18 @@ img {
     display: block;
     font-weight: 600;
 }
+
 .section-title {
     font-size: 2.5rem;
     margin-bottom: 16px;
 }
+
 @media (max-width: 768px) {
-    .section-title { font-size: 2rem; }
+    .section-title {
+        font-size: 2rem;
+    }
 }
+
 .section-desc {
     color: var(--color-text-muted);
     max-width: 600px;
@@ -169,11 +185,13 @@ img {
     transition: var(--transition);
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
     color: var(--color-accent);
 }
 
-.nav-link:hover::after, .nav-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
@@ -217,8 +235,10 @@ img {
 
 @media (max-width: 992px) {
     .nav-menu {
-        display: none; /* Controlled by mobile drawer JS */
+        display: none;
+        /* Controlled by mobile drawer JS */
     }
+
     .mobile-toggle {
         display: block;
     }
@@ -258,7 +278,8 @@ img {
     color: #ffffff;
 }
 
-.mobile-drawer-link:hover, .mobile-drawer-link.active {
+.mobile-drawer-link:hover,
+.mobile-drawer-link.active {
     color: var(--color-accent);
 }
 
@@ -271,7 +292,8 @@ img {
 
 /* Page Spacing */
 .page-wrapper {
-    padding-top: 80px; /* Offset fixed header */
+    padding-top: 80px;
+    /* Offset fixed header */
 }
 
 /* Hero Section */
@@ -307,10 +329,13 @@ img {
     font-weight: 500;
     margin-bottom: 24px;
     line-height: 1.15;
+    color: var(--color-bg-white);
 }
 
 @media (max-width: 768px) {
-    .hero-title { font-size: 2.5rem; }
+    .hero-title {
+        font-size: 2.5rem;
+    }
 }
 
 .hero-desc {
@@ -407,7 +432,8 @@ img {
     color: var(--color-text-dark);
 }
 
-.quick-search-field select, .quick-search-field input {
+.quick-search-field select,
+.quick-search-field input {
     width: 100%;
     padding: 12px;
     border: 1px solid var(--color-border);
@@ -421,6 +447,7 @@ img {
     .quick-search-form {
         grid-template-columns: 1fr;
     }
+
     .quick-search-form .btn {
         margin-top: 8px;
         width: 100%;
@@ -951,7 +978,8 @@ img {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1500;
     display: flex;
-    justify-content: flex-end; /* Slides in from right */
+    justify-content: flex-end;
+    /* Slides in from right */
     pointer-events: none;
     transition: var(--transition);
 }
@@ -1080,8 +1108,13 @@ img {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.gallery-btn-prev { left: 16px; }
-.gallery-btn-next { right: 16px; }
+.gallery-btn-prev {
+    left: 16px;
+}
+
+.gallery-btn-next {
+    right: 16px;
+}
 
 /* Specifications Table */
 .specs-table {
@@ -1089,7 +1122,8 @@ img {
     border-collapse: collapse;
 }
 
-.specs-table th, .specs-table td {
+.specs-table th,
+.specs-table td {
     padding: 12px 16px;
     text-align: left;
     border-bottom: 1px solid var(--color-border);
@@ -1291,8 +1325,13 @@ img {
     margin-bottom: 8px;
 }
 
-.m-money-logo.mpesa { color: #4caf50; }
-.m-money-logo.airtel { color: #e53935; }
+.m-money-logo.mpesa {
+    color: #4caf50;
+}
+
+.m-money-logo.airtel {
+    color: #e53935;
+}
 
 /* Testimonials / Reviews */
 .testimonials-grid {
