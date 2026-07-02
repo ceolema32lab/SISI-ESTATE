@@ -25,8 +25,8 @@ const DEFAULT_LISTINGS = [
         amenitiesEn: ["Electricity grid close", "Clean water connection", "Tarmac access road", "Surveyed beacon pins"],
         amenitiesSw: ["Umeme upo karibu", "Maji safi yapo tayari", "Barabara ya lami karibu", "Vigingi vya upimaji vipo"],
         images: [
-            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
+            "plot_construction.png",
+            "plot_aerial.jpg"
         ]
     },
     {
@@ -52,7 +52,7 @@ const DEFAULT_LISTINGS = [
         amenitiesEn: ["Stunning Mt. Meru View", "Quiet green neighborhood", "Piped water connection", "Three-phase power grid"],
         amenitiesSw: ["Mtazamo mzuri wa Mlima Meru", "Eneo la kijani la utulivu", "Maji ya bomba yapo", "Umeme wa awamu tatu (3-Phase)"],
         images: [
-            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+            "plot_aerial.jpg",
             "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
         ]
     },
@@ -79,7 +79,7 @@ const DEFAULT_LISTINGS = [
         amenitiesEn: ["Highway main road frontage", "Arusha Airport 5 min away", "Title deed under corporate ownership", "Boundary wall fence"],
         amenitiesSw: ["Mbele ya Barabara Kuu ya Lami", "Dakika 5 kutoka Uwanja wa Ndege", "Hati ya miliki ya kampuni", "Uzio wa ukuta wa mipaka"],
         images: [
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+            "plot_aerial.jpg",
             "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80"
         ]
     }
@@ -372,7 +372,7 @@ function initWhatsAppWidget() {
     const waWidget = document.getElementById("whatsapp-widget");
     if (waWidget) {
         waWidget.addEventListener("click", () => {
-            const phone = "255700000000"; // Mock real phone number format
+            const phone = "255746100023"; // Active Sisi Estate phone number
             const textEn = "Hello Sisi Estate! I am interested in viewing your property listings in Arusha.";
             const textSw = "Habari Sisi Estate! Nimevutiwa na viwanja na ardhi yenu ya Arusha na ningependa maelezo zaidi.";
             const msg = currentLang === "sw" ? textSw : textEn;
