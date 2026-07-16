@@ -82,6 +82,33 @@ const DEFAULT_LISTINGS = [
             "assets/kisongo.png",
             "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80"
         ]
+    },
+    {
+        id: "njiro-block-hh",
+        titleEn: "Njiro Block HH Residential Plot",
+        titleSw: "Kiwanja cha Makazi Njiro Block HH",
+        type: "land",
+        location: "Njiro",
+        locationDetail: "Njiro Block HH, elite residential area, Arusha",
+        priceTzs: 45000,
+        priceUsd: 17.5,
+        isPerSqm: true,
+        size: "800 sqm",
+        sizeVal: 800,
+        status: "Available",
+        badgeEn: "New",
+        badgeSw: "Mpya",
+        titleStatusEn: "Ready Title Deed",
+        titleStatusSw: "Hati ya Miliki Tayari",
+        descEn: "Stunning residential plot in the highly sought-after Njiro Block HH neighborhood. Fully serviced with tarmac road access, secure perimeter, municipal water supply, and high-voltage electricity lines. Quiet upscale area perfect for modern family villa construction.",
+        descSw: "Kiwanja kizuri cha makazi katika eneo la kifahari la Njiro Block HH. Kina barabara ya lami, kimezungushiwa ulinzi, kina maji ya bomba na umeme tayari. Eneo tulivu la kifahari linalofaa sana kwa ujenzi wa makazi ya kisasa.",
+        coordinates: [-3.3950, 36.7150],
+        amenitiesEn: ["Upscale neighborhood", "Tarmac access", "Electricity grid ready", "Beacon pins set"],
+        amenitiesSw: ["Eneo la kifahari la makazi", "Njia nzuri ya lami", "Umeme upo tayari", "Vigingi vimepandwa tayari"],
+        images: [
+            "assets/residential_hero.png",
+            "plot_aerial.jpg"
+        ]
     }
 ];
 
@@ -122,12 +149,18 @@ let compareList = JSON.parse(localStorage.getItem("sisi_compare")) || [];
 let favoriteList = JSON.parse(localStorage.getItem("sisi_favorites")) || [];
 let activeSlideshow = {}; // store carousel active index
 
+// Admin Portal Global State
+let adminMap = null;
+let adminMarker = null;
+let editingPropertyId = null;
+
 // Document Ready Initialization
 document.addEventListener("DOMContentLoaded", () => {
     initLanguage();
     initCurrency();
     initMobileMenu();
     initWhatsAppWidget();
+    initHeroSlider();
 
     // Page-specific initializers
     if (document.getElementById("listings-grid")) {
@@ -385,9 +418,11 @@ function initWhatsAppWidget() {
 // ================= DATABASE HELPERS =================
 
 function getMergedListings() {
-    // Pull local admin listings from localStorage to simulate database additions
-    const customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
-    return [...DEFAULT_LISTINGS, ...customListings];
+    // Initialize sisi_custom_listings with default ones on first load
+    if (localStorage.getItem("sisi_custom_listings") === null) {
+        localStorage.setItem("sisi_custom_listings", JSON.stringify(DEFAULT_LISTINGS));
+    }
+    return JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
 }
 
 // ================= PROPERTY LISTINGS (CATALOG) =================
@@ -557,33 +592,32 @@ function renderListings() {
             ? `$${formatMoney(item.priceUsd)}${item.isPerSqm ? '/m²' : ''}`
             : `${formatMoney(item.priceTzs)} TZS${item.isPerSqm ? '/m²' : ''}`;
 
+        const viewDetailsText = currentLang === "sw" ? "Maelezo zaidi" : "View Details";
+
         card.innerHTML = `
             <div class="listing-badge">${badge}</div>
             <button class="listing-favorite ${isFav ? 'active' : ''}" onclick="toggleFavorite('${item.id}', event)">❤</button>
             <div class="listing-image-box">
                 <img src="${item.images[0]}" alt="${title}" loading="lazy">
-            </div>
-            <div class="listing-details">
-                <div class="listing-location">${item.location} • <span style="color:#777">${subTitle}</span></div>
-                <h3 class="listing-card-title">${title}</h3>
-                <div class="listing-specs">
-                    <div class="listing-spec-item">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg>
+                <div class="listing-specs-overlay">
+                    <div class="spec-pill">
+                        <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg>
                         <span>${item.size}</span>
                     </div>
-                    <div class="listing-spec-item">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <div class="spec-pill">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         <span>${item.location}</span>
                     </div>
                 </div>
-                <div class="listing-price-box">
-                    <span class="listing-price">${formattedPrice}</span>
+            </div>
+            <div class="listing-details">
+                <div class="listing-location">${item.location} • <span style="color:rgba(255,255,255,0.6)">${subTitle}</span></div>
+                <h3 class="listing-card-title">${title}</h3>
+                <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
+                    <span class="listing-price" style="color: #FFFFFF !important;">${formattedPrice}</span>
                 </div>
                 <div class="btn-group" style="margin-top:16px;">
-                    <button class="btn btn-outline" style="padding: 8px 12px; font-size: 0.8rem; flex: 1;" onclick="openPropertyDetails('${item.id}')">${UI_DICTIONARY[`view-details-${currentLang}`]}</button>
-                    <button class="btn btn-dark ${isCompared ? 'btn-primary' : ''}" style="padding: 8px 12px; font-size: 0.8rem; max-width: 100px;" onclick="toggleCompare('${item.id}', event)">
-                        ${isCompared ? '✓' : UI_DICTIONARY[`compare-btn-${currentLang}`]}
-                    </button>
+                    <button class="btn btn-outline" style="padding: 10px 16px; font-size: 0.85rem; width: 100%; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" onclick="openPropertyDetails('${item.id}')">${viewDetailsText}</button>
                 </div>
             </div>
         `;
@@ -651,7 +685,8 @@ function fillPropertyDetails(id) {
     item.images.forEach((imgSrc, idx) => {
         const slide = document.createElement("div");
         slide.className = `gallery-slide ${idx === 0 ? 'active' : ''}`;
-        slide.innerHTML = `<img src="${imgSrc}" alt="${title}">`;
+        slide.innerHTML = `<img src="${imgSrc}" alt="${title}" style="cursor: pointer;">`;
+        slide.querySelector("img").addEventListener("click", () => openLightbox(imgSrc));
         gallery.appendChild(slide);
 
         const dot = document.createElement("button");
@@ -968,8 +1003,102 @@ function showFormFeedback(isSpam) {
 
 // ================= CLIENT LISTINGS DASHBOARD (ADMIN PANEL) =================
 
+function addImageUrlInput(value = "") {
+    const container = document.getElementById("admin-image-urls-container");
+    if (!container) return;
+
+    const div = document.createElement("div");
+    div.className = "admin-image-input-row";
+    div.innerHTML = `
+        <input type="url" class="form-control admin-image-url-field" style="flex:1;" placeholder="https://images.unsplash.com/..." value="${value}" required>
+        <button type="button" class="btn btn-dark remove-image-url-btn" style="padding: 0 12px; background-color:#e23e3e; height:38px;">X</button>
+    `;
+    div.querySelector(".remove-image-url-btn").addEventListener("click", () => {
+        if (container.querySelectorAll(".admin-image-input-row").length > 1) {
+            div.remove();
+        } else {
+            alert("At least one image URL is required.");
+        }
+    });
+    container.appendChild(div);
+}
+
+function initAdminMapPicker(defaultCoords = [-3.3950, 36.7150]) {
+    const mapDiv = document.getElementById("admin-map-picker");
+    if (!mapDiv) return;
+
+    document.getElementById("admin-latitude").value = defaultCoords[0];
+    document.getElementById("admin-longitude").value = defaultCoords[1];
+
+    try {
+        if (!adminMap) {
+            adminMap = L.map("admin-map-picker").setView(defaultCoords, 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(adminMap);
+
+            adminMarker = L.marker(defaultCoords, { draggable: true }).addTo(adminMap);
+
+            adminMarker.on("dragend", function () {
+                const position = adminMarker.getLatLng();
+                document.getElementById("admin-latitude").value = position.lat.toFixed(6);
+                document.getElementById("admin-longitude").value = position.lng.toFixed(6);
+            });
+
+            adminMap.on("click", function (e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+                adminMarker.setLatLng([lat, lng]);
+                document.getElementById("admin-latitude").value = lat.toFixed(6);
+                document.getElementById("admin-longitude").value = lng.toFixed(6);
+            });
+
+            const latInput = document.getElementById("admin-latitude");
+            const lngInput = document.getElementById("admin-longitude");
+            const updateMarkerFromInputs = () => {
+                const lat = parseFloat(latInput.value);
+                const lng = parseFloat(lngInput.value);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    const newLatLng = new L.LatLng(lat, lng);
+                    adminMarker.setLatLng(newLatLng);
+                    adminMap.setView(newLatLng, adminMap.getZoom());
+                }
+            };
+            latInput.addEventListener("input", updateMarkerFromInputs);
+            lngInput.addEventListener("input", updateMarkerFromInputs);
+        } else {
+            adminMap.setView(defaultCoords, adminMap.getZoom());
+            adminMarker.setLatLng(defaultCoords);
+        }
+    } catch (err) {
+        console.error("Leaflet admin map failed to load", err);
+    }
+}
+
 function initAdminPanel() {
+    getMergedListings();
+
     renderAdminListings();
+
+    const container = document.getElementById("admin-image-urls-container");
+    if (container) {
+        container.innerHTML = "";
+        addImageUrlInput("");
+    }
+
+    const addImgBtn = document.getElementById("admin-add-image-btn");
+    if (addImgBtn) {
+        addImgBtn.onclick = () => addImageUrlInput("");
+    }
+
+    initAdminMapPicker();
+
+    const cancelBtn = document.getElementById("admin-cancel-btn");
+    if (cancelBtn) {
+        cancelBtn.onclick = () => {
+            exitAdminEditMode();
+        };
+    }
 
     const adminForm = document.getElementById("admin-add-form");
     if (adminForm) {
@@ -980,6 +1109,8 @@ function initAdminPanel() {
             const titleSw = document.getElementById("admin-title-sw").value;
             const location = document.getElementById("admin-location").value;
             const locationDetail = document.getElementById("admin-location-detail").value;
+            const latVal = parseFloat(document.getElementById("admin-latitude").value) || -3.3950;
+            const lngVal = parseFloat(document.getElementById("admin-longitude").value) || 36.7150;
             const type = document.getElementById("admin-type").value;
             const priceTzs = parseInt(document.getElementById("admin-price-tzs").value);
             const priceUsd = parseInt(document.getElementById("admin-price-usd").value);
@@ -991,44 +1122,161 @@ function initAdminPanel() {
             const titleStatusSw = document.getElementById("admin-title-status-sw").value;
             const descEn = document.getElementById("admin-desc-en").value;
             const descSw = document.getElementById("admin-desc-sw").value;
-            const imageUrl = document.getElementById("admin-image-url").value || "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80";
 
-            // Build new listing item
-            const newId = "custom-" + Date.now();
-            const newProperty = {
-                id: newId,
-                titleEn,
-                titleSw,
-                type,
-                location,
-                locationDetail,
-                priceTzs,
-                priceUsd,
-                isPerSqm,
-                size,
-                sizeVal: parseFloat(size) || 1000,
-                status: "Available",
-                badgeEn: badgeEn || "New",
-                badgeSw: badgeSw || "Mpya",
-                titleStatusEn,
-                titleStatusSw,
-                descEn,
-                descSw,
-                coordinates: [-3.3950, 36.7150], // Default Arusha central coords
-                amenitiesEn: ["Surveyed Beacon pins", "Electricity access", "Water supply"],
-                amenitiesSw: ["Vigingi vya upimaji vipo", "Umeme upo karibu", "Maji yapo"],
-                images: [imageUrl]
-            };
+            const imageFields = document.querySelectorAll(".admin-image-url-field");
+            const images = [];
+            imageFields.forEach(field => {
+                if (field.value) images.push(field.value);
+            });
+            if (images.length === 0) {
+                images.push("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80");
+            }
 
-            // Save to localStorage
-            const customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
-            customListings.push(newProperty);
-            localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
+            let customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
 
-            adminForm.reset();
+            if (editingPropertyId) {
+                const itemIndex = customListings.findIndex(p => p.id === editingPropertyId);
+                if (itemIndex > -1) {
+                    customListings[itemIndex] = {
+                        ...customListings[itemIndex],
+                        titleEn,
+                        titleSw,
+                        type,
+                        location,
+                        locationDetail,
+                        priceTzs,
+                        priceUsd,
+                        isPerSqm,
+                        size,
+                        sizeVal: parseFloat(size) || 1000,
+                        badgeEn: badgeEn || "New",
+                        badgeSw: badgeSw || "Mpya",
+                        titleStatusEn,
+                        titleStatusSw,
+                        descEn,
+                        descSw,
+                        coordinates: [latVal, lngVal],
+                        images
+                    };
+                    localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
+                    alert("Property listing updated successfully!");
+                }
+                exitAdminEditMode();
+            } else {
+                const newId = "custom-" + Date.now();
+                const newProperty = {
+                    id: newId,
+                    titleEn,
+                    titleSw,
+                    type,
+                    location,
+                    locationDetail,
+                    priceTzs,
+                    priceUsd,
+                    isPerSqm,
+                    size,
+                    sizeVal: parseFloat(size) || 1000,
+                    status: "Available",
+                    badgeEn: badgeEn || "New",
+                    badgeSw: badgeSw || "Mpya",
+                    titleStatusEn,
+                    titleStatusSw,
+                    descEn,
+                    descSw,
+                    coordinates: [latVal, lngVal],
+                    amenitiesEn: ["Surveyed Beacon pins", "Electricity access", "Water supply"],
+                    amenitiesSw: ["Vigingi vya upimaji vipo", "Umeme upo karibu", "Maji yapo"],
+                    images
+                };
+
+                customListings.push(newProperty);
+                localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
+                alert("Property listing added successfully!");
+
+                adminForm.reset();
+                if (container) {
+                    container.innerHTML = "";
+                    addImageUrlInput("");
+                }
+                initAdminMapPicker();
+            }
+
             renderAdminListings();
-            alert("Property listing added successfully to local database!");
         });
+    }
+}
+
+function exitAdminEditMode() {
+    editingPropertyId = null;
+    const form = document.getElementById("admin-add-form");
+    if (form) form.reset();
+
+    const container = document.getElementById("admin-image-urls-container");
+    if (container) {
+        container.innerHTML = "";
+        addImageUrlInput("");
+    }
+
+    initAdminMapPicker();
+
+    const submitBtn = document.getElementById("admin-submit-btn");
+    if (submitBtn) {
+        submitBtn.setAttribute("data-en", "Add Listing to Database");
+        submitBtn.setAttribute("data-sw", "Hifadhi Tangazo kwenye Kanzidata");
+    }
+    const cancelBtn = document.getElementById("admin-cancel-btn");
+    if (cancelBtn) cancelBtn.style.display = "none";
+
+    applyLanguage(currentLang);
+}
+
+function enterAdminEditMode(item) {
+    editingPropertyId = item.id;
+
+    document.getElementById("admin-title-en").value = item.titleEn;
+    document.getElementById("admin-title-sw").value = item.titleSw;
+    document.getElementById("admin-location").value = item.location;
+    document.getElementById("admin-location-detail").value = item.locationDetail;
+    document.getElementById("admin-type").value = item.type;
+    document.getElementById("admin-price-tzs").value = item.priceTzs;
+    document.getElementById("admin-price-usd").value = item.priceUsd;
+    document.getElementById("admin-persqm").checked = item.isPerSqm;
+    document.getElementById("admin-size").value = item.size;
+    document.getElementById("admin-badge-en").value = item.badgeEn || "";
+    document.getElementById("admin-badge-sw").value = item.badgeSw || "";
+    document.getElementById("admin-title-status-en").value = item.titleStatusEn;
+    document.getElementById("admin-title-status-sw").value = item.titleStatusSw;
+    document.getElementById("admin-desc-en").value = item.descEn;
+    document.getElementById("admin-desc-sw").value = item.descSw;
+
+    const coords = item.coordinates || [-3.3950, 36.7150];
+    document.getElementById("admin-latitude").value = coords[0];
+    document.getElementById("admin-longitude").value = coords[1];
+    initAdminMapPicker(coords);
+
+    const container = document.getElementById("admin-image-urls-container");
+    if (container) {
+        container.innerHTML = "";
+        if (item.images && item.images.length > 0) {
+            item.images.forEach(url => addImageUrlInput(url));
+        } else {
+            addImageUrlInput("");
+        }
+    }
+
+    const submitBtn = document.getElementById("admin-submit-btn");
+    if (submitBtn) {
+        submitBtn.setAttribute("data-en", "Save Changes");
+        submitBtn.setAttribute("data-sw", "Hifadhi Mabadiliko");
+    }
+    const cancelBtn = document.getElementById("admin-cancel-btn");
+    if (cancelBtn) cancelBtn.style.display = "block";
+
+    applyLanguage(currentLang);
+    
+    const formBox = document.querySelector(".admin-form-box");
+    if (formBox) {
+        formBox.scrollIntoView({ behavior: "smooth" });
     }
 }
 
@@ -1037,10 +1285,10 @@ function renderAdminListings() {
     if (!listContainer) return;
 
     listContainer.innerHTML = "";
-    const customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
+    const customListings = getMergedListings();
 
     if (customListings.length === 0) {
-        listContainer.innerHTML = `<div class="text-center" style="padding: 24px; color: var(--color-text-muted);">No custom properties loaded. Add one using the form on the left.</div>`;
+        listContainer.innerHTML = `<div class="text-center" style="padding: 24px; color: var(--color-text-muted);">No properties loaded. Add one using the form on the left.</div>`;
         return;
     }
 
@@ -1052,17 +1300,33 @@ function renderAdminListings() {
                 <span class="admin-item-title">${item.titleEn}</span>
                 <div class="admin-item-meta">${item.location} • ${item.type} • TZS ${item.priceTzs.toLocaleString()}</div>
             </div>
-            <button class="btn btn-dark" style="padding: 6px 12px; background-color:#e23e3e;" onclick="deleteAdminProperty('${item.id}')">Delete</button>
+            <div style="display:flex; gap:8px;">
+                <button class="btn btn-outline" style="padding: 6px 12px;" onclick="editAdminProperty('${item.id}')">Edit</button>
+                <button class="btn btn-dark" style="padding: 6px 12px; background-color:#e23e3e;" onclick="deleteAdminProperty('${item.id}')">Delete</button>
+            </div>
         `;
         listContainer.appendChild(row);
     });
 }
 
+function editAdminProperty(id) {
+    const customListings = getMergedListings();
+    const item = customListings.find(p => p.id === id);
+    if (item) {
+        enterAdminEditMode(item);
+    }
+}
+
 function deleteAdminProperty(id) {
-    if (confirm("Are you sure you want to delete this property?")) {
+    if (confirm("Are you sure you want to delete this property listing?")) {
         let customListings = JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
         customListings = customListings.filter(item => item.id !== id);
         localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
+        
+        if (editingPropertyId === id) {
+            exitAdminEditMode();
+        }
+        
         renderAdminListings();
     }
 }
@@ -1101,4 +1365,66 @@ function initContactMap() {
             </div>
         `;
     }
+}
+
+// initHeroSlider automatically rotates the 4 homepage main product categories
+function initHeroSlider() {
+    const slides = document.querySelectorAll(".hero-slide");
+    if (slides.length <= 1) return;
+
+    let currentSlide = 0;
+    const intervalTime = 5000; // 5 seconds
+    let slideInterval;
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add("active");
+    }
+
+    function startSlideShow() {
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    startSlideShow();
+
+    // Pause on hover
+    const sliderContainer = document.getElementById("hero-slider-section");
+    if (sliderContainer) {
+        sliderContainer.addEventListener("mouseenter", () => {
+            clearInterval(slideInterval);
+        });
+        sliderContainer.addEventListener("mouseleave", () => {
+            startSlideShow();
+        });
+    }
+}
+
+// Lightbox modal overlay logic
+function openLightbox(imgSrc) {
+    let lightbox = document.getElementById("lightbox-modal");
+    if (!lightbox) {
+        lightbox = document.createElement("div");
+        lightbox.id = "lightbox-modal";
+        lightbox.className = "lightbox-modal";
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <button class="lightbox-close" id="lightbox-close-btn">&times;</button>
+                <img id="lightbox-img" src="" alt="Lightbox Image">
+            </div>
+        `;
+        document.body.appendChild(lightbox);
+
+        lightbox.querySelector("#lightbox-close-btn").addEventListener("click", () => {
+            lightbox.style.display = "none";
+        });
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = "none";
+            }
+        });
+    }
+
+    lightbox.querySelector("#lightbox-img").src = imgSrc;
+    lightbox.style.display = "flex";
 }

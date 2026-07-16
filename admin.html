@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Portal | Sisi Estate Company Limited</title>
     <meta name="description" content="Sisi Estate Company Limited - Staff portal for listing and property database management.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
     <link rel="stylesheet" href="style.css">
+    <!-- Leaflet.js Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body>
 
@@ -36,6 +42,7 @@
                     <option value="TZS">TZS (Shilling)</option>
                     <option value="USD">USD ($)</option>
                 </select>
+                <a href="contact.html" class="nav-cta-btn" data-en="Contact Agent" data-sw="Wasiliana Nasi">Contact Agent</a>
                 <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
             </div>
         </div>
@@ -110,6 +117,22 @@
                             <input type="text" id="admin-location-detail" class="form-control" placeholder="e.g. Sakina Hill, near Tanesco sub-station" required>
                         </div>
 
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div class="form-group">
+                                <label for="admin-latitude" data-en="Latitude" data-sw="Latitudo">Latitude</label>
+                                <input type="number" step="any" id="admin-latitude" class="form-control" placeholder="-3.3950" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-longitude" data-en="Longitude" data-sw="Longitudo">Longitude</label>
+                                <input type="number" step="any" id="admin-longitude" class="form-control" placeholder="36.7150" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-en="Location on Map (Click to pick)" data-sw="Eneo kwenye Ramani (Bofya kuchagua)">Location on Map (Click to pick)</label>
+                            <div id="admin-map-picker" style="height: 200px; width: 100%; border-radius: var(--border-radius-sm); border: 1px solid var(--color-border); z-index: 10;"></div>
+                        </div>
+
                         <div class="form-group">
                             <label for="admin-type" data-en="Property Type" data-sw="Aina ya Mali">Property Type</label>
                             <select id="admin-type" class="form-control">
@@ -172,11 +195,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin-image-url" data-en="Image URL (Unsplash Link)" data-sw="Kiungo cha Picha">Image URL (Unsplash Link)</label>
-                            <input type="url" id="admin-image-url" class="form-control" placeholder="https://images.unsplash.com/...">
+                            <label data-en="Pictures (URLs)" data-sw="Picha (Viungo)">Pictures (URLs)</label>
+                            <div id="admin-image-urls-container">
+                                <!-- Dynamic inputs added here -->
+                            </div>
+                            <button type="button" id="admin-add-image-btn" class="btn btn-outline" style="margin-top: 8px; padding: 6px 12px; font-size: 0.85rem;" data-en="+ Add Image URL" data-sw="+ Ongeza Kiungo cha Picha">+ Add Image URL</button>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width:100%;" data-en="Add Listing to Database" data-sw="Hifadhi Tangazo kwenye Kanzidata">Add Listing to Database</button>
+                        <div style="display:flex; gap:12px; margin-top:20px;">
+                            <button type="submit" id="admin-submit-btn" class="btn btn-primary" style="flex:1;" data-en="Add Listing to Database" data-sw="Hifadhi Tangazo kwenye Kanzidata">Add Listing to Database</button>
+                            <button type="button" id="admin-cancel-btn" class="btn btn-outline" style="display:none; flex:1;" data-en="Cancel" data-sw="Ghairi">Cancel</button>
+                        </div>
 
                     </form>
                 </div>
@@ -195,19 +224,25 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
+        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
+            
+            <!-- Col 1: Brand -->
+            <div style="grid-column: span 2;">
                 <h4>SISI ESTATE</h4>
                 <div class="footer-logo-sub">COMPANY LIMITED</div>
-                <p style="margin-top:12px; font-size:0.9rem;" data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.</p>
-                <div class="footer-socials">
-                    <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
-                    <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
-                    <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
+                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
+                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
+                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
+                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
+                </p>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
                 </div>
             </div>
 
-            <div class="footer-links-col">
+            <!-- Col 2: Quick Links -->
+            <div>
                 <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
                 <ul class="footer-links">
                     <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
@@ -217,7 +252,8 @@
                 </ul>
             </div>
 
-            <div class="footer-links-col">
+            <!-- Col 3: Locations -->
+            <div>
                 <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
                 <ul class="footer-links">
                     <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
@@ -227,22 +263,38 @@
                 </ul>
             </div>
 
-            <div class="footer-links-col">
-                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
-                <ul class="footer-links" style="font-size:0.9rem;">
-                    <li data-en="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Arusha Clock Tower Area, Arusha, TZ" data-sw="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Eneo la Clock Tower, Arusha, TZ"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Arusha Clock Tower Area, Arusha, TZ</li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
-                    <li><a href="admin.html" style="color:var(--color-accent); font-weight:bold;" data-en="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg> Staff Portal" data-sw="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg> Lango la Wafanyakazi"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg> Staff Portal</a></li>
+            <!-- Col 4: Help & Legal -->
+            <div>
+                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
+                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
+                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
+                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
                 </ul>
             </div>
+
+            <!-- Col 5: Contact Info -->
+            <div style="grid-column: span 1;">
+                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
+                <ul class="footer-links" style="font-size:0.9rem;">
+                    <li>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
+                        <span data-en="Arusha Clock Tower Area, Arusha, TZ" data-sw="Eneo la Clock Tower, Arusha, TZ">Arusha Clock Tower Area, Arusha, TZ</span>
+                    </li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
+                </ul>
+            </div>
+
         </div>
 
-        <div class="container footer-bottom">
+        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
-            <div class="footer-legal-links">
-                <a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a>
-                <a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a>
+            <div class="footer-socials" style="display:flex; gap:12px;">
+                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
+                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
+                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
             </div>
         </div>
     </footer>

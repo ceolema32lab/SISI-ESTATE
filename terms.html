@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service | Sisi Estate</title>
     <meta name="description" content="Read Sisi Estate Company Limited's Terms of Service regarding property reservation policies and land regulations in Tanzania.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -36,6 +39,7 @@
                     <option value="TZS">TZS (Shilling)</option>
                     <option value="USD">USD ($)</option>
                 </select>
+                <a href="contact.html" class="nav-cta-btn" data-en="Contact Agent" data-sw="Wasiliana Nasi">Contact Agent</a>
                 <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
             </div>
         </div>
@@ -94,19 +98,25 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
+        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
+            
+            <!-- Col 1: Brand -->
+            <div style="grid-column: span 2;">
                 <h4>SISI ESTATE</h4>
                 <div class="footer-logo-sub">COMPANY LIMITED</div>
-                <p style="margin-top:12px; font-size:0.9rem;" data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.</p>
-                <div class="footer-socials">
-                    <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
-                    <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
-                    <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
+                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
+                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
+                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
+                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
+                </p>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
                 </div>
             </div>
 
-            <div class="footer-links-col">
+            <!-- Col 2: Quick Links -->
+            <div>
                 <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
                 <ul class="footer-links">
                     <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
@@ -116,7 +126,8 @@
                 </ul>
             </div>
 
-            <div class="footer-links-col">
+            <!-- Col 3: Locations -->
+            <div>
                 <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
                 <ul class="footer-links">
                     <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
@@ -126,22 +137,38 @@
                 </ul>
             </div>
 
-            <div class="footer-links-col">
-                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
-                <ul class="footer-links" style="font-size:0.9rem;">
-                    <li data-en="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Arusha Clock Tower Area, Arusha, TZ" data-sw="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Eneo la Clock Tower, Arusha, TZ"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Arusha Clock Tower Area, Arusha, TZ</li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
-                    <li><a href="admin.html" style="color:var(--color-accent); font-weight:bold;" data-en="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg> Staff Portal" data-sw="<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg> Lango la Wafanyakazi"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg> Staff Portal</a></li>
+            <!-- Col 4: Help & Legal -->
+            <div>
+                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
+                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
+                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
+                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
                 </ul>
             </div>
+
+            <!-- Col 5: Contact Info -->
+            <div style="grid-column: span 1;">
+                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
+                <ul class="footer-links" style="font-size:0.9rem;">
+                    <li>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
+                        <span data-en="Arusha Clock Tower Area, Arusha, TZ" data-sw="Eneo la Clock Tower, Arusha, TZ">Arusha Clock Tower Area, Arusha, TZ</span>
+                    </li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
+                </ul>
+            </div>
+
         </div>
 
-        <div class="container footer-bottom">
+        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
-            <div class="footer-legal-links">
-                <a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a>
-                <a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a>
+            <div class="footer-socials" style="display:flex; gap:12px;">
+                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
+                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
+                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
             </div>
         </div>
     </footer>
