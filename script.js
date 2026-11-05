@@ -106,7 +106,7 @@ const DEFAULT_LISTINGS = [
         amenitiesEn: ["Upscale neighborhood", "Tarmac access", "Electricity grid ready", "Beacon pins set"],
         amenitiesSw: ["Eneo la kifahari la makazi", "Njia nzuri ya lami", "Umeme upo tayari", "Vigingi vimepandwa tayari"],
         images: [
-            "assets/residential_hero.png",
+            "assets/droneshoot.mp4",
             "plot_aerial.jpg"
         ]
     }
@@ -422,7 +422,7 @@ function getMergedListings() {
     if (localStorage.getItem("sisi_custom_listings") === null) {
         localStorage.setItem("sisi_custom_listings", JSON.stringify(DEFAULT_LISTINGS));
     }
-    return JSON.parse(localStorage.getItem("sisi_custom_listings")) || [];
+    return (JSON.parse(localStorage.getItem("sisi_custom_listings")) || []).map(item => ({ ...item, images: (item.images || []).map(img => img === "assets/residential_hero.png" ? "assets/droneshoot.mp4" : img) }));
 }
 
 // ================= PROPERTY LISTINGS (CATALOG) =================
@@ -598,7 +598,7 @@ function renderListings() {
             <div class="listing-badge">${badge}</div>
             <button class="listing-favorite ${isFav ? 'active' : ''}" onclick="toggleFavorite('${item.id}', event)">❤</button>
             <div class="listing-image-box">
-                <img src="${item.images[0]}" alt="${title}" loading="lazy">
+                ${item.images[0].endsWith('.mp4') ? `<video src="${item.images[0]}" autoplay muted loop playsinline></video>` : `<img src="${item.images[0]}" alt="${title}" loading="lazy">`}
                 <div class="listing-specs-overlay">
                     <div class="spec-pill">
                         <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg>
@@ -685,8 +685,8 @@ function fillPropertyDetails(id) {
     item.images.forEach((imgSrc, idx) => {
         const slide = document.createElement("div");
         slide.className = `gallery-slide ${idx === 0 ? 'active' : ''}`;
-        slide.innerHTML = `<img src="${imgSrc}" alt="${title}" style="cursor: pointer;">`;
-        slide.querySelector("img").addEventListener("click", () => openLightbox(imgSrc));
+        slide.innerHTML = imgSrc.endsWith('.mp4') ? `<video src="${imgSrc}" autoplay muted loop playsinline controls></video>` : `<img src="${imgSrc}" alt="${title}" style="cursor: pointer;">`;
+        if (!imgSrc.endsWith('.mp4')) slide.querySelector("img").addEventListener("click", () => openLightbox(imgSrc));
         gallery.appendChild(slide);
 
         const dot = document.createElement("button");
@@ -913,7 +913,7 @@ function openCompareModal() {
         const card = document.createElement("div");
         card.className = "compare-modal-card";
         card.innerHTML = `
-            <img src="${item.images[0]}" alt="${title}" style="height:150px; object-fit:cover; border-radius:4px;">
+            ${item.images[0].endsWith('.mp4') ? `<video src="${item.images[0]}" autoplay muted loop playsinline style="height:150px; width:100%; object-fit:cover; border-radius:4px;"></video>` : `<img src="${item.images[0]}" alt="${title}" style="height:150px; object-fit:cover; border-radius:4px;">`}
             <h4>${title}</h4>
             <table class="compare-modal-table">
                 <tr>
