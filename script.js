@@ -712,7 +712,7 @@ function fillPropertyDetails(id) {
         </tr>
         <tr>
             <td><strong>${UI_DICTIONARY[`status-lbl-${currentLang}`]}</strong></td>
-            <td>${item.status}</td>
+            <td><span class="status-badge status-${(item.status || 'available').toLowerCase()}">${item.status}</span></td>
         </tr>
     `;
 

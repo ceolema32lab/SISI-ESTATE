@@ -1,25 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 :root {
-    --color-primary: #0F4C2C;        /* Deep luxury forest green */
-    --color-primary-light: #16643C;  /* Lighter deep forest green */
-    --color-secondary: #B3261E;      /* Professional Red CTA */
-    --color-secondary-hover: #8E1E17;/* Hover state Professional Red */
-    --color-surface: #FFFFFF;        /* Pure white card/surfaces */
-    --color-border: #E0EAE5;         /* Light subtle green-tinted border */
-    --color-bg-light: #F8F8F6;       /* Soft light off-white background */
-    --color-bg-white: #FFFFFF;       /* Background for white sections */
-    --color-text-dark: #0A2416;      /* Extremely dark green-black for headings */
-    --color-text-body: #2E3A33;      /* Charcoal-green for body text */
-    --color-text-muted: #6B7C72;     /* Sage-muted text */
+    --color-primary: #082826;        /* Primary Brand Green */
+    --color-primary-light: #163832;  /* Secondary Deep Green */
+    --color-secondary: #C89B3C;      /* Premium Gold Accent */
+    --color-secondary-hover: #B8892E;/* Dark Gold Accent */
+    --color-surface: #FFFFFF;        /* Card / Surface Background */
+    --color-border: #E2EBE5;         /* Soft subtle green-tinted border */
+    --color-bg-light: #F8FAF9;       /* Main Background */
+    --color-bg-white: #FFFFFF;       /* Pure white sections */
+    --color-text-dark: #082826;      /* Primary Brand Green for primary headings */
+    --color-text-body: #1F2923;      /* Primary Body Text */
+    --color-text-muted: #5B6B62;     /* Muted readable body text */
     --color-accent: var(--color-secondary);
     --color-accent-hover: var(--color-secondary-hover);
-    --color-accent-light: rgba(179, 38, 30, 0.08); /* Light red tint */
+    --color-accent-light: #DAF1DE;   /* Soft Green Tint */
+    --color-soft-green: #DAF1DE;     /* Soft Green Tint */
+    --color-soft-green-text: #166534;/* Dark green text for soft green badges */
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-    --shadow-sm: 0 4px 12px rgba(15, 76, 44, 0.04);
-    --shadow-md: 0 8px 30px rgba(15, 76, 44, 0.08);
-    --shadow-lg: 0 16px 50px rgba(15, 76, 44, 0.12);
+    --shadow-sm: 0 4px 12px rgba(8, 40, 38, 0.04);
+    --shadow-md: 0 8px 30px rgba(8, 40, 38, 0.08);
+    --shadow-lg: 0 16px 50px rgba(8, 40, 38, 0.12);
     --border-radius-sm: 8px;
     --border-radius-md: 16px;
     --border-radius-lg: 24px;
@@ -392,23 +394,36 @@ img {
 }
 
 .btn-primary {
-    background-color: var(--color-accent);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: #FFFFFF;
 }
 
 .btn-primary:hover {
-    background-color: var(--color-accent-hover);
+    background-color: var(--color-primary-light);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+.btn-gold {
+    background-color: var(--color-secondary);
+    color: #082826;
+    font-weight: 700;
+}
+
+.btn-gold:hover {
+    background-color: var(--color-secondary-hover);
+    color: #082826;
     transform: translateY(-2px);
 }
 
 .btn-outline {
     background: transparent;
-    border: 2px solid var(--color-accent);
-    color: var(--color-accent);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
 }
 
 .btn-outline:hover {
-    background-color: var(--color-accent);
+    background-color: var(--color-primary);
     color: #FFFFFF;
     transform: translateY(-2px);
 }
@@ -712,7 +727,8 @@ img {
 
 .filter-group input[type="range"] {
     margin-top: 8px;
-    accent-color: var(--color-accent);
+    accent-color: var(--color-primary);
+    width: 100%;
 }
 
 /* Listing Grid */
@@ -1258,7 +1274,7 @@ img {
 .contact-info-block h3 {
     font-size: 1.4rem;
     margin-bottom: 8px;
-    color: var(--color-accent-hover);
+    color: var(--color-primary);
 }
 
 .contact-info-link {
@@ -1449,14 +1465,43 @@ img {
 }
 
 .sold-badge {
-    background-color: #e23e3e;
-    color: #ffffff;
+    background-color: #FEE2E2;
+    color: #991B1B;
     padding: 2px 8px;
     font-size: 0.75rem;
     text-transform: uppercase;
     font-weight: 700;
     border-radius: var(--border-radius-sm);
     margin-bottom: 8px;
+}
+
+/* Property Status Classes (Standardized Brand Theme) */
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.status-available, .badge-available, .status-verified, .badge-verified {
+    background-color: #DAF1DE !important;
+    color: #166534 !important;
+}
+
+.status-sold, .badge-sold {
+    background-color: #FEE2E2 !important;
+    color: #991B1B !important;
+}
+
+.status-pending, .badge-pending {
+    background-color: #FEF3C7 !important;
+    color: #92400E !important;
+}
+
+.status-rented, .badge-rented {
+    background-color: #DBEAFE !important;
+    color: #1E40AF !important;
 }
 
 .sold-title {
@@ -1772,7 +1817,7 @@ img {
     max-width: 1200px;
     margin: 0 auto;
     border-radius: 50px !important;
-    background-color: rgba(15, 76, 44, 0.9) !important;
+    background-color: rgba(8, 40, 38, 0.92) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -1794,7 +1839,7 @@ img {
 }
 .header .nav-link:hover,
 .header .nav-link.active {
-    color: #FFFFFF !important;
+    color: var(--color-secondary) !important;
 }
 .header .mobile-toggle {
     color: #FFFFFF !important;
@@ -1826,8 +1871,8 @@ img {
     align-items: center;
     justify-content: center;
     background-color: var(--color-secondary) !important;
-    color: #FFFFFF !important;
-    font-weight: 600;
+    color: #082826 !important;
+    font-weight: 700;
     font-size: 0.9rem;
     border: none;
     cursor: pointer;
@@ -1836,8 +1881,9 @@ img {
 
 .nav-cta-btn:hover {
     background-color: var(--color-secondary-hover) !important;
+    color: #082826 !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(179, 38, 30, 0.3);
+    box-shadow: 0 4px 12px rgba(200, 155, 60, 0.35);
 }
 
 /* Hide Nav CTA on mobile header */
@@ -1882,7 +1928,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(15, 76, 44, 0.15), rgba(15, 76, 44, 0.45));
+    background: linear-gradient(to bottom, rgba(8, 40, 38, 0.25), rgba(8, 40, 38, 0.6));
     z-index: 2;
 }
 
@@ -1990,8 +2036,8 @@ img {
 }
 
 .stat-card-wide {
-    background-color: var(--color-accent-light);
-    border: 1px solid rgba(179, 38, 30, 0.15);
+    background-color: var(--color-soft-green);
+    border: 1px solid rgba(8, 40, 38, 0.15);
     border-radius: var(--border-radius-lg);
     padding: 32px;
     display: flex;
@@ -2001,8 +2047,8 @@ img {
 }
 
 .stat-card-small {
-    background-color: rgba(179, 38, 30, 0.04);
-    border: 1px solid rgba(179, 38, 30, 0.08);
+    background-color: var(--color-soft-green);
+    border: 1px solid rgba(8, 40, 38, 0.08);
     border-radius: var(--border-radius-lg);
     padding: 32px;
     display: flex;
@@ -2400,7 +2446,7 @@ img {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-color: rgba(15, 76, 44, 0.93) !important;
+    background-color: var(--color-primary) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
@@ -2464,7 +2510,7 @@ img {
     right: 24px;
     font-size: 3rem;
     font-family: var(--font-serif);
-    color: rgba(15, 76, 44, 0.12);
+    color: rgba(200, 155, 60, 0.2);
     line-height: 1;
 }
 
@@ -2569,7 +2615,7 @@ img {
 .svc-hero-banner {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #0A2416 0%, var(--color-primary) 55%, var(--color-primary-light) 100%);
+    background: linear-gradient(135deg, #082826 0%, var(--color-primary-light) 60%, var(--color-primary) 100%);
     padding: 136px 0 72px 0;
     color: #FFFFFF;
 }
@@ -2581,7 +2627,7 @@ img {
     bottom: -120px;
     width: 380px;
     height: 380px;
-    background: radial-gradient(circle, rgba(179, 38, 30, 0.18) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(200, 155, 60, 0.15) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -2661,14 +2707,14 @@ img {
 }
 
 .svc-anchor-pill {
-    background-color: #EBF3EE;
-    color: var(--color-primary);
+    background-color: var(--color-soft-green);
+    color: var(--color-soft-green-text);
     padding: 8px 16px;
     font-size: 0.8rem;
     font-weight: 600;
     border-radius: 4px;
     transition: all 0.25s ease;
-    border: 1px solid rgba(15, 76, 44, 0.1);
+    border: 1px solid rgba(8, 40, 38, 0.1);
 }
 
 .svc-anchor-pill:hover {
@@ -2679,7 +2725,7 @@ img {
 
 /* Featured Service Callout Strip */
 .svc-callout-strip {
-    background-color: #EBF3EE;
+    background-color: var(--color-soft-green);
     border-bottom: 1px solid var(--color-border);
     padding: 40px 0;
 }
@@ -2903,7 +2949,7 @@ img {
 
 /* Bottom Full-Width Dark Green CTA */
 .svc-bottom-cta {
-    background: linear-gradient(135deg, #0A2416 0%, var(--color-primary) 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     padding: 72px 0;
     text-align: center;
     color: #FFFFFF;
@@ -2920,7 +2966,7 @@ img {
     max-width: 560px;
     margin: 14px auto 0 auto;
     font-size: 0.98rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.65;
 }
 
@@ -2930,10 +2976,10 @@ img {
     align-items: center;
     gap: 10px;
     background-color: var(--color-secondary);
-    color: #FFFFFF;
+    color: #082826;
+    font-weight: 700;
     padding: 15px 32px;
     font-size: 0.95rem;
-    font-weight: 600;
     border-radius: 6px;
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
     transition: all 0.25s ease;
@@ -2941,6 +2987,7 @@ img {
 
 .svc-bottom-cta-btn:hover {
     background-color: var(--color-secondary-hover);
-    color: #FFFFFF;
+    color: #082826;
     transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(200, 155, 60, 0.35);
 }
