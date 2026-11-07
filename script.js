@@ -783,8 +783,8 @@ function initDetailMap(coords, title) {
         // Initialize Leaflet map (pull library dynamically)
         const map = L.map("leaflet-detail-map").setView(coords, 14);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors, © CARTO'
         }).addTo(map);
 
         L.marker(coords).addTo(map)
@@ -1033,8 +1033,8 @@ function initAdminMapPicker(defaultCoords = [-3.3950, 36.7150]) {
     try {
         if (!adminMap) {
             adminMap = L.map("admin-map-picker").setView(defaultCoords, 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors, © CARTO'
             }).addTo(adminMap);
 
             adminMarker = L.marker(defaultCoords, { draggable: true }).addTo(adminMap);
@@ -1346,22 +1346,22 @@ function initContactMap() {
     mapDiv.appendChild(mapElement);
 
     try {
-        const officeCoords = [-3.3725, 36.6944]; // Arusha Clock Tower
-        const map = L.map("leaflet-office-map").setView(officeCoords, 15);
+        const officeCoords = [-3.439678, 36.706466]; // Njiro Commercial Complex, Arusha
+        const map = L.map("leaflet-office-map").setView(officeCoords, 16);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors, © CARTO'
         }).addTo(map);
 
         L.marker(officeCoords).addTo(map)
-            .bindPopup("<b>Sisi Estate Company Limited</b><br>Clock Tower Building, Arusha")
+            .bindPopup("<b>Sisi Estate Company Limited</b><br>Njiro Commercial Complex, Arusha<br><a href='https://maps.app.goo.gl/fSJhUhHf6ALzDsC26' target='_blank' style='color:var(--color-secondary); font-weight:600;'>Open in Google Maps ↗</a>")
             .openPopup();
     } catch (err) {
         mapElement.innerHTML = `
             <div style="padding: 24px; text-align: center; background: #eee; height:100%; display:flex; flex-direction:column; justify-content:center;">
-                <h4>Office Location: Clock Tower, Arusha</h4>
-                <p>Coordinates: -3.3725, 36.6944</p>
-                <small>(Active internet connection required to render Leaflet map)</small>
+                <h4>Office Location: Njiro Commercial Complex, Arusha</h4>
+                <p>Coordinates: -3.439678, 36.706466</p>
+                <a href="https://maps.app.goo.gl/fSJhUhHf6ALzDsC26" target="_blank" style="color:var(--color-secondary); font-weight:bold; margin-top:8px;">View on Google Maps ↗</a>
             </div>
         `;
     }
