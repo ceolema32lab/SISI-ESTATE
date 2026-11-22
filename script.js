@@ -22,6 +22,7 @@ const DEFAULT_LISTINGS = [
         descEn: "Premium surveyed land plots ideal for residential development in the rapid-growing Mkonoo area. Features easy road access, electricity connections, and water availability. The land is flat, ideal for building a family home or investment apartments.",
         descSw: "Viwanja vizuri vilivyopimwa vyema kwa ajili ya makazi katika eneo linalokua kwa kasi la Mkonoo. Vina barabara nzuri, umeme na maji yapo tayari. Ardhi ni tambarare, inafaa sana kwa kujenga nyumba ya kifamilia au gorofa za kupangisha.",
         coordinates: [-3.4150, 36.6990], // Arusha Mkonoo area
+        mapUrl: "https://maps.google.com/?q=-3.4150,36.6990",
         amenitiesEn: ["Electricity grid close", "Clean water connection", "Tarmac access road", "Surveyed beacon pins"],
         amenitiesSw: ["Umeme upo karibu", "Maji safi yapo tayari", "Barabara ya lami karibu", "Vigingi vya upimaji vipo"],
         images: [
@@ -49,6 +50,7 @@ const DEFAULT_LISTINGS = [
         descEn: "Excellent residential plots situated in the serene USA River area, offering breathtaking views of Mt. Meru. Perfect volcanic soil for gardens, mature trees on site, fully surveyed with offer letters ready. Quiet international community neighborhood.",
         descSw: "Viwanja bora vya makazi vilivyopo katika eneo la utulivu la USA River, vikitoa mtazamo mzuri wa Mlima Meru. Udongo mzuri wa volkano kwa kilimo cha bustani, miti mikubwa ipo tayari, vimepimwa na barua za toleo zipo tayari.",
         coordinates: [-3.3680, 36.8450], // USA River area
+        mapUrl: "https://maps.google.com/?q=-3.3680,36.8450",
         amenitiesEn: ["Stunning Mt. Meru View", "Quiet green neighborhood", "Piped water connection", "Three-phase power grid"],
         amenitiesSw: ["Mtazamo mzuri wa Mlima Meru", "Eneo la kijani la utulivu", "Maji ya bomba yapo", "Umeme wa awamu tatu (3-Phase)"],
         images: [
@@ -76,6 +78,7 @@ const DEFAULT_LISTINGS = [
         descEn: "High-value commercial land facing the main Arusha-Dodoma Highway. Ideal for setting up a tourist lodge, warehouse logistics, school, or retail depot. Exceptional highway frontage and close proximity to Arusha Airport.",
         descSw: "Ardhi yenye thamani kubwa ya kibiashara inayotazama Barabara Kuu ya Arusha-Dodoma. Inafaa sana kwa kujenga hoteli ya kitalii, maghala ya kuhifadhia mizigo, shule, au kituo cha biashara. Eneo zuri la mbele ya barabara kuu na karibu na Uwanja wa Ndege wa Arusha.",
         coordinates: [-3.4010, 36.5950], // Kisongo Area
+        mapUrl: "https://maps.google.com/?q=-3.4010,36.5950",
         amenitiesEn: ["Highway main road frontage", "Arusha Airport 5 min away", "Title deed under corporate ownership", "Boundary wall fence"],
         amenitiesSw: ["Mbele ya Barabara Kuu ya Lami", "Dakika 5 kutoka Uwanja wa Ndege", "Hati ya miliki ya kampuni", "Uzio wa ukuta wa mipaka"],
         images: [
@@ -103,6 +106,7 @@ const DEFAULT_LISTINGS = [
         descEn: "Stunning residential plot in the highly sought-after Njiro Block HH neighborhood. Fully serviced with tarmac road access, secure perimeter, municipal water supply, and high-voltage electricity lines. Quiet upscale area perfect for modern family villa construction.",
         descSw: "Kiwanja kizuri cha makazi katika eneo la kifahari la Njiro Block HH. Kina barabara ya lami, kimezungushiwa ulinzi, kina maji ya bomba na umeme tayari. Eneo tulivu la kifahari linalofaa sana kwa ujenzi wa makazi ya kisasa.",
         coordinates: [-3.3950, 36.7150],
+        mapUrl: "https://maps.app.goo.gl/fSJhUhHf6ALzDsC26",
         amenitiesEn: ["Upscale neighborhood", "Tarmac access", "Electricity grid ready", "Beacon pins set"],
         amenitiesSw: ["Eneo la kifahari la makazi", "Njia nzuri ya lami", "Umeme upo tayari", "Vigingi vimepandwa tayari"],
         images: [
@@ -215,6 +219,9 @@ document.addEventListener("DOMContentLoaded", () => {
             openPropertyDetails(propertyId);
         }, 300);
     }
+
+    // Sync listings with Sisi Estate Supabase Database (if configured)
+    syncListingsFromSupabase();
 });
 
 // ================= LANGUAGES ENGINE =================
@@ -415,7 +422,124 @@ function initWhatsAppWidget() {
     }
 }
 
-// ================= DATABASE HELPERS =================
+// ================= DATABASE & SUPABASE HELPERS =================
+
+function mapDbRowToListing(row) {
+    let coords = [-3.4150, 36.6990];
+    if (Array.isArray(row.coordinates)) {
+        coords = row.coordinates;
+    } else if (typeof row.coordinates === "string") {
+        try { coords = JSON.parse(row.coordinates); } catch(e) {}
+    }
+
+    let mapUrl = "";
+    if (row.map_url) {
+        mapUrl = row.map_url;
+    } else if (Array.isArray(coords) && coords[2]) {
+        mapUrl = String(coords[2]);
+    } else if (coords && coords[0] && coords[1]) {
+        mapUrl = `https://maps.google.com/?q=${coords[0]},${coords[1]}`;
+    }
+
+    let amenitiesEn = [];
+    if (Array.isArray(row.amenities_en)) amenitiesEn = row.amenities_en;
+    else if (typeof row.amenities_en === "string") try { amenitiesEn = JSON.parse(row.amenities_en); } catch(e) {}
+
+    let amenitiesSw = [];
+    if (Array.isArray(row.amenities_sw)) amenitiesSw = row.amenities_sw;
+    else if (typeof row.amenities_sw === "string") try { amenitiesSw = JSON.parse(row.amenities_sw); } catch(e) {}
+
+    let images = [];
+    if (Array.isArray(row.images)) images = row.images;
+    else if (typeof row.images === "string") try { images = JSON.parse(row.images); } catch(e) {}
+
+    return {
+        id: String(row.id),
+        titleEn: row.title_en || "",
+        titleSw: row.title_sw || "",
+        type: row.type || "land",
+        location: row.location || "",
+        locationDetail: row.location_detail || "",
+        priceTzs: Number(row.price_tzs) || 0,
+        priceUsd: Number(row.price_usd) || 0,
+        isPerSqm: Boolean(row.is_per_sqm),
+        size: row.size || "",
+        sizeVal: Number(row.size_val) || 1000,
+        status: row.status || "Available",
+        badgeEn: row.badge_en || "Featured",
+        badgeSw: row.badge_sw || "Kipekee",
+        titleStatusEn: row.title_status_en || "Title Deed Ready",
+        titleStatusSw: row.title_status_sw || "Hati ya Miliki Tayari",
+        descEn: row.desc_en || "",
+        descSw: row.desc_sw || "",
+        coordinates: [Number(coords[0]) || -3.4150, Number(coords[1]) || 36.6990],
+        mapUrl: mapUrl,
+        amenitiesEn: amenitiesEn,
+        amenitiesSw: amenitiesSw,
+        images: images.map(img => img === "assets/residential_hero.png" ? "assets/droneshoot.mp4" : img)
+    };
+}
+
+function mapListingToDbRow(item) {
+    const lat = item.coordinates && item.coordinates[0] ? item.coordinates[0] : -3.4150;
+    const lng = item.coordinates && item.coordinates[1] ? item.coordinates[1] : 36.6990;
+    const mapUrl = item.mapUrl || `https://maps.google.com/?q=${lat},${lng}`;
+
+    return {
+        id: item.id,
+        title_en: item.titleEn,
+        title_sw: item.titleSw,
+        type: item.type,
+        location: item.location,
+        location_detail: item.locationDetail,
+        price_tzs: Number(item.priceTzs) || 0,
+        price_usd: Number(item.priceUsd) || 0,
+        is_per_sqm: Boolean(item.isPerSqm),
+        size: item.size,
+        size_val: Number(item.sizeVal) || 1000,
+        status: item.status || "Available",
+        badge_en: item.badgeEn || "New",
+        badge_sw: item.badgeSw || "Mpya",
+        title_status_en: item.titleStatusEn,
+        title_status_sw: item.titleStatusSw,
+        desc_en: item.descEn,
+        desc_sw: item.descSw,
+        coordinates: [lat, lng, mapUrl],
+        amenities_en: item.amenitiesEn || [],
+        amenities_sw: item.amenitiesSw || [],
+        images: item.images || [],
+        updated_at: new Date().toISOString()
+    };
+}
+
+async function syncListingsFromSupabase() {
+    if (!window.sisiSupabase) return;
+    try {
+        const { data, error } = await window.sisiSupabase
+            .from("listings")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) {
+            console.warn("Supabase fetch notice:", error.message);
+            return;
+        }
+
+        if (data && data.length > 0) {
+            const mapped = data.map(mapDbRowToListing);
+            localStorage.setItem("sisi_custom_listings", JSON.stringify(mapped));
+            
+            if (document.getElementById("listings-grid")) {
+                renderListings();
+            }
+            if (document.getElementById("admin-listings-list")) {
+                renderAdminListings();
+            }
+        }
+    } catch (e) {
+        console.warn("Could not sync listings from Supabase:", e);
+    }
+}
 
 function getMergedListings() {
     // Initialize sisi_custom_listings with default ones on first load
@@ -534,9 +658,9 @@ function renderListings() {
     grid.innerHTML = "";
 
     // Get filter inputs
-    const keyword = (document.getElementById("filter-keyword")?.value || "").toLowerCase();
-    const type = document.getElementById("filter-type")?.value || "all";
-    const location = document.getElementById("filter-location")?.value || "all";
+    const keyword = (document.getElementById("search-keyword")?.value || document.getElementById("filter-keyword")?.value || "").toLowerCase();
+    const type = document.getElementById("search-type")?.value || document.getElementById("filter-type")?.value || "all";
+    const location = document.getElementById("search-location")?.value || document.getElementById("filter-location")?.value || "all";
     const priceMaxM = parseInt(document.getElementById("filter-price-range")?.value || "500");
 
     const listings = getMergedListings();
@@ -724,8 +848,8 @@ function fillPropertyDetails(id) {
         inputSubject.value = currentLang === "sw" ? subjectSw : subjectEn;
     }
 
-    // Load local area Leaflet map
-    initDetailMap(item.coordinates, title);
+    // Load local area map
+    initDetailMap(item.coordinates, title, item.mapUrl);
 }
 
 function setSlide(idx) {
@@ -764,42 +888,48 @@ function nextSlide() {
     setSlide(nextIdx);
 }
 
-// Leaflet Map Initializer
-function initDetailMap(coords, title) {
+// Map Initializer (Google Maps Integration)
+function initDetailMap(coords, title, mapUrl) {
     const mapDiv = document.getElementById("detail-map");
     if (!mapDiv) return;
 
-    // Clean old map
     mapDiv.innerHTML = "";
 
-    // Create map frame
-    const mapElement = document.createElement("div");
-    mapElement.id = "leaflet-detail-map";
-    mapElement.style.height = "100%";
-    mapElement.style.width = "100%";
-    mapDiv.appendChild(mapElement);
-
-    try {
-        // Initialize Leaflet map (pull library dynamically)
-        const map = L.map("leaflet-detail-map").setView(coords, 14);
-
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            attribution: '© OpenStreetMap contributors, © CARTO'
-        }).addTo(map);
-
-        L.marker(coords).addTo(map)
-            .bindPopup(title)
-            .openPopup();
-    } catch (err) {
-        // Fallback if Leaflet failed to load
-        mapElement.innerHTML = `
-            <div style="padding: 24px; text-align: center; background: #eee; height:100%; display:flex; flex-direction:column; justify-content:center;">
-                <h4>Map Location: Arusha, Tanzania</h4>
-                <p>Coordinates: ${coords[0]}, ${coords[1]}</p>
-                <small>(Active internet connection required to render Leaflet map)</small>
-            </div>
-        `;
+    const gmapLink = mapUrl || (coords ? `https://www.google.com/maps?q=${coords[0]},${coords[1]}` : "https://maps.google.com");
+    
+    // Parse coordinates if available
+    let lat = coords && coords[0] ? coords[0] : -3.3950;
+    let lng = coords && coords[1] ? coords[1] : 36.7150;
+    if (mapUrl) {
+        const m = mapUrl.match(/@?([-+]?\d{1,2}\.\d+)[,\/]+([-+]?\d{1,3}\.\d+)/);
+        if (m) {
+            lat = parseFloat(m[1]);
+            lng = parseFloat(m[2]);
+        }
     }
+
+    const container = document.createElement("div");
+    container.style.cssText = "height: 100%; width: 100%; display: flex; flex-direction: column; border-radius: var(--border-radius-sm); overflow: hidden; background: #f8f9fa; border: 1px solid var(--color-border);";
+    container.innerHTML = `
+        <iframe 
+            width="100%" 
+            height="220" 
+            style="border:0; flex:1;" 
+            loading="lazy" 
+            allowfullscreen 
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=${lat},${lng}&hl=en&z=15&output=embed">
+        </iframe>
+        <div style="padding: 10px 14px; background: #fff; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 0.9rem; color: var(--color-text-dark); font-weight: 600;">
+                📍 ${title}
+            </span>
+            <a href="${gmapLink}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+                Open in Google Maps ↗
+            </a>
+        </div>
+    `;
+    mapDiv.appendChild(container);
 }
 
 // ================= FAVORITES ENGINE =================
@@ -949,56 +1079,153 @@ function openCompareModal() {
 
 // ================= CONTACT FORM & HONEYPOT SPAM FILTER =================
 
+const RECIPIENT_EMAIL = "adminsisestate@gmail.com";
+
 function initContactForm() {
-    const form = document.getElementById("contact-form");
-    if (!form) return;
+    const forms = document.querySelectorAll("form#contact-form");
+    if (!forms.length) return;
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    forms.forEach(form => {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        // 1. Honeypot check: If the hidden input is filled, treat as spam bot and silently reject
-        const honeypotVal = document.getElementById("form-bot-trap").value;
-        if (honeypotVal) {
-            console.warn("Spam bot submission caught via Honeypot Trap.");
-            showFormFeedback(true);
-            form.reset();
-            return;
-        }
+            // 1. Honeypot check: If the hidden input is filled, treat as spam bot and silently reject
+            const botTrap = form.querySelector("#form-bot-trap");
+            if (botTrap && botTrap.value) {
+                console.warn("Spam bot submission caught via Honeypot Trap.");
+                showFormFeedback(form, true);
+                form.reset();
+                return;
+            }
 
-        // Mock API Submit
-        const name = document.getElementById("form-name").value;
-        const email = document.getElementById("form-email").value;
-        const message = document.getElementById("form-message").value;
+            const nameEl = form.querySelector("#form-name");
+            const emailEl = form.querySelector("#form-email");
+            const phoneEl = form.querySelector("#form-phone");
+            const messageEl = form.querySelector("#form-message");
+            const deptEl = form.querySelector("#form-dept");
+            const subjectEl = form.querySelector("#detail-enquiry-subject");
+            const submitBtn = form.querySelector('button[type="submit"]');
 
-        if (!name || !email || !message) {
-            alert(currentLang === "sw" ? "Tafadhali jaza nyanja zote." : "Please fill in all fields.");
-            return;
-        }
+            const name = nameEl ? nameEl.value.trim() : "";
+            const email = emailEl ? emailEl.value.trim() : "";
+            const phone = phoneEl ? phoneEl.value.trim() : "";
+            const message = messageEl ? messageEl.value.trim() : "";
+            const dept = deptEl ? deptEl.value : "";
+            const subject = (subjectEl && subjectEl.value) ? subjectEl.value : "New Website Inquiry";
 
-        showFormFeedback(false);
-        form.reset();
+            if (!name || !email || !message) {
+                alert(currentLang === "sw" ? "Tafadhali jaza nyanja zote." : "Please fill in all fields.");
+                return;
+            }
+
+            const origBtnText = submitBtn ? submitBtn.innerHTML : "";
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = currentLang === "sw" ? "Inatuma ujumbe..." : "Sending message...";
+            }
+
+            const payload = {
+                name: name,
+                email: email,
+                phone: phone || "Not provided",
+                message: message,
+                _subject: `${subject} - from ${name}`,
+                _template: "table",
+                _captcha: "false"
+            };
+
+            if (dept) {
+                payload.department = dept;
+            }
+
+            try {
+                // In parallel, persist enquiry into Supabase database if configured
+                if (window.sisiSupabase) {
+                    window.sisiSupabase
+                        .from("enquiries")
+                        .insert({
+                            name: name,
+                            email: email,
+                            phone: phone || null,
+                            department: dept || null,
+                            subject: subject,
+                            message: message
+                        })
+                        .then(({ error }) => {
+                            if (error) console.warn("Supabase lead log notice:", error.message);
+                        });
+                }
+
+                const response = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    showFormFeedback(form, false);
+                    form.reset();
+                } else {
+                    throw new Error("Server returned error status " + response.status);
+                }
+            } catch (err) {
+                console.error("Form submission error:", err);
+                showFormError(form);
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = origBtnText;
+                }
+            }
+        });
     });
 }
 
-function showFormFeedback(isSpam) {
-    const feedbackBox = document.getElementById("form-feedback-msg");
+function showFormFeedback(form, isSpam) {
+    const feedbackBox = (form && form.querySelector("#form-feedback-msg")) || document.getElementById("form-feedback-msg");
     if (!feedbackBox) return;
 
     feedbackBox.style.display = "block";
+    feedbackBox.style.color = "#155724";
+    feedbackBox.style.backgroundColor = "#d4edda";
+    feedbackBox.style.borderColor = "#c3e6cb";
+    feedbackBox.style.border = "1px solid #c3e6cb";
+    feedbackBox.style.padding = "12px 16px";
+    feedbackBox.style.borderRadius = "6px";
+    feedbackBox.style.marginTop = "14px";
+    feedbackBox.style.fontSize = "0.95rem";
+
     if (isSpam) {
-        // Silently mock success to spammer, but show normal positive status
-        feedbackBox.className = "form-group";
-        feedbackBox.style.color = "#4caf50";
         feedbackBox.innerHTML = currentLang === "sw"
             ? "✓ Ujumbe wako umetumwa kwa ufanisi!"
             : "✓ Your inquiry has been sent successfully!";
     } else {
-        feedbackBox.className = "form-group";
-        feedbackBox.style.color = "#4caf50";
         feedbackBox.innerHTML = currentLang === "sw"
-            ? "✓ Asante! Ujumbe wako umetumwa kwa idara yetu. Mshauri wetu atawasiliana nawe hivi karibuni."
-            : "✓ Thank you! Your message has been sent to our desk. A consultant will reach out shortly.";
+            ? `✓ Asante! Ujumbe wako umetumwa kikamilifu kwenda <strong>${RECIPIENT_EMAIL}</strong>. Mshauri wetu atawasiliana nawe hivi karibuni.`
+            : `✓ Thank you! Your message has been sent successfully to <strong>${RECIPIENT_EMAIL}</strong>. A consultant will reach out shortly.`;
     }
+}
+
+function showFormError(form) {
+    const feedbackBox = (form && form.querySelector("#form-feedback-msg")) || document.getElementById("form-feedback-msg");
+    if (!feedbackBox) return;
+
+    feedbackBox.style.display = "block";
+    feedbackBox.style.color = "#721c24";
+    feedbackBox.style.backgroundColor = "#f8d7da";
+    feedbackBox.style.borderColor = "#f5c6cb";
+    feedbackBox.style.border = "1px solid #f5c6cb";
+    feedbackBox.style.padding = "12px 16px";
+    feedbackBox.style.borderRadius = "6px";
+    feedbackBox.style.marginTop = "14px";
+    feedbackBox.style.fontSize = "0.95rem";
+
+    feedbackBox.innerHTML = currentLang === "sw"
+        ? `⚠️ Kulikuwa na tatizo la mtandao wakati wa kutuma ujumbe. Tafadhali wasiliana nasi moja kwa moja kupitia: <a href="mailto:${RECIPIENT_EMAIL}" style="color:#721c24; font-weight:bold; text-decoration:underline;">${RECIPIENT_EMAIL}</a>`
+        : `⚠️ Network error sending your message. Please reach us directly at: <a href="mailto:${RECIPIENT_EMAIL}" style="color:#721c24; font-weight:bold; text-decoration:underline;">${RECIPIENT_EMAIL}</a>`;
 }
 
 // ================= CLIENT LISTINGS DASHBOARD (ADMIN PANEL) =================
@@ -1109,8 +1336,12 @@ function initAdminPanel() {
             const titleSw = document.getElementById("admin-title-sw").value;
             const location = document.getElementById("admin-location").value;
             const locationDetail = document.getElementById("admin-location-detail").value;
-            const latVal = parseFloat(document.getElementById("admin-latitude").value) || -3.3950;
-            const lngVal = parseFloat(document.getElementById("admin-longitude").value) || 36.7150;
+            const mapUrl = (document.getElementById("admin-map-url")?.value || "").trim();
+            let coords = [-3.3950, 36.7150];
+            const coordMatch = mapUrl.match(/@?([-+]?\d{1,2}\.\d+)[,\/]+([-+]?\d{1,3}\.\d+)/);
+            if (coordMatch) {
+                coords = [parseFloat(coordMatch[1]), parseFloat(coordMatch[2])];
+            }
             const type = document.getElementById("admin-type").value;
             const priceTzs = parseInt(document.getElementById("admin-price-tzs").value);
             const priceUsd = parseInt(document.getElementById("admin-price-usd").value);
@@ -1136,31 +1367,47 @@ function initAdminPanel() {
 
             if (editingPropertyId) {
                 const itemIndex = customListings.findIndex(p => p.id === editingPropertyId);
+                const updatedProperty = {
+                    ...(itemIndex > -1 ? customListings[itemIndex] : {}),
+                    id: editingPropertyId,
+                    titleEn,
+                    titleSw,
+                    type,
+                    location,
+                    locationDetail,
+                    priceTzs,
+                    priceUsd,
+                    isPerSqm,
+                    size,
+                    sizeVal: parseFloat(size) || 1000,
+                    badgeEn: badgeEn || "New",
+                    badgeSw: badgeSw || "Mpya",
+                    titleStatusEn,
+                    titleStatusSw,
+                    descEn,
+                    descSw,
+                    coordinates: coords,
+                    mapUrl: mapUrl,
+                    images
+                };
+
                 if (itemIndex > -1) {
-                    customListings[itemIndex] = {
-                        ...customListings[itemIndex],
-                        titleEn,
-                        titleSw,
-                        type,
-                        location,
-                        locationDetail,
-                        priceTzs,
-                        priceUsd,
-                        isPerSqm,
-                        size,
-                        sizeVal: parseFloat(size) || 1000,
-                        badgeEn: badgeEn || "New",
-                        badgeSw: badgeSw || "Mpya",
-                        titleStatusEn,
-                        titleStatusSw,
-                        descEn,
-                        descSw,
-                        coordinates: [latVal, lngVal],
-                        images
-                    };
-                    localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
-                    alert("Property listing updated successfully!");
+                    customListings[itemIndex] = updatedProperty;
+                } else {
+                    customListings.push(updatedProperty);
                 }
+                localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
+
+                if (window.sisiSupabase) {
+                    window.sisiSupabase
+                        .from("listings")
+                        .upsert(mapListingToDbRow(updatedProperty))
+                        .then(({ error }) => {
+                            if (error) console.error("Supabase update error:", error);
+                        });
+                }
+
+                alert("Property listing updated successfully!");
                 exitAdminEditMode();
             } else {
                 const newId = "custom-" + Date.now();
@@ -1183,7 +1430,8 @@ function initAdminPanel() {
                     titleStatusSw,
                     descEn,
                     descSw,
-                    coordinates: [latVal, lngVal],
+                    coordinates: coords,
+                    mapUrl: mapUrl,
                     amenitiesEn: ["Surveyed Beacon pins", "Electricity access", "Water supply"],
                     amenitiesSw: ["Vigingi vya upimaji vipo", "Umeme upo karibu", "Maji yapo"],
                     images
@@ -1191,6 +1439,16 @@ function initAdminPanel() {
 
                 customListings.push(newProperty);
                 localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
+
+                if (window.sisiSupabase) {
+                    window.sisiSupabase
+                        .from("listings")
+                        .insert(mapListingToDbRow(newProperty))
+                        .then(({ error }) => {
+                            if (error) console.error("Supabase insert error:", error);
+                        });
+                }
+
                 alert("Property listing added successfully!");
 
                 adminForm.reset();
@@ -1198,7 +1456,6 @@ function initAdminPanel() {
                     container.innerHTML = "";
                     addImageUrlInput("");
                 }
-                initAdminMapPicker();
             }
 
             renderAdminListings();
@@ -1217,7 +1474,8 @@ function exitAdminEditMode() {
         addImageUrlInput("");
     }
 
-    initAdminMapPicker();
+    const mapUrlEl = document.getElementById("admin-map-url");
+    if (mapUrlEl) mapUrlEl.value = "";
 
     const submitBtn = document.getElementById("admin-submit-btn");
     if (submitBtn) {
@@ -1249,10 +1507,10 @@ function enterAdminEditMode(item) {
     document.getElementById("admin-desc-en").value = item.descEn;
     document.getElementById("admin-desc-sw").value = item.descSw;
 
-    const coords = item.coordinates || [-3.3950, 36.7150];
-    document.getElementById("admin-latitude").value = coords[0];
-    document.getElementById("admin-longitude").value = coords[1];
-    initAdminMapPicker(coords);
+    const mapUrlEl = document.getElementById("admin-map-url");
+    if (mapUrlEl) {
+        mapUrlEl.value = item.mapUrl || (item.coordinates ? `https://maps.google.com/?q=${item.coordinates[0]},${item.coordinates[1]}` : "");
+    }
 
     const container = document.getElementById("admin-image-urls-container");
     if (container) {
@@ -1323,6 +1581,16 @@ function deleteAdminProperty(id) {
         customListings = customListings.filter(item => item.id !== id);
         localStorage.setItem("sisi_custom_listings", JSON.stringify(customListings));
         
+        if (window.sisiSupabase) {
+            window.sisiSupabase
+                .from("listings")
+                .delete()
+                .eq("id", id)
+                .then(({ error }) => {
+                    if (error) console.error("Supabase delete error:", error);
+                });
+        }
+
         if (editingPropertyId === id) {
             exitAdminEditMode();
         }

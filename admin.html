@@ -1,313 +1,299 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Portal | Sisi Estate Company Limited</title>
-    <meta name="description" content="Sisi Estate Company Limited - Staff portal for listing and property database management.">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logo.png">
-
-    <link rel="stylesheet" href="style.css">
-    <!-- Leaflet.js Map Library -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-</head>
-<body>
-
-    <!-- Header Navigation -->
-    <header class="header" id="main-header">
-        <div class="container header-container">
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal | Sisi Estate Company Limited</title>
+    <meta name="description" content="Sisi Estate Company Limited - Staff portal for listing and property database management.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet.js Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="main-header">
+        <div class="container header-container">
             <a href="index.html" class="logo" id="header-logo-link">
-                <span class="logo-brand">SISI ESTATE</span>
-                <span class="logo-sub">COMPANY LIMITED</span>
-            </a>
-
-            <!-- Desktop Navigation Menu -->
-            <ul class="nav-menu" id="desktop-menu">
-                <li><a href="index.html" class="nav-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
-                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
-                <li><a href="projects.html" class="nav-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
-                <li><a href="contact.html" class="nav-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
-            </ul>
-
-            <!-- Language and Currency Toggles -->
-            <div class="controls-group" id="header-controls">
-                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
-                    <option value="en">English</option>
-                    <option value="sw">Kiswahili</option>
-                </select>
-                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
-                    <option value="TZS">TZS (Shilling)</option>
-                    <option value="USD">USD ($)</option>
-                </select>
-                <a href="contact.html" class="nav-cta-btn" data-en="Contact Agent" data-sw="Wasiliana Nasi">Contact Agent</a>
-                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Menu -->
-    <nav class="mobile-drawer" id="mobile-drawer">
-        <ul class="mobile-drawer-menu">
-            <li><a href="index.html" class="mobile-drawer-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
-            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
-            <li><a href="projects.html" class="mobile-drawer-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
-            <li><a href="contact.html" class="mobile-drawer-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
-        </ul>
-        <div class="mobile-drawer-controls">
-            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
-                <option value="en">English</option>
-                <option value="sw">Kiswahili</option>
-            </select>
-            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
-                <option value="TZS">TZS</option>
-                <option value="USD">USD</option>
-            </select>
-        </div>
-    </nav>
-
-    <!-- Main Content Wrapper -->
-    <main class="page-wrapper">
-        
-        <!-- Admin Header Info -->
-        <section class="admin-header">
-            <div class="container">
-                <span class="section-tag" style="color:var(--color-accent);" data-en="Internal Database Portal" data-sw="Lango la Kanzidata la Ndani">Internal Database Portal</span>
-                <h1 style="font-size:2.4rem;" data-en="Listing Administration Dashboard" data-sw="Usimamizi wa Orodha za Mali">Listing Administration Dashboard</h1>
-                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin-top:8px; font-size:0.95rem;" data-en="Add or modify surveyed land packages and commercial plots. Added land parcels are dynamically integrated directly into the catalog client-side via localStorage." data-sw="Ongeza au ubadilishe viwanja vilivyopimwa na ardhi ya biashara. Viwanja vilivyoongezwa zitaunganishwa moja kwa moja kwenye orodha ya tovuti kupitia localStorage.">Listing Administration Dashboard info</p>
-            </div>
-        </section>
-
-        <!-- Admin Working Grid -->
-        <section class="container" style="padding: 40px 24px;">
-            <div class="admin-grid">
-                
-                <!-- Left: Add form -->
-                <div class="admin-form-box">
-                    <h3 data-en="Add New Property Listing" data-sw="Ongeza Tangazo Jipya la Mali" style="margin-bottom:20px; border-bottom:1px solid var(--color-border); padding-bottom:10px;">Add New Property Listing</h3>
-                    
-                    <form id="admin-add-form">
-                        
-                        <div class="form-group">
-                            <label for="admin-title-en" data-en="Title (English)" data-sw="Kichwa cha Habari (Kiingereza)">Title (English)</label>
-                            <input type="text" id="admin-title-en" class="form-control" placeholder="e.g. Sakina Residential Plot" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-title-sw" data-en="Title (Swahili)" data-sw="Kichwa cha Habari (Kiswahili)">Title (Swahili)</label>
-                            <input type="text" id="admin-title-sw" class="form-control" placeholder="e.g. Kiwanja cha Makazi Sakina" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-location" data-en="Main Neighborhood" data-sw="Eneo Kuu la Arusha">Main Neighborhood</label>
-                            <select id="admin-location" class="form-control">
-                                <option value="Njiro">Njiro</option>
-                                <option value="Mkonoo">Mkonoo</option>
-                                <option value="USA River">USA River</option>
-                                <option value="Kisongo">Kisongo</option>
-                                <option value="Sakina">Sakina</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-location-detail" data-en="Detailed Address" data-sw="Anwani ya Kina">Detailed Address</label>
-                            <input type="text" id="admin-location-detail" class="form-control" placeholder="e.g. Sakina Hill, near Tanesco sub-station" required>
-                        </div>
-
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                            <div class="form-group">
-                                <label for="admin-latitude" data-en="Latitude" data-sw="Latitudo">Latitude</label>
-                                <input type="number" step="any" id="admin-latitude" class="form-control" placeholder="-3.3950" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-longitude" data-en="Longitude" data-sw="Longitudo">Longitude</label>
-                                <input type="number" step="any" id="admin-longitude" class="form-control" placeholder="36.7150" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-en="Location on Map (Click to pick)" data-sw="Eneo kwenye Ramani (Bofya kuchagua)">Location on Map (Click to pick)</label>
-                            <div id="admin-map-picker" style="height: 200px; width: 100%; border-radius: var(--border-radius-sm); border: 1px solid var(--color-border); z-index: 10;"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-type" data-en="Property Type" data-sw="Aina ya Mali">Property Type</label>
-                            <select id="admin-type" class="form-control">
-                                <option value="land">land</option>
-                                <option value="commercial">commercial</option>
-                            </select>
-                        </div>
-
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                            <div class="form-group">
-                                <label for="admin-price-tzs" data-en="Price (TZS)" data-sw="Bei (TZS)">Price (TZS)</label>
-                                <input type="number" id="admin-price-tzs" class="form-control" placeholder="35000" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-price-usd" data-en="Price (USD)" data-sw="Bei (USD)">Price (USD)</label>
-                                <input type="number" id="admin-price-usd" class="form-control" placeholder="13" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="flex-direction:row; align-items:center; gap:8px;">
-                            <input type="checkbox" id="admin-persqm">
-                            <label for="admin-persqm" data-en="Price is Per Square Meter" data-sw="Bei ni kwa Mita ya Mraba">Price is Per Square Meter</label>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-size" data-en="Size / Specs Label" data-sw="Ukubwa / Vyumba">Size / Specs Label</label>
-                            <input type="text" id="admin-size" class="form-control" placeholder="e.g. 1,200 sqm or 3 Bedrooms" required>
-                        </div>
-
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                            <div class="form-group">
-                                <label for="admin-badge-en" data-en="Badge (English)" data-sw="Beji (Kiingereza)">Badge (English)</label>
-                                <input type="text" id="admin-badge-en" class="form-control" placeholder="e.g. Featured">
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-badge-sw" data-en="Badge (Swahili)" data-sw="Beji (Kiswahili)">Badge (Swahili)</label>
-                                <input type="text" id="admin-badge-sw" class="form-control" placeholder="e.g. Kipekee">
-                            </div>
-                        </div>
-
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                            <div class="form-group">
-                                <label for="admin-title-status-en" data-en="Deed Status (EN)" data-sw="Hati (EN)">Deed Status (EN)</label>
-                                <input type="text" id="admin-title-status-en" class="form-control" placeholder="e.g. Title Deed Ready" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-title-status-sw" data-en="Deed Status (SW)" data-sw="Hati (SW)">Deed Status (SW)</label>
-                                <input type="text" id="admin-title-status-sw" class="form-control" placeholder="e.g. Hati Tayari" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-desc-en" data-en="Description (English)" data-sw="Maelezo (Kiingereza)">Description (English)</label>
-                            <textarea id="admin-desc-en" class="form-control" rows="3" placeholder="Premium surveyed residential land plots..." required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="admin-desc-sw" data-en="Description (Swahili)" data-sw="Maelezo (Kiswahili)">Description (Swahili)</label>
-                            <textarea id="admin-desc-sw" class="form-control" rows="3" placeholder="Viwanja vizuri vilivyopimwa vyema..." required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-en="Pictures (URLs)" data-sw="Picha (Viungo)">Pictures (URLs)</label>
-                            <div id="admin-image-urls-container">
-                                <!-- Dynamic inputs added here -->
-                            </div>
-                            <button type="button" id="admin-add-image-btn" class="btn btn-outline" style="margin-top: 8px; padding: 6px 12px; font-size: 0.85rem;" data-en="+ Add Image URL" data-sw="+ Ongeza Kiungo cha Picha">+ Add Image URL</button>
-                        </div>
-
-                        <div style="display:flex; gap:12px; margin-top:20px;">
-                            <button type="submit" id="admin-submit-btn" class="btn btn-primary" style="flex:1;" data-en="Add Listing to Database" data-sw="Hifadhi Tangazo kwenye Kanzidata">Add Listing to Database</button>
-                            <button type="button" id="admin-cancel-btn" class="btn btn-outline" style="display:none; flex:1;" data-en="Cancel" data-sw="Ghairi">Cancel</button>
-                        </div>
-
-                    </form>
-                </div>
-
-                <!-- Right: List and Delete -->
-                <div class="admin-list-box">
-                    <h3 data-en="Active Custom Listings" data-sw="Orodha Zilizoongezwa" style="margin-bottom:20px; border-bottom:1px solid var(--color-border); padding-bottom:10px;">Active Custom Listings</h3>
-                    <div id="admin-listings-list">
-                        <!-- Loaded dynamically via JS -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
-            
-            <!-- Col 1: Brand -->
-            <div style="grid-column: span 2;">
-                <h4>SISI ESTATE</h4>
-                <div class="footer-logo-sub">COMPANY LIMITED</div>
-                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
-                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
-                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
-                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
-                </p>
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
-                </div>
-            </div>
-
-            <!-- Col 2: Quick Links -->
-            <div>
-                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
-                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
-                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 3: Locations -->
-            <div>
-                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
-                <ul class="footer-links">
-                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
-                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
-                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
-                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 4: Help & Legal -->
-            <div>
-                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
-                <ul class="footer-links">
-                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
-                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
-                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
-                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 5: Contact Info -->
-            <div style="grid-column: span 1;">
-                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
-                <ul class="footer-links" style="font-size:0.9rem;">
-                    <li>
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
-                        <span data-en="Arusha Clock Tower Area, Arusha, TZ" data-sw="Eneo la Clock Tower, Arusha, TZ">Arusha Clock Tower Area, Arusha, TZ</span>
-                    </li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
-            <div class="footer-socials" style="display:flex; gap:12px;">
-                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
-                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
-                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Widget -->
-    <div class="whatsapp-widget" id="whatsapp-widget">
-        <span class="whatsapp-alert"></span>
-        <svg class="icon-svg" viewBox="0 0 24 24" style="width:2rem; height:2rem; fill:#fff;"><path d="M12.012 2C6.48 2 2 6.48 2 12.012c0 1.8.48 3.564 1.392 5.124L2 22l5.064-1.332c1.512.828 3.204 1.26 4.944 1.26 5.532 0 10.008-4.476 10.008-10.008C22.012 6.48 17.544 2 12.012 2zm5.724 14.196c-.252.708-1.248 1.308-1.728 1.38-.456.072-.888.312-2.916-.492-2.592-1.032-4.248-3.66-4.38-3.84-.132-.18-.984-1.308-.984-2.496 0-1.188.624-1.776.84-2.016.216-.24.48-.3.636-.3.156 0 .312 0 .444.012.144.012.336-.048.528.408.192.48.672 1.632.732 1.752.06.12.096.264.012.432-.084.168-.132.276-.264.432-.132.156-.276.348-.396.468-.132.132-.276.276-.12.54.156.264.696 1.152 1.488 1.86.132.12.276.24.42.36.216.168.396.12.54-.048.144-.168.624-.732.792-.984.168-.252.336-.204.564-.12.228.084 1.44.684 1.692.804.252.12.42.18.48.288.06.108.06.624-.192 1.332z"/></svg>
-        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">Chat with an Agent on WhatsApp</div>
-    </div>
-
-    <!-- Core Dynamic Scripts -->
-    <script src="script.js"></script>
-
-</body>
-</html>
+                <img src="assets/logo-transparent.png" alt="Sisi Estate Company Limited" class="logo-img">
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu" id="desktop-menu">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
+                <li><a href="projects.html" class="nav-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+                <li><a href="contact.html" class="nav-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+            </ul>
+
+            <!-- Language and Currency Toggles -->
+            <div class="controls-group" id="header-controls">
+                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
+                    <option value="en">English</option>
+                    <option value="sw">Kiswahili</option>
+                </select>
+                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
+                    <option value="TZS">TZS (Shilling)</option>
+                    <option value="USD">USD ($)</option>
+                </select>
+                <a href="contact.html" class="nav-cta-btn" data-en="Book a Call &rarr;" data-sw="Piga Simu Sasa &rarr;">Book a Call &rarr;</a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <nav class="mobile-drawer" id="mobile-drawer">
+        <ul class="mobile-drawer-menu">
+            <li><a href="index.html" class="mobile-drawer-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
+            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
+            <li><a href="projects.html" class="mobile-drawer-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+            <li><a href="contact.html" class="mobile-drawer-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+        </ul>
+        <div class="mobile-drawer-controls">
+            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
+                <option value="en">English</option>
+                <option value="sw">Kiswahili</option>
+            </select>
+            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
+                <option value="TZS">TZS</option>
+                <option value="USD">USD</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="page-wrapper">
+        
+        <!-- Admin Header Info -->
+        <section class="admin-header">
+            <div class="container">
+                <span class="section-tag" style="color:var(--color-accent);" data-en="Internal Database Portal" data-sw="Lango la Kanzidata la Ndani">Internal Database Portal</span>
+                <h1 style="font-size:2.4rem;" data-en="Listing Administration Dashboard" data-sw="Usimamizi wa Orodha za Mali">Listing Administration Dashboard</h1>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin-top:8px; font-size:0.95rem;" data-en="Add or modify surveyed land packages and commercial plots. Added land parcels are dynamically integrated directly into the catalog client-side via localStorage." data-sw="Ongeza au ubadilishe viwanja vilivyopimwa na ardhi ya biashara. Viwanja vilivyoongezwa zitaunganishwa moja kwa moja kwenye orodha ya tovuti kupitia localStorage.">Listing Administration Dashboard info</p>
+            </div>
+        </section>
+
+        <!-- Admin Working Grid -->
+        <section class="container" style="padding: 40px 24px;">
+            <div class="admin-grid">
+                
+                <!-- Left: Add form -->
+                <div class="admin-form-box">
+                    <h3 data-en="Add New Property Listing" data-sw="Ongeza Tangazo Jipya la Mali" style="margin-bottom:20px; border-bottom:1px solid var(--color-border); padding-bottom:10px;">Add New Property Listing</h3>
+                    
+                    <form id="admin-add-form">
+                        
+                        <div class="form-group">
+                            <label for="admin-title-en" data-en="Title (English)" data-sw="Kichwa cha Habari (Kiingereza)">Title (English)</label>
+                            <input type="text" id="admin-title-en" class="form-control" placeholder="e.g. Sakina Residential Plot" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-title-sw" data-en="Title (Swahili)" data-sw="Kichwa cha Habari (Kiswahili)">Title (Swahili)</label>
+                            <input type="text" id="admin-title-sw" class="form-control" placeholder="e.g. Kiwanja cha Makazi Sakina" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-location" data-en="Main Neighborhood" data-sw="Eneo Kuu la Arusha">Main Neighborhood</label>
+                            <input type="text" id="admin-location" class="form-control" placeholder="e.g. Njiro, Mkonoo, Sakina" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-location-detail" data-en="Detailed Address" data-sw="Anwani ya Kina">Detailed Address</label>
+                            <input type="text" id="admin-location-detail" class="form-control" placeholder="e.g. Sakina Hill, near Tanesco sub-station" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-map-url" data-en="Google Maps Location (Share Link)" data-sw="Kiungo cha Ramani ya Google Maps (Share Link)">Google Maps Location (Share Link)</label>
+                            <input type="url" id="admin-map-url" class="form-control" placeholder="https://maps.app.goo.gl/... or https://maps.google.com/?q=..." required>
+                            <small style="color:var(--color-text-muted); font-size:0.85rem; margin-top:4px; display:block;" data-en="Open Google Maps, click Share, copy the link, and paste it here." data-sw="Fungua Google Maps, bofya Share (Shiriki), nakili kiungo, na kiweke hapa.">Open Google Maps, click Share, copy the link, and paste it here.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-type" data-en="Property Type" data-sw="Aina ya Mali">Property Type</label>
+                            <select id="admin-type" class="form-control">
+                                <option value="land">land</option>
+                                <option value="commercial">commercial</option>
+                            </select>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div class="form-group">
+                                <label for="admin-price-tzs" data-en="Price (TZS)" data-sw="Bei (TZS)">Price (TZS)</label>
+                                <input type="number" id="admin-price-tzs" class="form-control" placeholder="35000" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-price-usd" data-en="Price (USD)" data-sw="Bei (USD)">Price (USD)</label>
+                                <input type="number" id="admin-price-usd" class="form-control" placeholder="13" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="flex-direction:row; align-items:center; gap:8px;">
+                            <input type="checkbox" id="admin-persqm">
+                            <label for="admin-persqm" data-en="Price is Per Square Meter" data-sw="Bei ni kwa Mita ya Mraba">Price is Per Square Meter</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-size" data-en="Size / Specs Label" data-sw="Ukubwa / Vyumba">Size / Specs Label</label>
+                            <input type="text" id="admin-size" class="form-control" placeholder="e.g. 1,200 sqm or 3 Bedrooms" required>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div class="form-group">
+                                <label for="admin-badge-en" data-en="Badge (English)" data-sw="Beji (Kiingereza)">Badge (English)</label>
+                                <input type="text" id="admin-badge-en" class="form-control" placeholder="e.g. Featured">
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-badge-sw" data-en="Badge (Swahili)" data-sw="Beji (Kiswahili)">Badge (Swahili)</label>
+                                <input type="text" id="admin-badge-sw" class="form-control" placeholder="e.g. Kipekee">
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div class="form-group">
+                                <label for="admin-title-status-en" data-en="Deed Status (EN)" data-sw="Hati (EN)">Deed Status (EN)</label>
+                                <input type="text" id="admin-title-status-en" class="form-control" placeholder="e.g. Title Deed Ready" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-title-status-sw" data-en="Deed Status (SW)" data-sw="Hati (SW)">Deed Status (SW)</label>
+                                <input type="text" id="admin-title-status-sw" class="form-control" placeholder="e.g. Hati Tayari" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-desc-en" data-en="Description (English)" data-sw="Maelezo (Kiingereza)">Description (English)</label>
+                            <textarea id="admin-desc-en" class="form-control" rows="3" placeholder="Premium surveyed residential land plots..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-desc-sw" data-en="Description (Swahili)" data-sw="Maelezo (Kiswahili)">Description (Swahili)</label>
+                            <textarea id="admin-desc-sw" class="form-control" rows="3" placeholder="Viwanja vizuri vilivyopimwa vyema..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-en="Pictures (URLs)" data-sw="Picha (Viungo)">Pictures (URLs)</label>
+                            <div id="admin-image-urls-container">
+                                <!-- Dynamic inputs added here -->
+                            </div>
+                            <button type="button" id="admin-add-image-btn" class="btn btn-outline" style="margin-top: 8px; padding: 6px 12px; font-size: 0.85rem;" data-en="+ Add Image URL" data-sw="+ Ongeza Kiungo cha Picha">+ Add Image URL</button>
+                        </div>
+
+                        <div style="display:flex; gap:12px; margin-top:20px;">
+                            <button type="submit" id="admin-submit-btn" class="btn btn-primary" style="flex:1;" data-en="Add Listing to Database" data-sw="Hifadhi Tangazo kwenye Kanzidata">Add Listing to Database</button>
+                            <button type="button" id="admin-cancel-btn" class="btn btn-outline" style="display:none; flex:1;" data-en="Cancel" data-sw="Ghairi">Cancel</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Right: List and Delete -->
+                <div class="admin-list-box">
+                    <h3 data-en="Active Custom Listings" data-sw="Orodha Zilizoongezwa" style="margin-bottom:20px; border-bottom:1px solid var(--color-border); padding-bottom:10px;">Active Custom Listings</h3>
+                    <div id="admin-listings-list">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
+            
+            <!-- Col 1: Brand -->
+            <div style="grid-column: span 2;">
+                <h4>SISI ESTATE</h4>
+                <div class="footer-logo-sub">COMPANY LIMITED</div>
+                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
+                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
+                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
+                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
+                </p>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
+                </div>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
+                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Locations -->
+            <div>
+                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
+                <ul class="footer-links">
+                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
+                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
+                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
+                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Help & Legal -->
+            <div>
+                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
+                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
+                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
+                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 5: Contact Info -->
+            <div style="grid-column: span 1;">
+                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
+                <ul class="footer-links" style="font-size:0.9rem;">
+                    <li>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
+                        <span data-en="Njiro Complex, Njiro" data-sw="Njiro Complex, Njiro">Njiro Complex, Njiro</span>
+                    </li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
+            <div class="footer-socials" style="display:flex; gap:12px;">
+                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
+                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
+                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Widget -->
+    <div class="whatsapp-widget" id="whatsapp-widget">
+        <span class="whatsapp-alert"></span>
+        <svg class="icon-svg" viewBox="0 0 24 24" style="width:2rem; height:2rem; fill:#fff;"><path d="M12.012 2C6.48 2 2 6.48 2 12.012c0 1.8.48 3.564 1.392 5.124L2 22l5.064-1.332c1.512.828 3.204 1.26 4.944 1.26 5.532 0 10.008-4.476 10.008-10.008C22.012 6.48 17.544 2 12.012 2zm5.724 14.196c-.252.708-1.248 1.308-1.728 1.38-.456.072-.888.312-2.916-.492-2.592-1.032-4.248-3.66-4.38-3.84-.132-.18-.984-1.308-.984-2.496 0-1.188.624-1.776.84-2.016.216-.24.48-.3.636-.3.156 0 .312 0 .444.012.144.012.336-.048.528.408.192.48.672 1.632.732 1.752.06.12.096.264.012.432-.084.168-.132.276-.264.432-.132.156-.276.348-.396.468-.132.132-.276.276-.12.54.156.264.696 1.152 1.488 1.86.132.12.276.24.42.36.216.168.396.12.54-.048.144-.168.624-.732.792-.984.168-.252.336-.204.564-.12.228.084 1.44.684 1.692.804.252.12.42.18.48.288.06.108.06.624-.192 1.332z"/></svg>
+        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">Chat with an Agent on WhatsApp</div>
+    </div>
+
+    <!-- Core Dynamic Scripts -->
+    <!-- Supabase JS Client & Project Configuration -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

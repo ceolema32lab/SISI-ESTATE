@@ -1,319 +1,318 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Land & Estates for Sale | Sisi Estate</title>
-    <meta name="description" content="Browse our catalog of surveyed land plots, commercial estates, and residential plots for sale in Arusha, Tanzania. Filter by price, location, and type.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logo.png">
-
-    <link rel="stylesheet" href="style.css">
-    <!-- Leaflet.js Map Library -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-</head>
-<body>
-
-    <!-- Header Navigation -->
-    <header class="header" id="main-header">
-        <div class="container header-container">
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land & Estates for Sale | Sisi Estate</title>
+    <meta name="description" content="Browse our catalog of surveyed land plots, commercial estates, and residential plots for sale in Arusha, Tanzania. Filter by price, location, and type.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet.js Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="main-header">
+        <div class="container header-container">
             <a href="index.html" class="logo" id="header-logo-link">
-                <span class="logo-brand">SISI ESTATE</span>
-                <span class="logo-sub">COMPANY LIMITED</span>
-            </a>
-
-            <!-- Desktop Navigation Menu -->
-            <ul class="nav-menu" id="desktop-menu">
-                <li><a href="index.html" class="nav-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
-                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
-                <li><a href="projects.html" class="nav-link active" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
-                <li><a href="contact.html" class="nav-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
-            </ul>
-
-            <!-- Language and Currency Toggles -->
-            <div class="controls-group" id="header-controls">
-                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
-                    <option value="en">English</option>
-                    <option value="sw">Kiswahili</option>
-                </select>
-                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
-                    <option value="TZS">TZS (Shilling)</option>
-                    <option value="USD">USD ($)</option>
-                </select>
-                <a href="contact.html" class="nav-cta-btn" data-en="Contact Agent" data-sw="Wasiliana Nasi">Contact Agent</a>
-                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Menu -->
-    <nav class="mobile-drawer" id="mobile-drawer">
-        <ul class="mobile-drawer-menu">
-            <li><a href="index.html" class="mobile-drawer-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
-            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
-            <li><a href="projects.html" class="mobile-drawer-link active" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
-            <li><a href="contact.html" class="mobile-drawer-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
-        </ul>
-        <div class="mobile-drawer-controls">
-            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
-                <option value="en">English</option>
-                <option value="sw">Kiswahili</option>
-            </select>
-            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
-                <option value="TZS">TZS</option>
-                <option value="USD">USD</option>
-            </select>
-        </div>
-    </nav>
-
-    <!-- Main Content Wrapper -->
-    <main class="page-wrapper">
-        <section class="section" style="padding-top:40px;">
-            <div class="container">
-                <div class="text-center">
-                    <span class="section-tag" data-en="Verified Portfolio" data-sw="Orodha ya Uhakika">Verified Portfolio</span>
-                    <h1 class="section-title" data-en="Available Land & Estates" data-sw="Viwanja na Ardhi Inayopatikana">Available Land & Estates</h1>
-                    <p class="section-desc" data-en="Filter by price, location, or keyword to find surveyed plots and commercial land with verified deeds in Arusha." data-sw="Chuja kwa bei, eneo, au neno la utafutaji ili kupata viwanja vilivyopimwa na ardhi ya biashara yenye hati safi Arusha.">Filter by price, location, or keyword to find surveyed plots and commercial land with verified deeds in Arusha.</p>
-                </div>
-
-                <!-- Quick Search Form -->
-                <div class="quick-search" id="quick-search-bar" style="margin-top: 0; margin-bottom: 40px; position: relative; z-index: 20;">
-                    <form action="projects.html" method="GET" class="quick-search-form">
-                        <div class="quick-search-field">
-                            <label for="search-type" data-en="Property Type" data-sw="Aina ya Mali">Property Type</label>
-                            <select name="type" id="search-type">
-                                <option value="all" data-en="All Types" data-sw="Aina Zote">All Types</option>
-                                <option value="land" data-en="Surveyed Land" data-sw="Kiwanja Kilichopimwa">Surveyed Land</option>
-                                <option value="commercial" data-en="Commercial Plot" data-sw="Eneo la Biashara">Commercial Plot</option>
-                            </select>
-                        </div>
-                        <div class="quick-search-field">
-                            <label for="search-location" data-en="Location" data-sw="Mahali">Location</label>
-                            <select name="location" id="search-location">
-                                <option value="all" data-en="All Locations" data-sw="Maeneo Yote">All Locations</option>
-                                <option value="Njiro">Njiro</option>
-                                <option value="Mkonoo">Mkonoo</option>
-                                <option value="USA River">USA River</option>
-                                <option value="Kisongo">Kisongo</option>
-                            </select>
-                        </div>
-                        <div class="quick-search-field">
-                            <label for="search-keyword" data-en="Keyword" data-sw="Neno la Utafutaji">Keyword</label>
-                            <input type="text" name="keyword" id="search-keyword" placeholder="e.g. Title Deed"
-                                data-en="e.g. Title Deed" data-sw="mf. Hati Miliki">
-                        </div>
-                        <button type="submit" class="btn btn-dark" data-en="Search" data-sw="Tafuta">Search</button>
-                    </form>
-                </div>
-
-                <!-- Compare Sticky Tray Panel (JS Controlled) -->
-                <div class="compare-container" id="compare-panel">
-                    <div class="compare-items" id="compare-items-badges">
-                        <!-- Badges loaded dynamically -->
-                    </div>
-                    <button class="btn btn-dark" id="trigger-compare-now" data-en="Compare Now" data-sw="Linganisha Sasa">Compare Now</button>
-                </div>
-
-                <!-- Catalog Grid Layout -->
-                <div class="catalog-layout">
-                    <!-- Listings Output -->
-                    <div class="listings-grid-wrapper">
-                        <div class="listings-header">
-                            <span class="listings-count"><span id="listings-count-num">0</span> <span data-en="Properties Found" data-sw="Mali Zilizopatikana">Properties Found</span></span>
-                        </div>
-                        <div class="listings-grid" id="listings-grid">
-                            <!-- Populated dynamically via JS -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Details Overlay Modal (Slides in from right) -->
-    <div class="details-modal" id="details-modal" data-property-id="">
-        <div class="details-content-wrapper">
-            <div class="details-header">
-                <span class="listing-badge" id="detail-badge">Featured</span>
-                <h2 style="font-size: 1.6rem; margin-top:8px;" id="detail-title">Property Details</h2>
-                <button class="close-btn" id="close-details" aria-label="Close Modal">✕</button>
-            </div>
-            
-            <div class="details-body">
-                <!-- Gallery Carousel -->
-                <div class="gallery-container">
-                    <div id="detail-gallery">
-                        <!-- Loaded dynamically -->
-                    </div>
-                    <button class="gallery-btn gallery-btn-prev" onclick="prevSlide()" aria-label="Previous Slide">❮</button>
-                    <button class="gallery-btn gallery-btn-next" onclick="nextSlide()" aria-label="Next Slide">❯</button>
-                    <div class="gallery-nav" id="detail-gallery-dots">
-                        <!-- Load dots -->
-                    </div>
-                </div>
-
-                <!-- Price and details -->
-                <div>
-                    <h3 style="font-size:1.8rem; color:var(--color-secondary);" id="detail-price">Price</h3>
-                    <p style="margin-top:12px; color:var(--color-text-body);" id="detail-desc">Property detailed description copy.</p>
-                </div>
-
-                <!-- Specifications Table -->
-                <div>
-                    <h4 data-en="Technical Specifications" data-sw="Vipimo vya Kufanya Kazi" style="margin-bottom:12px; font-size:1.3rem;">Technical Specifications</h4>
-                    <table class="specs-table">
-                        <tbody id="detail-specs-body">
-                            <!-- Dynamic Table Rows -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Map Box -->
-                <div>
-                    <h4 data-en="Physical Map Location" data-sw="Ramani ya Mahali Ulipo" style="margin-bottom:12px; font-size:1.3rem;">Physical Map Location</h4>
-                    <div class="map-container" id="detail-map">
-                        <!-- Leaflet map loaded here -->
-                    </div>
-                </div>
-
-                <!-- Action Enquiry form inside Modal -->
-                <div class="contact-form-box" style="margin-top:24px;">
-                    <h4 data-en="Request Valuation & Booking Information" data-sw="Omba Habari ya Uwekaji Nafasi & Tathmini" style="margin-bottom:16px;">Request Booking Information</h4>
-                    <form id="contact-form">
-                        <!-- Bot protection field -->
-                        <div class="form-group honey-field">
-                            <label for="form-bot-trap">Do not fill this</label>
-                            <input type="text" id="form-bot-trap" value="">
-                        </div>
-                        <input type="hidden" id="detail-enquiry-subject" value="Enquiry">
-                        
-                        <div class="form-group">
-                            <label for="form-name" data-en="Full Name" data-sw="Majina Kamili">Full Name</label>
-                            <input type="text" id="form-name" class="form-control" placeholder="Amina Salim" data-en="Amina Salim" data-sw="Majina Kamili" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="form-email" data-en="Email Address" data-sw="Barua Pepe">Email Address</label>
-                            <input type="email" id="form-email" class="form-control" placeholder="amina@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="form-phone" data-en="Phone Number" data-sw="Namba ya Simu">Phone Number</label>
-                            <input type="tel" id="form-phone" class="form-control" placeholder="+255 700 000 000" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="form-message" data-en="Message Details" data-sw="Maelezo ya Ujumbe">Message Details</label>
-                            <textarea id="form-message" class="form-control" rows="4" placeholder="I would like to plan a physical site visit on Saturday morning..." data-en="I would like to plan a physical site visit on Saturday morning..." data-sw="Ningependa kukagua kiwanja hiki Jumamosi asubuhi..." required></textarea>
-                        </div>
-                        <div id="form-feedback-msg" class="form-group" style="display:none; font-weight:600;"></div>
-                        <button type="submit" class="btn btn-primary" style="width:100%;" data-en="Submit Enquiry" data-sw="Tuma Maombi">Submit Enquiry</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Compare Modal Box -->
-    <div class="compare-modal" id="compare-modal">
-        <div class="compare-modal-content">
-            <div class="compare-modal-header">
-                <h3 data-en="Compare Properties" data-sw="Linganisha Mali">Compare Properties</h3>
-                <button class="close-btn" id="close-compare">✕</button>
-            </div>
-            <div class="compare-modal-body" id="compare-modal-listings">
-                <!-- Dynamically comparative loaded columns -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
-            
-            <!-- Col 1: Brand -->
-            <div style="grid-column: span 2;">
-                <h4>SISI ESTATE</h4>
-                <div class="footer-logo-sub">COMPANY LIMITED</div>
-                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
-                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
-                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
-                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
-                </p>
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
-                </div>
-            </div>
-
-            <!-- Col 2: Quick Links -->
-            <div>
-                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
-                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
-                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 3: Locations -->
-            <div>
-                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
-                <ul class="footer-links">
-                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
-                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
-                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
-                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 4: Help & Legal -->
-            <div>
-                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
-                <ul class="footer-links">
-                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
-                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
-                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
-                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 5: Contact Info -->
-            <div style="grid-column: span 1;">
-                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
-                <ul class="footer-links" style="font-size:0.9rem;">
-                    <li>
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
-                        <span data-en="Arusha Clock Tower Area, Arusha, TZ" data-sw="Eneo la Clock Tower, Arusha, TZ">Arusha Clock Tower Area, Arusha, TZ</span>
-                    </li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
-            <div class="footer-socials" style="display:flex; gap:12px;">
-                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
-                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
-                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Widget -->
-    <div class="whatsapp-widget" id="whatsapp-widget">
-        <span class="whatsapp-alert"></span>
-        <svg class="icon-svg" viewBox="0 0 24 24" style="width:2rem; height:2rem; fill:#fff;"><path d="M12.012 2C6.48 2 2 6.48 2 12.012c0 1.8.48 3.564 1.392 5.124L2 22l5.064-1.332c1.512.828 3.204 1.26 4.944 1.26 5.532 0 10.008-4.476 10.008-10.008C22.012 6.48 17.544 2 12.012 2zm5.724 14.196c-.252.708-1.248 1.308-1.728 1.38-.456.072-.888.312-2.916-.492-2.592-1.032-4.248-3.66-4.38-3.84-.132-.18-.984-1.308-.984-2.496 0-1.188.624-1.776.84-2.016.216-.24.48-.3.636-.3.156 0 .312 0 .444.012.144.012.336-.048.528.408.192.48.672 1.632.732 1.752.06.12.096.264.012.432-.084.168-.132.276-.264.432-.132.156-.276.348-.396.468-.132.132-.276.276-.12.54.156.264.696 1.152 1.488 1.86.132.12.276.24.42.36.216.168.396.12.54-.048.144-.168.624-.732.792-.984.168-.252.336-.204.564-.12.228.084 1.44.684 1.692.804.252.12.42.18.48.288.06.108.06.624-.192 1.332z"/></svg>
-        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">Chat with an Agent on WhatsApp</div>
-    </div>
-
-    <!-- Core Dynamic Scripts -->
-    <script src="script.js"></script>
-
-</body>
-</html>
+                <img src="assets/logo-transparent.png" alt="Sisi Estate Company Limited" class="logo-img">
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu" id="desktop-menu">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
+                <li><a href="projects.html" class="nav-link active" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+                <li><a href="contact.html" class="nav-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+            </ul>
+
+            <!-- Language and Currency Toggles -->
+            <div class="controls-group" id="header-controls">
+                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
+                    <option value="en">English</option>
+                    <option value="sw">Kiswahili</option>
+                </select>
+                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
+                    <option value="TZS">TZS (Shilling)</option>
+                    <option value="USD">USD ($)</option>
+                </select>
+                <a href="contact.html" class="nav-cta-btn" data-en="Book a Call &rarr;" data-sw="Piga Simu Sasa &rarr;">Book a Call &rarr;</a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <nav class="mobile-drawer" id="mobile-drawer">
+        <ul class="mobile-drawer-menu">
+            <li><a href="index.html" class="mobile-drawer-link" data-en="Home" data-sw="Mwanzo">Home</a></li>
+            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
+            <li><a href="projects.html" class="mobile-drawer-link active" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+            <li><a href="contact.html" class="mobile-drawer-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+        </ul>
+        <div class="mobile-drawer-controls">
+            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
+                <option value="en">English</option>
+                <option value="sw">Kiswahili</option>
+            </select>
+            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
+                <option value="TZS">TZS</option>
+                <option value="USD">USD</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="page-wrapper">
+        <section class="section" style="padding-top:40px;">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-tag" data-en="Verified Portfolio" data-sw="Orodha ya Uhakika">Verified Portfolio</span>
+                    <h1 class="section-title" data-en="Available Land & Estates" data-sw="Viwanja na Ardhi Inayopatikana">Available Land & Estates</h1>
+                    <p class="section-desc" data-en="Filter by property type and location to find surveyed plots and commercial land with verified deeds in Arusha." data-sw="Chuja kwa aina ya mali na eneo ili kupata viwanja vilivyopimwa na ardhi ya biashara yenye hati safi Arusha.">Filter by property type and location to find surveyed plots and commercial land with verified deeds in Arusha.</p>
+                </div>
+
+                <!-- Quick Search Form -->
+                <div class="quick-search" id="quick-search-bar" style="margin-top: 0; margin-bottom: 40px; position: relative; z-index: 20;">
+                    <form action="projects.html" method="GET" class="quick-search-form">
+                        <div class="quick-search-field">
+                            <label for="search-type" data-en="Property Type" data-sw="Aina ya Mali">Property Type</label>
+                            <select name="type" id="search-type">
+                                <option value="all" data-en="All Types" data-sw="Aina Zote">All Types</option>
+                                <option value="land" data-en="Surveyed Land" data-sw="Kiwanja Kilichopimwa">Surveyed Land</option>
+                                <option value="commercial" data-en="Commercial Plot" data-sw="Eneo la Biashara">Commercial Plot</option>
+                            </select>
+                        </div>
+                        <div class="quick-search-field">
+                            <label for="search-location" data-en="Location" data-sw="Mahali">Location</label>
+                            <select name="location" id="search-location">
+                                <option value="all" data-en="All Locations" data-sw="Maeneo Yote">All Locations</option>
+                                <option value="Njiro">Njiro</option>
+                                <option value="Mkonoo">Mkonoo</option>
+                                <option value="USA River">USA River</option>
+                                <option value="Kisongo">Kisongo</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark" data-en="Search" data-sw="Tafuta">Search</button>
+                    </form>
+                </div>
+
+                <!-- Compare Sticky Tray Panel (JS Controlled) -->
+                <div class="compare-container" id="compare-panel">
+                    <div class="compare-items" id="compare-items-badges">
+                        <!-- Badges loaded dynamically -->
+                    </div>
+                    <button class="btn btn-dark" id="trigger-compare-now" data-en="Compare Now" data-sw="Linganisha Sasa">Compare Now</button>
+                </div>
+
+                <!-- Catalog Grid Layout -->
+                <div class="catalog-layout">
+                    <!-- Listings Output -->
+                    <div class="listings-grid-wrapper">
+                        <div class="listings-header">
+                            <span class="listings-count"><span id="listings-count-num">0</span> <span data-en="Properties Found" data-sw="Mali Zilizopatikana">Properties Found</span></span>
+                        </div>
+                        <div class="listings-grid" id="listings-grid">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Details Overlay Modal (Slides in from right) -->
+    <div class="details-modal" id="details-modal" data-property-id="">
+        <div class="details-content-wrapper">
+            <div class="details-header">
+                <span class="listing-badge" id="detail-badge">Featured</span>
+                <h2 style="font-size: 1.6rem; margin-top:8px;" id="detail-title">Property Details</h2>
+                <button class="close-btn" id="close-details" aria-label="Close Modal">✕</button>
+            </div>
+            
+            <div class="details-body">
+                <!-- Gallery Carousel -->
+                <div class="gallery-container">
+                    <div id="detail-gallery">
+                        <!-- Loaded dynamically -->
+                    </div>
+                    <button class="gallery-btn gallery-btn-prev" onclick="prevSlide()" aria-label="Previous Slide">❮</button>
+                    <button class="gallery-btn gallery-btn-next" onclick="nextSlide()" aria-label="Next Slide">❯</button>
+                    <div class="gallery-nav" id="detail-gallery-dots">
+                        <!-- Load dots -->
+                    </div>
+                </div>
+
+                <!-- Price and details -->
+                <div>
+                    <h3 style="font-size:1.8rem; color:var(--color-secondary);" id="detail-price">Price</h3>
+                    <p style="margin-top:12px; color:var(--color-text-body);" id="detail-desc">Property detailed description copy.</p>
+                </div>
+
+                <!-- Specifications Table -->
+                <div>
+                    <h4 data-en="Technical Specifications" data-sw="Vipimo vya Kufanya Kazi" style="margin-bottom:12px; font-size:1.3rem;">Technical Specifications</h4>
+                    <table class="specs-table">
+                        <tbody id="detail-specs-body">
+                            <!-- Dynamic Table Rows -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Map Box -->
+                <div>
+                    <h4 data-en="Physical Map Location" data-sw="Ramani ya Mahali Ulipo" style="margin-bottom:12px; font-size:1.3rem;">Physical Map Location</h4>
+                    <div class="map-container" id="detail-map">
+                        <!-- Leaflet map loaded here -->
+                    </div>
+                </div>
+
+                <!-- Action Enquiry form inside Modal -->
+                <div class="contact-form-box" style="margin-top:24px;">
+                    <h4 data-en="Request Valuation & Booking Information" data-sw="Omba Habari ya Uwekaji Nafasi & Tathmini" style="margin-bottom:16px;">Request Booking Information</h4>
+                    <form id="contact-form" action="https://formsubmit.co/adminsisestate@gmail.com" method="POST">
+                        <!-- Bot protection field -->
+                        <div class="form-group honey-field">
+                            <label for="form-bot-trap">Do not fill this</label>
+                            <input type="text" id="form-bot-trap" name="_honey" value="">
+                        </div>
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" id="detail-enquiry-subject" name="_subject" value="Property Inquiry - Sisi Estate">
+                        
+                        <div class="form-group">
+                            <label for="form-name" data-en="Full Name" data-sw="Majina Kamili">Full Name</label>
+                            <input type="text" id="form-name" name="name" class="form-control" placeholder="Amina Salim" data-en="Amina Salim" data-sw="Majina Kamili" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-email" data-en="Email Address" data-sw="Barua Pepe">Email Address</label>
+                            <input type="email" id="form-email" name="email" class="form-control" placeholder="amina@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-phone" data-en="Phone Number" data-sw="Namba ya Simu">Phone Number</label>
+                            <input type="tel" id="form-phone" name="phone" class="form-control" placeholder="+255 700 000 000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-message" data-en="Message Details" data-sw="Maelezo ya Ujumbe">Message Details</label>
+                            <textarea id="form-message" name="message" class="form-control" rows="4" placeholder="I would like to plan a physical site visit on Saturday morning..." data-en="I would like to plan a physical site visit on Saturday morning..." data-sw="Ningependa kukagua kiwanja hiki Jumamosi asubuhi..." required></textarea>
+                        </div>
+                        <div id="form-feedback-msg" class="form-group" style="display:none; font-weight:600;"></div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;" data-en="Submit Enquiry" data-sw="Tuma Maombi">Submit Enquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Modal Box -->
+    <div class="compare-modal" id="compare-modal">
+        <div class="compare-modal-content">
+            <div class="compare-modal-header">
+                <h3 data-en="Compare Properties" data-sw="Linganisha Mali">Compare Properties</h3>
+                <button class="close-btn" id="close-compare">✕</button>
+            </div>
+            <div class="compare-modal-body" id="compare-modal-listings">
+                <!-- Dynamically comparative loaded columns -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
+            
+            <!-- Col 1: Brand -->
+            <div style="grid-column: span 2;">
+                <h4>SISI ESTATE</h4>
+                <div class="footer-logo-sub">COMPANY LIMITED</div>
+                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
+                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
+                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
+                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
+                </p>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
+                </div>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
+                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Locations -->
+            <div>
+                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
+                <ul class="footer-links">
+                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
+                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
+                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
+                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Help & Legal -->
+            <div>
+                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
+                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
+                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
+                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 5: Contact Info -->
+            <div style="grid-column: span 1;">
+                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
+                <ul class="footer-links" style="font-size:0.9rem;">
+                    <li>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
+                        <span data-en="Njiro Complex, Njiro" data-sw="Njiro Complex, Njiro">Njiro Complex, Njiro</span>
+                    </li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
+            <div class="footer-socials" style="display:flex; gap:12px;">
+                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
+                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
+                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Widget -->
+    <div class="whatsapp-widget" id="whatsapp-widget">
+        <span class="whatsapp-alert"></span>
+        <svg class="icon-svg" viewBox="0 0 24 24" style="width:2rem; height:2rem; fill:#fff;"><path d="M12.012 2C6.48 2 2 6.48 2 12.012c0 1.8.48 3.564 1.392 5.124L2 22l5.064-1.332c1.512.828 3.204 1.26 4.944 1.26 5.532 0 10.008-4.476 10.008-10.008C22.012 6.48 17.544 2 12.012 2zm5.724 14.196c-.252.708-1.248 1.308-1.728 1.38-.456.072-.888.312-2.916-.492-2.592-1.032-4.248-3.66-4.38-3.84-.132-.18-.984-1.308-.984-2.496 0-1.188.624-1.776.84-2.016.216-.24.48-.3.636-.3.156 0 .312 0 .444.012.144.012.336-.048.528.408.192.48.672 1.632.732 1.752.06.12.096.264.012.432-.084.168-.132.276-.264.432-.132.156-.276.348-.396.468-.132.132-.276.276-.12.54.156.264.696 1.152 1.488 1.86.132.12.276.24.42.36.216.168.396.12.54-.048.144-.168.624-.732.792-.984.168-.252.336-.204.564-.12.228.084 1.44.684 1.692.804.252.12.42.18.48.288.06.108.06.624-.192 1.332z"/></svg>
+        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">Chat with an Agent on WhatsApp</div>
+    </div>
+
+    <!-- Core Dynamic Scripts -->
+    <!-- Supabase JS Client & Project Configuration -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

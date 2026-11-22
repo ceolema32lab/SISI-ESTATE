@@ -1,554 +1,618 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sisi Estate | Premium Land & Estates Development Arusha, Tanzania</title>
-    <meta name="description"
-        content="Discover premium surveyed plots, estate land development, and commercial land for sale in Arusha, Tanzania. Sisi Estate offers trustworthy, local land development expertise, title deed processing, and investment consultancy.">
-    <meta name="keywords"
-        content="Land Development Tanzania, Land in Arusha, Plots for Sale Arusha, Sisi Estate, Buy Land Tanzania, Swahili Land & Estates">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logo.png">
-
-    <!-- CSS Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Leaflet.js Map Styles (For property modals/maps) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-</head>
-
-<body>
-
-    <!-- Header Navigation -->
-    <header class="header" id="main-header">
-        <div class="container header-container">
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sisi Estate | Premium Land & Estates Development Arusha, Tanzania</title>
+    <meta name="description"
+        content="Discover premium surveyed plots, estate land development, and commercial land for sale in Arusha, Tanzania. Sisi Estate offers trustworthy, local land development expertise, title deed processing, and investment consultancy.">
+    <meta name="keywords"
+        content="Land Development Tanzania, Land in Arusha, Plots for Sale Arusha, Sisi Estate, Buy Land Tanzania, Swahili Land & Estates">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet.js Map Styles (For property modals/maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="main-header">
+        <div class="container header-container">
             <a href="index.html" class="logo" id="header-logo-link">
-                <span class="logo-brand">SISI ESTATE</span>
-                <span class="logo-sub">COMPANY LIMITED</span>
-            </a>
-
-            <!-- Desktop Navigation Menu -->
-            <ul class="nav-menu" id="desktop-menu">
-                <li><a href="index.html" class="nav-link active" data-en="Home" data-sw="Mwanzo">Home</a></li>
-                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
-                <li><a href="projects.html" class="nav-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
-                <li><a href="contact.html" class="nav-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
-            </ul>
-
-            <!-- Language and Currency Toggles -->
-            <div class="controls-group" id="header-controls">
-                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
-                    <option value="en">English</option>
-                    <option value="sw">Kiswahili</option>
-                </select>
-                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
-                    <option value="TZS">TZS (Shilling)</option>
-                    <option value="USD">USD ($)</option>
-                </select>
-                <a href="contact.html" class="nav-cta-btn" data-en="Contact Agent" data-sw="Wasiliana Nasi">Contact Agent</a>
-                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Menu -->
-    <nav class="mobile-drawer" id="mobile-drawer">
-        <ul class="mobile-drawer-menu">
-            <li><a href="index.html" class="mobile-drawer-link active" data-en="Home" data-sw="Mwanzo">Home</a></li>
-            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
-            <li><a href="projects.html" class="mobile-drawer-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
-            <li><a href="contact.html" class="mobile-drawer-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
-        </ul>
-        <div class="mobile-drawer-controls">
-            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
-                <option value="en">English</option>
-                <option value="sw">Kiswahili</option>
-            </select>
-            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
-                <option value="TZS">TZS</option>
-                <option value="USD">USD</option>
-            </select>
-        </div>
-    </nav>
-
-    <!-- Main Content Wrapper -->
-    <main class="page-wrapper" style="padding-top: 0;">
-
-        <!-- Hero Section -->
-        <section class="hero-slider" id="hero-slider-section">
-            
-            <!-- Slide 1: Residential with Drone Video Background -->
-            <div class="hero-slide active">
-                <video class="hero-bg-video" autoplay muted loop playsinline>
-                    <source src="assets/droneshoot.mp4" type="video/mp4">
-                </video>
-                <div class="hero-content-wrapper">
-                    <span class="hero-subtitle" data-en="Premium Residential Estates" data-sw="Makazi ya Kifahari ya Familia">Premium Residential Estates</span>
-                    <h1 class="hero-title-large">
-                        Find Your <span class="hero-gold-text">Extraordinary</span> Residential Villa
-                    </h1>
-                    <p class="hero-subtitle-large" data-en="We offer pristine residential plots and ready-to-build family estate land in the most exclusive neighborhoods of Arusha." data-sw="Tunatoa viwanja safi vya makazi na ardhi tayari kwa kujenga nyumba katika maeneo bora ya Arusha.">We offer pristine residential plots and ready-to-build family estate land in the most exclusive neighborhoods of Arusha.</p>
-                    <div class="btn-group">
-                        <a href="projects.html?type=land" class="btn btn-primary" data-en="Explore Residential" data-sw="Kagua Makazi">Explore Residential</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Persistent Trust Stats Row -->
-            <div class="hero-trust-stats">
-                <div class="hero-stat-item">
-                    <div class="hero-stat-number">500+</div>
-                    <div class="hero-stat-label" data-en="Properties" data-sw="Mali">Properties</div>
-                </div>
-                <div class="hero-stat-item">
-                    <div class="hero-stat-number">1,200+</div>
-                    <div class="hero-stat-label" data-en="Clients" data-sw="Wateja">Clients</div>
-                </div>
-                <div class="hero-stat-item">
-                    <div class="hero-stat-number">10+</div>
-                    <div class="hero-stat-label" data-en="Years" data-sw="Miaka">Years</div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- Welcome / About Intro Section -->
-        <section class="section section-alt" id="welcome-intro">
-            <div class="container info-split">
-                <div class="info-image">
-                    <img src="assets/logo.png" alt="Sisi Estate Logo" loading="lazy" style="border-radius: var(--border-radius-md); box-shadow: var(--shadow-md); width: 250px;">
-                </div>
-                <div class="info-content">
-                    <span class="section-tag" data-en="Welcome to Sisi Estate" data-sw="Karibu Sisi Estate">Welcome to Sisi Estate</span>
-                    <h2 class="info-title" data-en="Your Most Trusted Property Partner in Arusha" data-sw="Kampuni bora ya Kuaminika wa Arusha">Your Most Trusted Property Partner in Arusha</h2>
-                    <p class="info-lead" data-en="Sisi Estate Company Limited is a premiere land development and estates firm specializing in surveyed land distribution, civil engineering, and legal ownership transfer." data-sw="Sisi Estate Company Limited ni kampuni ya kwanza ya ardhi na viwanja inayojihusisha na ugawaji wa viwanja vilivyopimwa, uhandisi wa kiraia na uhamishaji wa hati za kisheria.">Sisi Estate Company Limited is a premiere land development and estates firm specializing in surveyed land distribution, civil engineering, and legal ownership transfer.</p>
-                    <p class="info-text" data-en="With years of local presence, we eliminate the traditional risks associated with buying land in Tanzania. Every single plot in our portfolio has undergone strict layout verification, physical beacon placement, and registry validation." data-sw="Tukiwa na uzoefu wa miaka mingi hapa nchini, tunaondoa hatari za kimila zinazohusiana na ununuzi wa ardhi Tanzania. Kila kiwanja kwenye orodha yetu kimepitia uhakiki mkali wa ramani, uwekaji wa vigingi, na uhakiki wa msajili wa hati.">With years of local presence, we eliminate the traditional risks associated with buying land in Tanzania. Every single plot in our portfolio has undergone strict layout verification, physical beacon placement, and registry validation.</p>
-                    <ul class="features-list">
-                        <li data-en="100% Surveyed Plots with Beacon Pins" data-sw="Viwanja Vilivyopimwa 100% kwa Vigingi">100% Surveyed Plots with Beacon Pins</li>
-                        <li data-en="Clean Title Deed Transfers Assistance" data-sw="Msaada wa Uhamishaji Hati Safi za Miliki">Clean Title Deed Transfers Assistance</li>
-                        <li data-en="Secure Payment Terms (Installment Options)" data-sw="Muda Salama wa Malipo (Kwa Awamu)">Secure Payment Terms (Installment Options)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Why Choose Us Section -->
-        <section class="section" id="why-choose-us-section" style="background-color: var(--color-primary-light);">
-            <div class="container">
-                <div class="text-center" style="margin-bottom: 50px;">
-                    <span class="section-tag" data-en="Our Value Proposition" data-sw="Uwezo wetu na Thamani">Our Value Proposition</span>
-                    <h2 style="font-size: 2.2rem; font-family: var(--font-serif); margin-top: 8px;" data-en="Why Discerning Investors Choose Sisi Estate" data-sw="Kwa Nini Wawekezaji Makini Wanachagua Sisi Estate">Why Discerning Investors Choose Sisi Estate</h2>
-                </div>
-
-                <!-- Asymmetric Feature Card -->
-                <div class="asymmetric-feature-card">
-                    <div class="feature-img-box">
-                        <img src="assets/promo_banner.png" alt="Sisi Estate Premium Service" loading="lazy">
-                    </div>
-                    <div class="feature-text-box">
-                        <h3 style="font-size: 1.8rem; font-family: var(--font-serif); margin-bottom: 16px; color: #FFFFFF;" data-en="Secure Legal Framework for Land Acquisition" data-sw="Muundo Salama wa Kisheria kwa Ununuzi wa Ardhi">Secure Legal Framework for Land Acquisition</h3>
-                        <p style="color: var(--color-text-body); margin-bottom: 24px; line-height: 1.6;" data-en="We understand that purchasing property in Tanzania can be complex. That is why we provide end-to-end legal support, verified beacon placement, registry validations, and assist directly with title deed registry under your name." data-sw="Tunafahamu kwamba ununuzi wa mali nchini Tanzania unaweza kuwa na changamoto. Hiyo ndiyo sababu tunatoa msaada kamili wa kisheria, uhakiki wa vigingi, na hati miliki kusajiliwa kwa jina lako moja kwa moja.">We understand that purchasing property in Tanzania can be complex. That is why we provide end-to-end legal support, verified beacon placement, registry validations, and assist directly with title deed registry under your name.</p>
-                        <div>
-                            <a href="about.html" class="btn btn-outline" data-en="Learn About Our Process" data-sw="Jifunze Kuhusu Utaratibu Wetu">Learn About Our Process</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Three smaller cards grid below -->
-                <div class="why-us-grid">
-                    
-                    <div class="why-us-card">
-                        <div class="why-us-icon-badge">
-                            <!-- Shield Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                        </div>
-                        <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: #FFFFFF;" data-en="100% Risk Free Guarantee" data-sw="Dhamana ya 100% Bila Hatari">100% Risk Free Guarantee</h4>
-                        <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.5;" data-en="Every plot in our listings is owned fully by Sisi Estate Company Limited, meaning no broker loops or ownership disputes." data-sw="Kila kiwanja kwenye orodha yetu kinamilikiwa kikamilifu na Sisi Estate Company Limited, hakuna udalali au migogoro.">Every plot in our listings is owned fully by Sisi Estate Company Limited, meaning no broker loops or ownership disputes.</p>
-                    </div>
-
-                    <div class="why-us-card">
-                        <div class="why-us-icon-badge">
-                            <!-- Compass/Map Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                        </div>
-                        <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: #FFFFFF;" data-en="Prime Locations Only" data-sw="Maeneo Bora Pekee">Prime Locations Only</h4>
-                        <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.5;" data-en="We develop lands in high-appreciation suburbs like Njiro, USA River, and Kisongo, ensuring rapid return on investments." data-sw="Tunaendeleza ardhi katika maeneo yenye ukuaji mkubwa kama Njiro, USA River, na Kisongo ili kukuza uwekezaji wako.">We develop lands in high-appreciation suburbs like Njiro, USA River, and Kisongo, ensuring rapid return on investments.</p>
-                    </div>
-
-                    <div class="why-us-card">
-                        <div class="why-us-icon-badge">
-                            <!-- Support/Agent Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
-                        </div>
-                        <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: #FFFFFF;" data-en="Dedicated Diaspora Support" data-sw="Huduma kwa Wateja wa Nje">Dedicated Diaspora Support</h4>
-                        <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.5;" data-en="Specialized processes for clients buying from UK, US, Canada, and Europe. Video updates, drone shoots, and DHL title shipping." data-sw="Mchakato maalum kwa wateja wanaonunua kutoka UK, US, na Ulaya. Video za maendeleo, picha za drone, na usafirishaji wa hati.">Specialized processes for clients buying from UK, US, Canada, and Europe. Video updates, drone shoots, and DHL title shipping.</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Dynamic Featured Listings Section -->
-        <section class="section" id="featured-listings">
-            <div class="container">
-                <div class="text-center">
-                    <span class="section-tag" data-en="Exclusive Opportunities" data-sw="Fursa za Kipekee">Exclusive
-                        Opportunities</span>
-                    <h2 class="section-title" data-en="Featured Land & Estates" data-sw="Viwanja na Ardhi Inayoangaziwa">
-                        Featured Land & Estates</h2>
-                    <p class="section-desc"
-                        data-en="Browse handpicked surveyed plots and premium land currently available for purchase in prime locations across Arusha."
-                        data-sw="Kagua viwanja vilivyopimwa vilivyochaguliwa kwa mkono vinavyopatikana kwa sasa katika maeneo bora ya Arusha.">
-                        Browse handpicked surveyed plots and premium land currently available for purchase in prime
-                        locations across Arusha.</p>
-                </div>
-
-                <div class="listings-grid" id="listings-featured-grid">
-                    <!-- Static premium representations that act as fallback or link to full engine -->
-                    <!-- Plot 1 -->
-                    <div class="listing-card">
-                        <div class="listing-badge" data-en="Featured" data-sw="Kipekee">Featured</div>
-                        <div class="listing-image-box">
-                            <img src="plot_construction.png" alt="Mkonoo Surveyed Land Plot" loading="lazy">
-                            <div class="listing-specs-overlay">
-                                <div class="spec-pill">
-                                    <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg> 
-                                    <span>1,000 sqm</span>
-                                </div>
-                                <div class="spec-pill">
-                                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                    <span>Arusha</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="listing-details">
-                            <div class="listing-location">Mkonoo • <span data-en="Title Deed Ready"
-                                    data-sw="Hati Tayari" style="color:rgba(255,255,255,0.6)">Title Deed Ready</span></div>
-                            <h3 class="listing-card-title" data-en="Mkonoo Surveyed Land Plot"
-                                data-sw="Kiwanja Kilizopimwa Mkonoo">Mkonoo Surveyed Land Plot</h3>
-                            <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
-                                <span class="listing-price price-display" data-tzs="20000" data-usd="8"
-                                    data-persqm="true">20,000 Tsh/m²</span>
-                            </div>
-                            <div class="btn-group" style="margin-top: 16px;">
-                                <a href="projects.html?property=mkonoo-land" class="btn btn-outline"
-                                    style="padding: 10px 16px; font-size:0.85rem; width: 100%; display: block; text-align: center; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" data-en="View Details"
-                                    data-sw="Maelezo zaidi">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Plot 2 -->
-                    <div class="listing-card">
-                        <div class="listing-badge" data-en="Commercial" data-sw="Biashara">Commercial</div>
-                        <div class="listing-image-box">
-                            <img src="assets/kisongo.png" alt="Kisongo Commercial Land" loading="lazy">
-                            <div class="listing-specs-overlay">
-                                <div class="spec-pill">
-                                    <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg> 
-                                    <span>2.5 Acres</span>
-                                </div>
-                                <div class="spec-pill">
-                                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                    <span>Kisongo</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="listing-details">
-                            <div class="listing-location">Kisongo • <span data-en="Commercial Title" data-sw="Hati ya Biashara"
-                                    style="color:rgba(255,255,255,0.6)">Commercial Title</span></div>
-                            <h3 class="listing-card-title" data-en="Kisongo Dodoma Road Commercial Land"
-                                data-sw="Ardhi ya Biashara Kisongo Barabara ya Dodoma">Kisongo Dodoma Road Commercial Land</h3>
-                            <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
-                                <span class="listing-price price-display" data-tzs="450000000" data-usd="173000"
-                                    data-persqm="false">450,000,000 TZS</span>
-                            </div>
-                            <div class="btn-group" style="margin-top: 16px;">
-                                <a href="projects.html?property=kisongo-commercial-plot" class="btn btn-outline"
-                                    style="padding: 10px 16px; font-size:0.85rem; width: 100%; display: block; text-align: center; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" data-en="View Details"
-                                    data-sw="Maelezo zaidi">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Plot 3 -->
-                    <div class="listing-card">
-                        <div class="listing-badge" data-en="Popular" data-sw="Maarufu">Popular</div>
-                        <div class="listing-image-box">
-                            <img src="plot_aerial.jpg" alt="USA River Residential Plots" loading="lazy">
-                            <div class="listing-specs-overlay">
-                                <div class="spec-pill">
-                                    <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg> 
-                                    <span>1,500 sqm</span>
-                                </div>
-                                <div class="spec-pill">
-                                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                    <span>USA River</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="listing-details">
-                            <div class="listing-location">USA River • <span data-en="Surveyed" data-sw="Kimepimwa"
-                                    style="color:rgba(255,255,255,0.6)">Surveyed</span></div>
-                            <h3 class="listing-card-title" data-en="USA River Residential Plots"
-                                data-sw="Viwanja vya Makazi USA River">USA River Residential Plots</h3>
-                            <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
-                                <span class="listing-price price-display" data-tzs="35000" data-usd="13.5"
-                                    data-persqm="true">35,000 Tsh/m²</span>
-                            </div>
-                            <div class="btn-group" style="margin-top: 16px;">
-                                <a href="projects.html?property=usa-river-estate" class="btn btn-outline"
-                                    style="padding: 10px 16px; font-size:0.85rem; width: 100%; display: block; text-align: center; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" data-en="View Details"
-                                    data-sw="Maelezo zaidi">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center" style="margin-top: 48px;">
-                    <a href="projects.html" class="btn btn-dark" data-en="Browse Full Catalogue"
-                        data-sw="Kagua Orodha Kamili">Browse Full Catalogue</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Process Section (4 Steps) -->
-        <section class="section section-alt" id="acquisition-process">
-            <div class="container">
-                <div class="text-center">
-                    <span class="section-tag" data-en="Secure & Clear Pathway" data-sw="Njia Salama na Wazi">Secure &
-                        Clear Pathway</span>
-                    <h2 class="section-title" data-en="The Acquisition Process" data-sw="Hatua za Ununuzi wa Mali">The
-                        Acquisition Process</h2>
-                    <p class="section-desc"
-                        data-en="How we work with you to guarantee seamless, stress-free property transactions in compliance with Tanzanian Land Acts."
-                        data-sw="Jinsi tunavyofanya kazi na wewe kuhakikisha miamala ya mali isiyo na mafadhaiko na inayotii Sheria za Ardhi za Tanzania.">
-                        How we work with you to guarantee seamless, stress-free property transactions in compliance with
-                        Tanzanian Land Acts.</p>
-                </div>
-
-                <div class="process-grid">
-                    <div class="process-card">
-                        <div class="process-num">01</div>
-                        <h3 class="process-title" data-en="Consultation" data-sw="Ushauri wa Kwanza">Consultation</h3>
-                        <p class="process-desc"
-                            data-en="We sit down or hop on a call to understand your needs: budget, use-case (residential vs. commercial), and preferred neighborhoods in Arusha."
-                            data-sw="Tunakaa pamoja au kupiga simu kuelewa mahitaji yako: bajeti, matumizi (makazi au biashara), na maeneo unayopendelea Arusha.">
-                        </p>
-                    </div>
-                    <div class="process-card">
-                        <div class="process-num">02</div>
-                        <h3 class="process-title" data-en="Property Search & Site Visit" data-sw="Kukagua Mali na Eneo">
-                            Property Search & Site Visit</h3>
-                        <p class="process-desc"
-                            data-en="We guide you to filtered options and take you on a physical inspection of the boundaries, surveying beacons, and local infrastructure."
-                            data-sw="Tunakuongoza kwenye chaguzi zilizochujwa na kukupeleka kwenye ukaguzi wa mipaka ya kiwanja, vigingi vya upimaji, na miundombinu.">
-                        </p>
-                    </div>
-                    <div class="process-card">
-                        <div class="process-num">03</div>
-                        <h3 class="process-title" data-en="Agreement & Reservation" data-sw="Mkataba na Malipo">
-                            Agreement & Reservation</h3>
-                        <p class="process-desc"
-                            data-en="A formal Purchase Offer Letter is drafted. You place a reservation deposit (M-Pesa or Bank) to secure the plot while legal title search occurs."
-                            data-sw="Barua rasmi ya Toleo la Ununuzi huandaliwa. Weka amana ya uhifadhi (M-Pesa au Benki) ili kuzuia kiwanja wakati hati inahakikiwa.">
-                        </p>
-                    </div>
-                    <div class="process-card">
-                        <div class="process-num">04</div>
-                        <h3 class="process-title" data-en="Closing & Handover" data-sw="Kukabidhi Hati Miliki">Closing &
-                            Handover</h3>
-                        <p class="process-desc"
-                            data-en="Final payments are cleared, and land transfer documents are submitted to the Arusha Land Registry. We deliver the registered Title Deed directly to you."
-                            data-sw="Malipo ya mwisho yanafanyika, na hati za uhamisho wa ardhi zinawasilishwa kwa Msajili. Tunakabidhi Hati rasmi ya Miliki kwako.">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Blog / Market News Teaser Section -->
-        <section class="section section-alt" id="blog-market-news">
-            <div class="container">
-                <div class="text-center" style="margin-bottom: 50px;">
-                    <span class="section-tag" data-en="Market Insights" data-sw="Uchambuzi wa Soko">Market Insights</span>
-                    <h2 style="font-size: 2.2rem; font-family: var(--font-serif); margin-top: 8px;" data-en="Latest News & Real Estate Guides" data-sw="Habari za Hivi Punde na Mwongozo wa Majengo">Latest News & Real Estate Guides</h2>
-                </div>
-
-                <div class="blog-grid">
-                    
-                    <!-- Article 1 -->
-                    <div class="blog-card">
-                        <div class="blog-img-box">
-                            <img src="assets/land_hero.png" alt="Land Acquisition Guide" loading="lazy">
-                            <span class="blog-category-pill" data-en="Land Buying Guide" data-sw="Mwongozo wa Ununuzi">Land Buying Guide</span>
-                        </div>
-                        <div class="blog-text-box">
-                            <div class="blog-meta">
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-                                <span>July 10, 2026</span>
-                            </div>
-                            <a href="#" class="blog-title-link" data-en="5 Things to Check Before Buying Surveyed Land in Arusha" data-sw="Mambo 5 ya Kuhakiki Kabla ya Kununua Kiwanja Arusha">5 Things to Check Before Buying Surveyed Land in Arusha</a>
-                            <a href="#" class="blog-link">
-                                <span data-en="Read Article" data-sw="Soma Zaidi">Read Article</span>
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Article 2 -->
-                    <div class="blog-card">
-                        <div class="blog-img-box">
-                            <img src="assets/kisongo.png" alt="Kisongo Bypass Developments" loading="lazy">
-                            <span class="blog-category-pill" data-en="Market Trends" data-sw="Mwelekeo wa Soko">Market Trends</span>
-                        </div>
-                        <div class="blog-text-box">
-                            <div class="blog-meta">
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-                                <span>July 05, 2026</span>
-                            </div>
-                            <a href="#" class="blog-title-link" data-en="How the Dodoma Bypass is Changing Kisongo Property Values" data-sw="Jinsi Barabara ya Dodoma Inavyobadilisha Thamani ya Viwanja Kisongo">How the Dodoma Bypass is Changing Kisongo Property Values</a>
-                            <a href="#" class="blog-link">
-                                <span data-en="Read Article" data-sw="Soma Zaidi">Read Article</span>
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Article 3 -->
-                    <div class="blog-card">
-                        <div class="blog-img-box">
-                            <video src="assets/droneshoot.mp4" autoplay muted loop playsinline></video>
-                            <span class="blog-category-pill" data-en="Legal Advice" data-sw="Msaada wa Sheria">Legal Advice</span>
-                        </div>
-                        <div class="blog-text-box">
-                            <div class="blog-meta">
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-                                <span>June 28, 2026</span>
-                            </div>
-                            <a href="#" class="blog-title-link" data-en="A Guide to Processing Title Deeds in Tanzania for Diaspora Investors" data-sw="Mwongozo wa Ushughulikiaji wa Hati Miliki kwa Wateja wa Nje">A Guide to Processing Title Deeds in Tanzania for Diaspora Investors</a>
-                            <a href="#" class="blog-link">
-                                <span data-en="Read Article" data-sw="Soma Zaidi">Read Article</span>
-                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Partner/Developer Trust Marquee -->
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <span class="marquee-item">CRDB Bank Partner</span>
-                <span class="marquee-item">NMB Bank Partner</span>
-                <span class="marquee-item">Ministry of Lands TZ Approved</span>
-                <span class="marquee-item">Sisi Estate Verified</span>
-                <span class="marquee-item">East African Community Trust</span>
-                <span class="marquee-item">Arusha City Council Registered</span>
-                <!-- Duplicated for seamless loop -->
-                <span class="marquee-item">CRDB Bank Partner</span>
-                <span class="marquee-item">NMB Bank Partner</span>
-                <span class="marquee-item">Ministry of Lands TZ Approved</span>
-                <span class="marquee-item">Sisi Estate Verified</span>
-                <span class="marquee-item">East African Community Trust</span>
-                <span class="marquee-item">Arusha City Council Registered</span>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
-            
-            <!-- Col 1: Brand -->
-            <div style="grid-column: span 2;">
-                <h4>SISI ESTATE</h4>
-                <div class="footer-logo-sub">COMPANY LIMITED</div>
-                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
-                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
-                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
-                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
-                </p>
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
-                </div>
-            </div>
-
-            <!-- Col 2: Quick Links -->
-            <div>
-                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
-                <ul class="footer-links">
-                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
-                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
-                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
-                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 3: Locations -->
-            <div>
-                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
-                <ul class="footer-links">
-                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
-                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
-                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
-                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 4: Help & Legal -->
-            <div>
-                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
-                <ul class="footer-links">
-                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
-                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
-                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
-                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 5: Contact Info -->
-            <div style="grid-column: span 1;">
-                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
-                <ul class="footer-links" style="font-size:0.9rem;">
-                    <li>
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
-                        <span data-en="Arusha Clock Tower Area, Arusha, TZ" data-sw="Eneo la Clock Tower, Arusha, TZ">Arusha Clock Tower Area, Arusha, TZ</span>
-                    </li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
-                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
-                </ul>
-            </div>
-
-        </div>
-        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
-            <div class="footer-socials" style="display:flex; gap:12px;">
-                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
-                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
-                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Click-to-Chat Button -->
-    <div class="whatsapp-widget" id="whatsapp-widget">
-        <span class="whatsapp-alert"></span>
-        <svg class="icon-svg" viewBox="0 0 24 24" style="width:2rem; height:2rem; fill:#fff;"><path d="M12.012 2C6.48 2 2 6.48 2 12.012c0 1.8.48 3.564 1.392 5.124L2 22l5.064-1.332c1.512.828 3.204 1.26 4.944 1.26 5.532 0 10.008-4.476 10.008-10.008C22.012 6.48 17.544 2 12.012 2zm5.724 14.196c-.252.708-1.248 1.308-1.728 1.38-.456.072-.888.312-2.916-.492-2.592-1.032-4.248-3.66-4.38-3.84-.132-.18-.984-1.308-.984-2.496 0-1.188.624-1.776.84-2.016.216-.24.48-.3.636-.3.156 0 .312 0 .444.012.144.012.336-.048.528.408.192.48.672 1.632.732 1.752.06.12.096.264.012.432-.084.168-.132.276-.264.432-.132.156-.276.348-.396.468-.132.132-.276.276-.12.54.156.264.696 1.152 1.488 1.86.132.12.276.24.42.36.216.168.396.12.54-.048.144-.168.624-.732.792-.984.168-.252.336-.204.564-.12.228.084 1.44.684 1.692.804.252.12.42.18.48.288.06.108.06.624-.192 1.332z"/></svg>
-        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">
-            Chat with an Agent on WhatsApp</div>
-    </div>
-
-    <!-- Core Dynamic Scripts -->
-    <script src="script.js"></script>
-
-</body>
-
+                <img src="assets/logo-transparent.png" alt="Sisi Estate Company Limited" class="logo-img">
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu" id="desktop-menu">
+                <li><a href="index.html" class="nav-link active" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                <li><a href="about.html" class="nav-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                <li><a href="services.html" class="nav-link" data-en="Services" data-sw="Huduma">Services</a></li>
+                <li><a href="projects.html" class="nav-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+                <li><a href="contact.html" class="nav-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+            </ul>
+
+            <!-- Language and Currency Toggles -->
+            <div class="controls-group" id="header-controls">
+                <select class="select-styled lang-selector" id="lang-select-header" aria-label="Language Selector">
+                    <option value="en">English</option>
+                    <option value="sw">Kiswahili</option>
+                </select>
+                <select class="select-styled currency-selector" id="currency-select-header" aria-label="Currency Selector">
+                    <option value="TZS">TZS (Shilling)</option>
+                    <option value="USD">USD ($)</option>
+                </select>
+                <a href="contact.html" class="nav-cta-btn" data-en="Book a Call &rarr;" data-sw="Piga Simu Sasa &rarr;">Book a Call &rarr;</a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Mobile Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <nav class="mobile-drawer" id="mobile-drawer">
+        <ul class="mobile-drawer-menu">
+            <li><a href="index.html" class="mobile-drawer-link active" data-en="Home" data-sw="Mwanzo">Home</a></li>
+            <li><a href="about.html" class="mobile-drawer-link" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+            <li><a href="services.html" class="mobile-drawer-link" data-en="Services" data-sw="Huduma">Services</a></li>
+            <li><a href="projects.html" class="mobile-drawer-link" data-en="Properties" data-sw="Mali/Viwanja">Properties</a></li>
+            <li><a href="contact.html" class="mobile-drawer-link" data-en="Contact" data-sw="Wasiliana Nasi">Contact</a></li>
+        </ul>
+        <div class="mobile-drawer-controls">
+            <select class="select-styled lang-selector" id="lang-select-drawer" aria-label="Mobile Language Selector">
+                <option value="en">English</option>
+                <option value="sw">Kiswahili</option>
+            </select>
+            <select class="select-styled currency-selector" id="currency-select-drawer" aria-label="Mobile Currency Selector">
+                <option value="TZS">TZS</option>
+                <option value="USD">USD</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="page-wrapper" style="padding-top: 0;">
+
+        <!-- Hero Section -->
+        <section class="hero-slider" id="hero-slider-section">
+            
+            <!-- Slide 1: Residential with Drone Video Background -->
+            <div class="hero-slide active">
+                <video class="hero-bg-video" autoplay muted loop playsinline>
+                    <source src="assets/droneshoot.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content-wrapper">
+                    <span class="hero-subtitle" data-en="Premium Residential Estates" data-sw="Makazi ya Kifahari ya Familia">Premium Residential Estates</span>
+                    <h1 class="hero-title-large">
+                        Find Your <span class="hero-gold-text">Extraordinary</span> Residential Villa
+                    </h1>
+                    <p class="hero-subtitle-large" data-en="We offer pristine residential plots and ready-to-build family estate land in the most exclusive neighborhoods of Arusha." data-sw="Tunatoa viwanja safi vya makazi na ardhi tayari kwa kujenga nyumba katika maeneo bora ya Arusha.">We offer pristine residential plots and ready-to-build family estate land in the most exclusive neighborhoods of Arusha.</p>
+                    <div class="btn-group">
+                        <a href="projects.html?type=land" class="btn btn-primary" data-en="Explore Residential" data-sw="Kagua Makazi">Explore Residential</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Persistent Trust Stats Row -->
+            <div class="hero-trust-stats">
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">500+</div>
+                    <div class="hero-stat-label" data-en="Properties listed" data-sw="Mali zilizopo">Properties listed</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">1,200+</div>
+                    <div class="hero-stat-label" data-en="Customers served" data-sw="Wateja waliohudumiwa">Customers served</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">10+</div>
+                    <div class="hero-stat-label" data-en="Years Experience" data-sw="Miaka ya uzoefu">Years Experience</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Welcome / About Intro Section -->
+        <section class="section section-alt" id="welcome-intro">
+            <div class="container info-split">
+                <div class="info-image">
+                    <img src="assets/logo.png" alt="Sisi Estate Logo" loading="lazy" style="border-radius: var(--border-radius-md); box-shadow: var(--shadow-md); width: 250px;">
+                </div>
+                <div class="info-content">
+                    <span class="section-tag" data-en="Welcome to Sisi Estate" data-sw="Karibu Sisi Estate">Welcome to Sisi Estate</span>
+                    <h2 class="info-title" data-en="Your Most Trusted Property Partner in Arusha" data-sw="Kampuni bora ya Kuaminika wa Arusha">Your Most Trusted Property Partner in Arusha</h2>
+                    <p class="info-lead" data-en="Sisi Estate Company Limited is a premiere land development and estates firm specializing in surveyed land distribution, civil engineering, and legal ownership transfer." data-sw="Sisi Estate Company Limited ni kampuni ya kwanza ya ardhi na viwanja inayojihusisha na ugawaji wa viwanja vilivyopimwa, uhandisi wa kiraia na uhamishaji wa hati za kisheria.">Sisi Estate Company Limited is a premiere land development and estates firm specializing in surveyed land distribution, civil engineering, and legal ownership transfer.</p>
+                    <p class="info-text" data-en="With years of local presence, we eliminate the traditional risks associated with buying land in Tanzania. Every single plot in our portfolio has undergone strict layout verification, physical beacon placement, and registry validation." data-sw="Tukiwa na uzoefu wa miaka mingi hapa nchini, tunaondoa hatari za kimila zinazohusiana na ununuzi wa ardhi Tanzania. Kila kiwanja kwenye orodha yetu kimepitia uhakiki mkali wa ramani, uwekaji wa vigingi, na uhakiki wa msajili wa hati.">With years of local presence, we eliminate the traditional risks associated with buying land in Tanzania. Every single plot in our portfolio has undergone strict layout verification, physical beacon placement, and registry validation.</p>
+                    <ul class="features-list">
+                        <li data-en="100% Surveyed Plots with Beacon Pins" data-sw="Viwanja Vilivyopimwa 100% kwa Vigingi">100% Surveyed Plots with Beacon Pins</li>
+                        <li data-en="Clean Title Deed Transfers Assistance" data-sw="Msaada wa Uhamishaji Hati Safi za Miliki">Clean Title Deed Transfers Assistance</li>
+                        <li data-en="Secure Payment Terms (Installment Options)" data-sw="Muda Salama wa Malipo (Kwa Awamu)">Secure Payment Terms (Installment Options)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="section" id="why-choose-us-section" style="background-color: var(--color-primary-light);">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 50px;">
+                    <span class="section-tag" style="color: var(--color-secondary);" data-en="Our Value Proposition" data-sw="Uwezo wetu na Thamani">Our Value Proposition</span>
+                    <h2 style="font-size: 2.4rem; font-family: var(--font-serif); margin-top: 8px; color: #FFFFFF;" data-en="Why Discerning Investors Choose Sisi Estate" data-sw="Kwa Nini Wawekezaji Makini Wanachagua Sisi Estate">Why Discerning Investors Choose Sisi Estate</h2>
+                </div>
+
+                <!-- Asymmetric Feature Card -->
+                <div class="asymmetric-feature-card">
+                    <div class="feature-img-box">
+                        <img src="promo_banner.png" alt="Sisi Estate Premium Service" loading="lazy">
+                    </div>
+                    <div class="feature-text-box">
+                        <span class="why-us-eyebrow" data-en="Due Diligence & Registry Security" data-sw="Uhakiki na Usalama wa Kisheria">Due Diligence & Registry Security</span>
+                        <h3 style="font-size: 1.85rem; font-family: var(--font-serif); margin-bottom: 16px; color: #FFFFFF;" data-en="Secure Legal Framework for Land Acquisition" data-sw="Muundo Salama wa Kisheria kwa Ununuzi wa Ardhi">Secure Legal Framework for Land Acquisition</h3>
+                        <p style="color: rgba(255, 255, 255, 0.82); margin-bottom: 24px; line-height: 1.65; font-size: 0.98rem;" data-en="We understand that purchasing property in Tanzania can be complex. That is why we provide end-to-end legal support, verified beacon placement, registry validations, and assist directly with title deed registry under your name." data-sw="Tunafahamu kwamba ununuzi wa mali nchini Tanzania unaweza kuwa na changamoto. Hiyo ndiyo sababu tunatoa msaada kamili wa kisheria, uhakiki wa vigingi, na hati miliki kusajiliwa kwa jina lako moja kwa moja.">We understand that purchasing property in Tanzania can be complex. That is why we provide end-to-end legal support, verified beacon placement, registry validations, and assist directly with title deed registry under your name.</p>
+                        <div>
+                            <a href="about.html" class="btn" style="border: 1.5px solid var(--color-secondary); color: var(--color-secondary); background: transparent; padding: 10px 24px; font-weight: 600;" data-en="Learn About Our Process →" data-sw="Jifunze Kuhusu Utaratibu Wetu →">Learn About Our Process →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Three Luxury Value Proposition Cards -->
+                <div class="why-us-grid">
+                    
+                    <div class="why-us-card">
+                        <div class="why-us-top">
+                            <div class="why-us-icon-badge">
+                                <!-- Verified Certificate Seal -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <span class="why-us-num">01</span>
+                        </div>
+                        <span class="why-us-eyebrow" data-en="Verified Ownership" data-sw="Hati Safi za Miliki">Verified Ownership</span>
+                        <h4 class="why-us-title" data-en="100% Direct Company Ownership" data-sw="Umiliki wa Moja kwa Moja">100% Direct Company Ownership</h4>
+                        <p class="why-us-text" data-en="Every plot in our portfolio is surveyed and owned directly by Sisi Estate Company Limited. We eliminate middlemen and ensure zero ownership disputes." data-sw="Kila kiwanja kwenye orodha yetu kinamilikiwa kikamilifu na Sisi Estate Company Limited. Hakuna madalali wala migogoro ya ardhi.">Every plot in our portfolio is surveyed and owned directly by Sisi Estate Company Limited. We eliminate middlemen and ensure zero ownership disputes.</p>
+                        <div class="why-us-pills">
+                            <span class="why-us-pill" data-en="✓ Zero Middlemen" data-sw="✓ Bila Madalali">✓ Zero Middlemen</span>
+                            <span class="why-us-pill" data-en="✓ Beacon Pins Placed" data-sw="✓ Vigingi Vipo">✓ Beacon Pins Placed</span>
+                        </div>
+                    </div>
+
+                    <div class="why-us-card">
+                        <div class="why-us-top">
+                            <div class="why-us-icon-badge">
+                                <!-- Strategic Corridor Location -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <span class="why-us-num">02</span>
+                        </div>
+                        <span class="why-us-eyebrow" data-en="Strategic Locations" data-sw="Maeneo ya Kimkakati">Strategic Locations</span>
+                        <h4 class="why-us-title" data-en="High-Appreciation Growth Corridors" data-sw="Ukuaji wa Thamani ya Haraka">High-Appreciation Growth Corridors</h4>
+                        <p class="why-us-text" data-en="We develop exclusively in Arusha's fastest-growing nodes—including Njiro, USA River, Kisongo, and Mkonoo—assuring robust capital appreciation." data-sw="Tunaendeleza ardhi katika maeneo ya Arusha yanayokua kwa kasi—ikiwemo Njiro, USA River, Kisongo, na Mkonoo—kuhakikisha uwekezaji unakua.">We develop exclusively in Arusha's fastest-growing nodes—including Njiro, USA River, Kisongo, and Mkonoo—assuring robust capital appreciation.</p>
+                        <div class="why-us-pills">
+                            <span class="why-us-pill">✓ Njiro</span>
+                            <span class="why-us-pill">✓ USA River</span>
+                            <span class="why-us-pill">✓ Kisongo</span>
+                        </div>
+                    </div>
+
+                    <div class="why-us-card">
+                        <div class="why-us-top">
+                            <div class="why-us-icon-badge">
+                                <!-- Global Diaspora Concierge -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                            </div>
+                            <span class="why-us-num">03</span>
+                        </div>
+                        <span class="why-us-eyebrow" data-en="Global Concierge" data-sw="Huduma ya Kimataifa">Global Concierge</span>
+                        <h4 class="why-us-title" data-en="Dedicated Diaspora Concierge" data-sw="Msaada Kamili kwa Wateja wa Nje">Dedicated Diaspora Concierge</h4>
+                        <p class="why-us-text" data-en="Specialized support for investors in the UK, USA, and Europe. Enjoy HD video walkthroughs, drone shoots, and insured DHL international title shipping." data-sw="Huduma maalum kwa wawekezaji wa UK, USA, na Ulaya. Video za uhakiki wa kiwanja, picha za drone, na usafirishaji wa hati kupitia DHL.">Specialized support for investors in the UK, USA, and Europe. Enjoy HD video walkthroughs, drone shoots, and insured DHL international title shipping.</p>
+                        <div class="why-us-pills">
+                            <span class="why-us-pill" data-en="✓ Video Inspections" data-sw="✓ Ukaguzi wa Video">✓ Video Inspections</span>
+                            <span class="why-us-pill" data-en="✓ DHL Title Dispatch" data-sw="✓ Usafirishaji DHL">✓ DHL Title Dispatch</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Featured Listings Section -->
+        <section class="section" id="featured-listings">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-tag" data-en="Exclusive Opportunities" data-sw="Fursa za Kipekee">Exclusive
+                        Opportunities</span>
+                    <h2 class="section-title" data-en="Featured Land & Estates" data-sw="Viwanja na Ardhi Inayoangaziwa">
+                        Featured Land & Estates</h2>
+                    <p class="section-desc"
+                        data-en="Browse handpicked surveyed plots and premium land currently available for purchase in prime locations across Arusha."
+                        data-sw="Kagua viwanja vilivyopimwa vilivyochaguliwa kwa mkono vinavyopatikana kwa sasa katika maeneo bora ya Arusha.">
+                        Browse handpicked surveyed plots and premium land currently available for purchase in prime
+                        locations across Arusha.</p>
+                </div>
+
+                <div class="listings-grid" id="listings-featured-grid">
+                    <!-- Static premium representations that act as fallback or link to full engine -->
+                    <!-- Plot 1 -->
+                    <div class="listing-card">
+                        <div class="listing-badge" data-en="Featured" data-sw="Kipekee">Featured</div>
+                        <div class="listing-image-box">
+                            <img src="plot_construction.png" alt="Mkonoo Surveyed Land Plot" loading="lazy">
+                            <div class="listing-specs-overlay">
+                                <div class="spec-pill">
+                                    <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg> 
+                                    <span>1,000 sqm</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                    <span>Arusha</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-details">
+                            <div class="listing-location">Mkonoo • <span data-en="Title Deed Ready"
+                                    data-sw="Hati Tayari" style="color:rgba(255,255,255,0.6)">Title Deed Ready</span></div>
+                            <h3 class="listing-card-title" data-en="Mkonoo Surveyed Land Plot"
+                                data-sw="Kiwanja Kilizopimwa Mkonoo">Mkonoo Surveyed Land Plot</h3>
+                            <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
+                                <span class="listing-price price-display" data-tzs="20000" data-usd="8"
+                                    data-persqm="true">20,000 Tsh/m²</span>
+                            </div>
+                            <div class="btn-group" style="margin-top: 16px;">
+                                <a href="projects.html?property=mkonoo-land" class="btn btn-outline"
+                                    style="padding: 10px 16px; font-size:0.85rem; width: 100%; display: block; text-align: center; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" data-en="View Details"
+                                    data-sw="Maelezo zaidi">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Plot 2 -->
+                    <div class="listing-card">
+                        <div class="listing-badge" data-en="Commercial" data-sw="Biashara">Commercial</div>
+                        <div class="listing-image-box">
+                            <img src="assets/kisongo.png" alt="Kisongo Commercial Land" loading="lazy">
+                            <div class="listing-specs-overlay">
+                                <div class="spec-pill">
+                                    <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg> 
+                                    <span>2.5 Acres</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                    <span>Kisongo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-details">
+                            <div class="listing-location">Kisongo • <span data-en="Commercial Title" data-sw="Hati ya Biashara"
+                                    style="color:rgba(255,255,255,0.6)">Commercial Title</span></div>
+                            <h3 class="listing-card-title" data-en="Kisongo Dodoma Road Commercial Land"
+                                data-sw="Ardhi ya Biashara Kisongo Barabara ya Dodoma">Kisongo Dodoma Road Commercial Land</h3>
+                            <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
+                                <span class="listing-price price-display" data-tzs="450000000" data-usd="173000"
+                                    data-persqm="false">450,000,000 TZS</span>
+                            </div>
+                            <div class="btn-group" style="margin-top: 16px;">
+                                <a href="projects.html?property=kisongo-commercial-plot" class="btn btn-outline"
+                                    style="padding: 10px 16px; font-size:0.85rem; width: 100%; display: block; text-align: center; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" data-en="View Details"
+                                    data-sw="Maelezo zaidi">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Plot 3 -->
+                    <div class="listing-card">
+                        <div class="listing-badge" data-en="Popular" data-sw="Maarufu">Popular</div>
+                        <div class="listing-image-box">
+                            <img src="plot_aerial.jpg" alt="USA River Residential Plots" loading="lazy">
+                            <div class="listing-specs-overlay">
+                                <div class="spec-pill">
+                                    <svg viewBox="0 0 24 24"><path d="M10.5 9h7.5V7.5h-7.5V9zm0 3h7.5v-1.5h-7.5V12zm0 3h7.5V13.5h-7.5V15zm-6-6h4.5V7.5H4.5V9zm0 3h4.5v-1.5H4.5V12zm0 3h4.5V13.5H4.5V15zM2 4v16h20V4H2zm18 14H4V6h16v12z"/></svg> 
+                                    <span>1,500 sqm</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                    <span>USA River</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-details">
+                            <div class="listing-location">USA River • <span data-en="Surveyed" data-sw="Kimepimwa"
+                                    style="color:rgba(255,255,255,0.6)">Surveyed</span></div>
+                            <h3 class="listing-card-title" data-en="USA River Residential Plots"
+                                data-sw="Viwanja vya Makazi USA River">USA River Residential Plots</h3>
+                            <div class="listing-price-box" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:12px; margin-top:auto;">
+                                <span class="listing-price price-display" data-tzs="35000" data-usd="13.5"
+                                    data-persqm="true">35,000 Tsh/m²</span>
+                            </div>
+                            <div class="btn-group" style="margin-top: 16px;">
+                                <a href="projects.html?property=usa-river-estate" class="btn btn-outline"
+                                    style="padding: 10px 16px; font-size:0.85rem; width: 100%; display: block; text-align: center; color: #FFFFFF !important; border-color: rgba(255,255,255,0.4) !important;" data-en="View Details"
+                                    data-sw="Maelezo zaidi">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 48px;">
+                    <a href="projects.html" class="btn btn-dark" data-en="Browse Full Catalogue"
+                        data-sw="Kagua Orodha Kamili">Browse Full Catalogue</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section (4 Steps) -->
+        <section class="section section-alt" id="acquisition-process">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-tag" data-en="Secure & Clear Pathway" data-sw="Njia Salama na Wazi">Secure &
+                        Clear Pathway</span>
+                    <h2 class="section-title" data-en="The Acquisition Process" data-sw="Hatua za Ununuzi wa Mali">The
+                        Acquisition Process</h2>
+                    <p class="section-desc"
+                        data-en="How we work with you to guarantee seamless, stress-free property transactions in compliance with Tanzanian Land Acts."
+                        data-sw="Jinsi tunavyofanya kazi na wewe kuhakikisha miamala ya mali isiyo na mafadhaiko na inayotii Sheria za Ardhi za Tanzania.">
+                        How we work with you to guarantee seamless, stress-free property transactions in compliance with
+                        Tanzanian Land Acts.</p>
+                </div>
+
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="process-header">
+                            <div class="process-icon-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                            <span class="process-step-badge">STEP 01</span>
+                        </div>
+                        <h3 class="process-title" data-en="Consultation & Goal Alignment" data-sw="Ushauri na Malengo ya Uwekezaji">Consultation &amp; Goal Alignment</h3>
+                        <p class="process-desc"
+                            data-en="We sit down or hop on a call to understand your needs: budget, use-case (residential vs. commercial), and preferred neighborhoods in Arusha."
+                            data-sw="Tunakaa pamoja au kupiga simu kuelewa mahitaji yako: bajeti, matumizi (makazi au biashara), na maeneo unayopendelea Arusha.">We sit down or hop on a call to understand your needs: budget, use-case (residential vs. commercial), and preferred neighborhoods in Arusha.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-header">
+                            <div class="process-icon-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                                </svg>
+                            </div>
+                            <span class="process-step-badge">STEP 02</span>
+                        </div>
+                        <h3 class="process-title" data-en="Property Search & Site Visit" data-sw="Kukagua Mali na Eneo">Property Search &amp; Site Visit</h3>
+                        <p class="process-desc"
+                            data-en="We guide you to filtered options and take you on a physical inspection of the boundaries, surveying beacons, and local infrastructure."
+                            data-sw="Tunakuongoza kwenye chaguzi zilizochujwa na kukupeleka kwenye ukaguzi wa mipaka ya kiwanja, vigingi vya upimaji, na miundombinu.">We guide you to filtered options and take you on a physical inspection of the boundaries, surveying beacons, and local infrastructure.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-header">
+                            <div class="process-icon-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                            </div>
+                            <span class="process-step-badge">STEP 03</span>
+                        </div>
+                        <h3 class="process-title" data-en="Agreement & Reservation" data-sw="Mkataba na Malipo">Agreement &amp; Reservation</h3>
+                        <p class="process-desc"
+                            data-en="A formal Purchase Offer Letter is drafted. You place a reservation deposit (M-Pesa or Bank) to secure the plot while legal title search occurs."
+                            data-sw="Barua rasmi ya Toleo la Ununuzi huandaliwa. Weka amana ya uhifadhi (M-Pesa au Benki) ili kuzuia kiwanja wakati hati inahakikiwa.">A formal Purchase Offer Letter is drafted. You place a reservation deposit (M-Pesa or Bank) to secure the plot while legal title search occurs.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-header">
+                            <div class="process-icon-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                                </svg>
+                            </div>
+                            <span class="process-step-badge">STEP 04</span>
+                        </div>
+                        <h3 class="process-title" data-en="Closing & Handover" data-sw="Kukabidhi Hati Miliki">Closing &amp; Handover</h3>
+                        <p class="process-desc"
+                            data-en="Final payments are cleared, and land transfer documents are submitted to the Arusha Land Registry. We deliver the registered Title Deed directly to you."
+                            data-sw="Malipo ya mwisho yanafanyika, na hati za uhamisho wa ardhi zinawasilishwa kwa Msajili. Tunakabidhi Hati rasmi ya Miliki kwako.">Final payments are cleared, and land transfer documents are submitted to the Arusha Land Registry. We deliver the registered Title Deed directly to you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog / Market News Teaser Section -->
+        <section class="section section-alt" id="blog-market-news">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 50px;">
+                    <span class="section-tag" data-en="Market Insights" data-sw="Uchambuzi wa Soko">Market Insights</span>
+                    <h2 style="font-size: 2.2rem; font-family: var(--font-serif); margin-top: 8px;" data-en="Latest News & Real Estate Guides" data-sw="Habari za Hivi Punde na Mwongozo wa Majengo">Latest News & Real Estate Guides</h2>
+                </div>
+
+                <div class="blog-grid">
+                    
+                    <!-- Article 1 -->
+                    <div class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="assets/land_hero.png" alt="Land Acquisition Guide" loading="lazy">
+                            <span class="blog-category-pill" data-en="Land Buying Guide" data-sw="Mwongozo wa Ununuzi">Land Buying Guide</span>
+                        </div>
+                        <div class="blog-text-box">
+                            <div class="blog-meta">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                                <span>July 10, 2026</span>
+                            </div>
+                            <a href="#" class="blog-title-link" data-en="5 Things to Check Before Buying Surveyed Land in Arusha" data-sw="Mambo 5 ya Kuhakiki Kabla ya Kununua Kiwanja Arusha">5 Things to Check Before Buying Surveyed Land in Arusha</a>
+                            <a href="#" class="blog-link">
+                                <span data-en="Read Article" data-sw="Soma Zaidi">Read Article</span>
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="assets/kisongo.png" alt="Kisongo Bypass Developments" loading="lazy">
+                            <span class="blog-category-pill" data-en="Market Trends" data-sw="Mwelekeo wa Soko">Market Trends</span>
+                        </div>
+                        <div class="blog-text-box">
+                            <div class="blog-meta">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                                <span>July 05, 2026</span>
+                            </div>
+                            <a href="#" class="blog-title-link" data-en="How the Dodoma Bypass is Changing Kisongo Property Values" data-sw="Jinsi Barabara ya Dodoma Inavyobadilisha Thamani ya Viwanja Kisongo">How the Dodoma Bypass is Changing Kisongo Property Values</a>
+                            <a href="#" class="blog-link">
+                                <span data-en="Read Article" data-sw="Soma Zaidi">Read Article</span>
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div class="blog-card">
+                        <div class="blog-img-box">
+                            <video src="assets/droneshoot.mp4" autoplay muted loop playsinline></video>
+                            <span class="blog-category-pill" data-en="Legal Advice" data-sw="Msaada wa Sheria">Legal Advice</span>
+                        </div>
+                        <div class="blog-text-box">
+                            <div class="blog-meta">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                                <span>June 28, 2026</span>
+                            </div>
+                            <a href="#" class="blog-title-link" data-en="A Guide to Processing Title Deeds in Tanzania for Diaspora Investors" data-sw="Mwongozo wa Ushughulikiaji wa Hati Miliki kwa Wateja wa Nje">A Guide to Processing Title Deeds in Tanzania for Diaspora Investors</a>
+                            <a href="#" class="blog-link">
+                                <span data-en="Read Article" data-sw="Soma Zaidi">Read Article</span>
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner/Developer Trust Marquee -->
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span class="marquee-item">CRDB Bank Partner</span>
+                <span class="marquee-item">NMB Bank Partner</span>
+                <span class="marquee-item">Ministry of Lands TZ Approved</span>
+                <span class="marquee-item">Sisi Estate Verified</span>
+                <span class="marquee-item">East African Community Trust</span>
+                <span class="marquee-item">Arusha City Council Registered</span>
+                <!-- Duplicated for seamless loop -->
+                <span class="marquee-item">CRDB Bank Partner</span>
+                <span class="marquee-item">NMB Bank Partner</span>
+                <span class="marquee-item">Ministry of Lands TZ Approved</span>
+                <span class="marquee-item">Sisi Estate Verified</span>
+                <span class="marquee-item">East African Community Trust</span>
+                <span class="marquee-item">Arusha City Council Registered</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 24px;">
+            
+            <!-- Col 1: Brand -->
+            <div style="grid-column: span 2;">
+                <h4>SISI ESTATE</h4>
+                <div class="footer-logo-sub">COMPANY LIMITED</div>
+                <p style="margin-top:12px; font-size:0.9rem; color: var(--color-text-muted);" 
+                   data-en="Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value." 
+                   data-sw="Msanidi mkuu wa mali na msambazaji wa viwanja vilivyopimwa mwenye makao yake Arusha, Tanzania. Tumejitolea kwa uaminifu na thamani.">
+                    Premium real estate developer and surveyed land distributor based in Arusha, Tanzania. Committed to trust, transparency, and value.
+                </p>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span data-en="Status: Online" data-sw="Hali: Hewani">Status: Online</span>
+                </div>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <h5 data-en="Quick Links" data-sw="Viungo vya Haraka">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-en="Home" data-sw="Mwanzo">Home</a></li>
+                    <li><a href="about.html" data-en="About Us" data-sw="Kuhusu Sisi">About Us</a></li>
+                    <li><a href="services.html" data-en="Our Services" data-sw="Huduma Zetu">Our Services</a></li>
+                    <li><a href="projects.html" data-en="Available Properties" data-sw="Mali Zinazopatikana">Available Properties</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Locations -->
+            <div>
+                <h5 data-en="Locations" data-sw="Maeneo Yetu">Locations</h5>
+                <ul class="footer-links">
+                    <li><a href="projects.html?location=Njiro">Njiro Block HH</a></li>
+                    <li><a href="projects.html?location=Mkonoo">Mkonoo Residential</a></li>
+                    <li><a href="projects.html?location=USA+River">USA River Estate</a></li>
+                    <li><a href="projects.html?location=Kisongo">Kisongo Bypass</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Help & Legal -->
+            <div>
+                <h5 data-en="Help & Legal" data-sw="Msaada na Sheria">Help & Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" data-en="Privacy Policy" data-sw="Sera ya Faragha">Privacy Policy</a></li>
+                    <li><a href="terms.html" data-en="Terms of Service" data-sw="Masharti ya Huduma">Terms of Service</a></li>
+                    <li><a href="contact.html" data-en="Support Center" data-sw="Kituo cha Msaada">Support Center</a></li>
+                    <li><a href="admin.html" data-en="Staff Portal" data-sw="Lango la Wafanyakazi">Staff Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 5: Contact Info -->
+            <div style="grid-column: span 1;">
+                <h5 data-en="Office Contact" data-sw="Mawasiliano">Office Contact</h5>
+                <ul class="footer-links" style="font-size:0.9rem;">
+                    <li>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 
+                        <span data-en="Njiro Complex, Njiro" data-sw="Njiro Complex, Njiro">Njiro Complex, Njiro</span>
+                    </li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> <a href="tel:+255746100023" style="color:inherit;">+255 746 100 023</a></li>
+                    <li><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> <a href="mailto:sales@sisiestate.com" style="color:inherit;">sales@sisiestate.com</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="container footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <p>&copy; 2026 Sisi Estate Company Limited. All Rights Reserved.</p>
+            <div class="footer-socials" style="display:flex; gap:12px;">
+                <a href="https://instagram.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Instagram">IG</a>
+                <a href="https://facebook.com/sisi_estate_arusha" target="_blank" class="footer-social-icon" aria-label="Facebook">FB</a>
+                <a href="https://linkedin.com/company/sisi-estate-arusha" target="_blank" class="footer-social-icon" aria-label="LinkedIn">LN</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Click-to-Chat Button -->
+    <div class="whatsapp-widget" id="whatsapp-widget">
+        <span class="whatsapp-alert"></span>
+        <svg class="icon-svg" viewBox="0 0 24 24" style="width:2rem; height:2rem; fill:#fff;"><path d="M12.012 2C6.48 2 2 6.48 2 12.012c0 1.8.48 3.564 1.392 5.124L2 22l5.064-1.332c1.512.828 3.204 1.26 4.944 1.26 5.532 0 10.008-4.476 10.008-10.008C22.012 6.48 17.544 2 12.012 2zm5.724 14.196c-.252.708-1.248 1.308-1.728 1.38-.456.072-.888.312-2.916-.492-2.592-1.032-4.248-3.66-4.38-3.84-.132-.18-.984-1.308-.984-2.496 0-1.188.624-1.776.84-2.016.216-.24.48-.3.636-.3.156 0 .312 0 .444.012.144.012.336-.048.528.408.192.48.672 1.632.732 1.752.06.12.096.264.012.432-.084.168-.132.276-.264.432-.132.156-.276.348-.396.468-.132.132-.276.276-.12.54.156.264.696 1.152 1.488 1.86.132.12.276.24.42.36.216.168.396.12.54-.048.144-.168.624-.732.792-.984.168-.252.336-.204.564-.12.228.084 1.44.684 1.692.804.252.12.42.18.48.288.06.108.06.624-.192 1.332z"/></svg>
+        <div class="whatsapp-tooltip" data-en="Chat with an Agent on WhatsApp" data-sw="Ongea nasi kupitia WhatsApp">
+            Chat with an Agent on WhatsApp</div>
+    </div>
+
+    <!-- Core Dynamic Scripts -->
+    <!-- Supabase JS Client & Project Configuration -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
 </html>
