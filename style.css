@@ -3464,13 +3464,7 @@ img {
 .achieve-hero {
     position: relative;
     padding: 140px 0 80px 0;
-    background-color: #082826;
-    background-image: 
-        linear-gradient(135deg, rgba(8, 40, 38, 0.94) 0%, rgba(22, 56, 50, 0.9) 100%),
-        url('assets/services_banner.png');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: linear-gradient(135deg, #082826 0%, #163832 50%, #082826 100%);
     color: #FFFFFF;
     text-align: center;
     overflow: hidden;
@@ -3601,22 +3595,31 @@ img {
     border-color: rgba(200, 155, 60, 0.5);
 }
 
-.award-img-wrap {
-    position: relative;
-    height: 220px;
-    background-color: #082826;
-    overflow: hidden;
+.award-card-header {
+    background: linear-gradient(135deg, #082826 0%, #163832 100%);
+    padding: 28px 24px 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(200, 155, 60, 0.35);
 }
 
-.award-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+.award-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(200, 155, 60, 0.15);
+    border: 1px solid rgba(200, 155, 60, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
 }
 
-.award-card:hover .award-img-wrap img {
-    transform: scale(1.04);
+.award-icon-box svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
 }
 
 .award-year-pill {
