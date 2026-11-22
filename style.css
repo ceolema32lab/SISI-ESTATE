@@ -2905,7 +2905,13 @@ img {
 .svc-hero-banner {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #082826 0%, var(--color-primary-light) 60%, var(--color-primary) 100%);
+    background-color: #082826;
+    background-image: 
+        linear-gradient(to right, rgba(8, 40, 38, 0.96) 0%, rgba(8, 40, 38, 0.88) 42%, rgba(8, 40, 38, 0.5) 80%, rgba(8, 40, 38, 0.25) 100%),
+        url('assets/services_banner.png');
+    background-position: center right;
+    background-size: cover;
+    background-repeat: no-repeat;
     padding: 136px 0 72px 0;
     color: #FFFFFF;
 }
@@ -2977,6 +2983,10 @@ img {
 @media (max-width: 768px) {
     .svc-hero-banner {
         padding: 116px 0 52px 0;
+        background-image: 
+            linear-gradient(to bottom, rgba(8, 40, 38, 0.95) 0%, rgba(8, 40, 38, 0.88) 100%),
+            url('assets/services_banner.png');
+        background-position: center center;
     }
     .svc-hero-title {
         font-size: 2.4rem;
