@@ -3595,6 +3595,26 @@ img {
     border-color: rgba(200, 155, 60, 0.5);
 }
 
+.award-img-wrap {
+    position: relative;
+    height: 240px;
+    background-color: #082826;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(200, 155, 60, 0.35);
+}
+
+.award-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    transition: transform 0.4s ease;
+}
+
+.award-card:hover .award-img-wrap img {
+    transform: scale(1.04);
+}
+
 .award-card-header {
     background: linear-gradient(135deg, #082826 0%, #163832 100%);
     padding: 28px 24px 20px 24px;
